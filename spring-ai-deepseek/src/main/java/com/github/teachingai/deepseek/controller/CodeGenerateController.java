@@ -10,7 +10,6 @@ import org.springframework.ai.deepseek.DeepSeekAssistantMessage;
 import org.springframework.ai.deepseek.DeepSeekChatModel;
 import org.springframework.ai.deepseek.DeepSeekChatOptions;
 import org.springframework.ai.deepseek.api.DeepSeekApi;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +24,6 @@ public class CodeGenerateController {
 
     private final DeepSeekChatModel chatModel;
 
-    @Autowired
     public CodeGenerateController(DeepSeekChatModel chatModel) {
         this.chatModel = chatModel;
     }

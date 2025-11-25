@@ -39,6 +39,8 @@ dependencies {
 
 **注意：当启动 Ollama 之后，Windows会有托盘图标，此时已经启动了 Ollama 的服务，访问 Embedding 时不需要运行 `shaw/dmeta-embedding-zh` ，只有访问 chat 时才需要启动一个大模型。**
 
+#### qwen3-vl:8b
+
 #### shaw/dmeta-embedding-zh
 
 > Dmeta-embedding 是一款跨领域、跨任务、开箱即用的中文 Embedding 模型，适用于搜索、问答、智能客服、LLM+RAG 等各种业务场景，支持使用 Transformers/Sentence-Transformers/Langchain 等工具加载推理。
