@@ -69,7 +69,12 @@
         <perf4j.version>0.9.16</perf4j.version>
         <sa-token.version>1.44.0</sa-token.version>
         <springdoc.version>2.7.0</springdoc.version>
-        <spring-ai.version>1.0.3</spring-ai.version>
+        <spring-ai.version>1.1.2</spring-ai.version>
+        <spring-ai-alibaba.version>1.1.0.0</spring-ai-alibaba.version>
+        <spring-ai-alibaba-extensions.version>1.1.2.0</spring-ai-alibaba-extensions.version>
+        <spring-ai-alibaba-nl2sql.version>1.0.0.3</spring-ai-alibaba-nl2sql.version>
+        <spring-ai-alibaba-graph.version>1.1.0.0</spring-ai-alibaba-graph.version>
+        <spring-ai-alibaba-mcp.version>1.0.0.2</spring-ai-alibaba-mcp.version>
         <spring-ai-community.version>1.0.0</spring-ai-community.version>
         <spring-ai-retry.version>${spring-ai.version}</spring-ai-retry.version>
         <tika.version>3.2.2</tika.version>
@@ -387,6 +392,46 @@
                 <version>${spring-ai.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud.ai/spring-ai-alibaba-bom -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-bom</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud.ai/spring-ai-alibaba-extensions-bom -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-extensions-bom</artifactId>
+                <version>${spring-ai-alibaba-extensions.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud.ai/spring-ai-alibaba-starter-tool-calling-bingsearch -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-starter-tool-calling-bingsearch</artifactId>
+                <version>1.0.0.2</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud.ai/spring-ai-alibaba-nl2sql-chat -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-nl2sql-chat</artifactId>
+                <version>${spring-ai-alibaba-nl2sql.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud.ai/spring-ai-alibaba-nl2sql-common -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-nl2sql-common</artifactId>
+                <version>${spring-ai-alibaba-nl2sql.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud.ai/spring-ai-alibaba-graph-core -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-graph-core</artifactId>
+                <version>${spring-ai-alibaba-graph.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.springaicommunity/moonshot-core -->
             <dependency>
@@ -817,6 +862,11 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                    <!-- 模块版本管理插件 ：替换 ${revision} -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
                     </plugin>
                     <!-- javadoc -->
                     <plugin>

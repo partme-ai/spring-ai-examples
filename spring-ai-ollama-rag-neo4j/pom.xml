@@ -16,7 +16,7 @@
         <dependency>
             <groupId>com.github.teachingai</groupId>
             <artifactId>spring-ai-common</artifactId>
-           <version>${revision}</version>
+            <version>${revision}</version>
         </dependency>
         <!-- For Markdown -->
         <dependency>
