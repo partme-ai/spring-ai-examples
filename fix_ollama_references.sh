@@ -15,7 +15,7 @@ find . -name "*.java" -type f -exec grep -l "OllamaChatModel" {} \; | while read
     sed -i '' 's/OllamaChatModel/OllamaChatModel/g' "$file"
 done
 
-# 查找所有包含 OllamaChatModel 的 README.md 文件
+# 查找所有包含 OllamaChatModel 的 README_anthropic_skills.md 文件
 find . -name "README.md" -type f -exec grep -l "OllamaChatModel" {} \; | while read file; do
     echo "修复 README 文件: $file"
     

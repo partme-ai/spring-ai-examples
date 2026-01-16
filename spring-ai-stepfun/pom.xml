@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.tianyin</groupId>
+    <groupId>io.ddd4j</groupId>
     <artifactId>spring-ai-stepfun</artifactId>
 
     <properties>
