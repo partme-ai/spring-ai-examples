@@ -14,8 +14,23 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 
 @Configuration
+/**
+ * 路由函数配置类
+ *
+ * <p>定义基于函数式编程的路由配置，处理聊天和生成请求。</p>
+ *
+ * @author teachingai
+ */
 public class RouterFunctionConfig {
 
+    /**
+     * 定义路由函数
+     *
+     * <p>配置 HTTP 请求路由，支持同步和响应式（Flux/Mono）处理方式。</p>
+     *
+     * @param chatModel Ollama 聊天模型
+     * @return {@link RouterFunction<ServerResponse>} 路由函数
+     */
     @Bean
     RouterFunction<ServerResponse> routes(OllamaChatModel chatModel) {
         return RouterFunctions.route()

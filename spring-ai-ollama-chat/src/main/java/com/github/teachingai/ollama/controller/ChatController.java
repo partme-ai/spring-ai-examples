@@ -22,8 +22,18 @@ import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
+/**
+ * Ollama 聊天控制器
+ *
+ * <p>提供基于 Ollama 模型的聊天接口，支持流式响应。</p>
+ *
+ * @author teachingai
+ */
 public class ChatController {
 
+    /**
+     * Ollama 聊天模型客户端
+     */
     private final OllamaChatModel chatModel;
 
     @Autowired
@@ -31,10 +41,18 @@ public class ChatController {
         this.chatModel = chatModel;
     }
 
+    /**
+     * 聊天补全接口
+     *
+     * <p>接收用户的聊天请求，调用 Ollama 模型生成响应，并以流式方式返回。</p>
+     *
+     * @param chatRequest 聊天请求对象，包含消息列表和模型参数
+     * @return {@link Flux<ChatResponse>} 流式聊天响应
+     */
     @PostMapping("/v1/chat/completions")
     public Flux<ChatResponse> chatCompletions(@RequestBody ApiRequest.ChatCompletionRequest chatRequest) {
         // 打印请求消息
-        chatRequest.messages().forEach(item > log.info("{}", item));
+        chatRequest.messages().forEach(item -> log.info("{}", item));
         // 构建模型选项
         ChatOptions modelOptions = new OllamaOptions.Builder()
                 .model(chatRequest.model())

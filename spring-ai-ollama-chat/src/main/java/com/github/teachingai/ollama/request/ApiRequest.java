@@ -8,6 +8,13 @@ import org.springframework.boot.context.properties.bind.ConstructorBinding;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * API 请求对象定义
+ *
+ * <p>包含 Ollama API 交互所需的请求数据结构，如函数工具定义和聊天补全请求。</p>
+ *
+ * @author teachingai
+ */
 public class ApiRequest {
 
 
@@ -75,26 +82,29 @@ public class ApiRequest {
     }
 
     /**
-     * Chat completion request object.
+     * 聊天补全请求对象
+     *
+     * <p>封装调用聊天模型所需的参数。</p>
+     *
      * @param model 所要调用的模型编码
      * @param messages 调用语言模型时，将当前对话信息列表作为提示输入给模型， 按照 {"role": "user", "content": "你好"} 的json 数组形式进行传参； 可能的消息类型包括 System message、User message、Assistant message 和 Tool message。
      * @param requestId 由用户端传参，需保证唯一性；用于区分每次请求的唯一标识，用户端不传时平台会默认生成。
      * @param doSample do_sample 为 true 时启用采样策略，do_sample 为 false 时采样策略 temperature、top_p 将不生效。默认值为 true。
      * @param stream 使用同步调用时，此参数应当设置为 fasle 或者省略。表示模型生成完所有内容后一次性返回所有内容。默认值为 false。
-     * 如果设置为 true，模型将通过标准 Event Stream ，逐块返回模型生成内容。Event Stream 结束时会返回一条data: [DONE]消息。
-     * @param temperature 采样温度，控制输出的随机性，必须为正数     *
-     * 取值范围是：(0.0,1.0]，不能等于 0，默认值为 0.95,值越大，会使输出更随机，更具创造性；值越小，输出会更加稳定或确定
-     * 建议您根据应用场景调整 top_p 或 temperature 参数，但不要同时调整两个参数
-     * @param topP 用温度取样的另一种方法，称为核取样
-     * 取值范围是：(0.0, 1.0) 开区间，不能等于 0 或 1，默认值为 0.7
-     * 模型考虑具有 top_p 概率质量tokens的结果
-     * 例如：0.1 意味着模型解码器只考虑从前 10% 的概率的候选集中取tokens
-     * 建议您根据应用场景调整 top_p 或 temperature 参数，但不要同时调整两个参数
+     *               如果设置为 true，模型将通过标准 Event Stream ，逐块返回模型生成内容。Event Stream 结束时会返回一条data: [DONE]消息。
+     * @param temperature 采样温度，控制输出的随机性，必须为正数。
+     *                    取值范围是：(0.0,1.0]，不能等于 0，默认值为 0.95,值越大，会使输出更随机，更具创造性；值越小，输出会更加稳定或确定
+     *                    建议您根据应用场景调整 top_p 或 temperature 参数，但不要同时调整两个参数
+     * @param topP 用温度取样的另一种方法，称为核取样。
+     *             取值范围是：(0.0, 1.0) 开区间，不能等于 0 或 1，默认值为 0.7
+     *             模型考虑具有 top_p 概率质量tokens的结果
+     *             例如：0.1 意味着模型解码器只考虑从前 10% 的概率的候选集中取tokens
+     *             建议您根据应用场景调整 top_p 或 temperature 参数，但不要同时调整两个参数
      * @param maxTokens 模型输出最大 tokens，最大输出为8192，默认值为1024
-     * @param stop
-     * @param tools
-     * @param toolChoice
-     * @param user
+     * @param stop 停止生成的标识列表，当生成内容包含这些标识时停止生成
+     * @param tools 可供模型调用的工具列表
+     * @param toolChoice 模型选择工具的策略
+     * @param user 用户标识，用于追踪和监控
      */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public record ChatCompletionRequest(
