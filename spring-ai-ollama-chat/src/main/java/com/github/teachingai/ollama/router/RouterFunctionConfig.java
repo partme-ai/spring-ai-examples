@@ -56,7 +56,7 @@ public class RouterFunctionConfig {
                 .GET("/reactive/stream", req -> {
                     Prompt prompt = new Prompt(new UserMessage(req.param("message").orElse("Tell me a joke")));
                     return ServerResponse.ok().body(
-                            Flux.fromIterable(chatModel.stream(prompt))
+                            chatModel.stream(prompt)
                                     .delayElements(Duration.ofMillis(100))
                     );
                 })

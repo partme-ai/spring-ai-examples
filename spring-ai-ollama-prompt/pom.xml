@@ -8,7 +8,6 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    spring-ai-ollama-prompt
     <artifactId>spring-ai-ollama-prompt</artifactId>
 
     <dependencies>

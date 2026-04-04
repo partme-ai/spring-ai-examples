@@ -46,9 +46,9 @@ public class ChatTtsAudioSpeechClient implements SpeechClient, StreamingSpeechCl
      */
     public ChatTtsAudioSpeechClient(ChatTtsAudioApi audioApi) {
         this(audioApi, ChatTtsAudioSpeechOptions.builder()
-                        .withTemperature(ApiUtils.DEFAULT_TEMPERATURE)
-                        .withTopP(ApiUtils.DEFAULT_TOP_P)
-                        .withTopK(ApiUtils.DEFAULT_TOP_K)
+                        .temperature(ApiUtils.DEFAULT_TEMPERATURE)
+                        .topP(ApiUtils.DEFAULT_TOP_P)
+                        .topK(ApiUtils.DEFAULT_TOP_K)
                         .withMaxInferTokens(ApiUtils.DEFAULT_MAX_INFER_TOKENS)
                         .withMaxRefineTokens(ApiUtils.DEFAULT_MAX_REFINE_TOKENS)
                         .withSpeed(ApiUtils.DEFAULT_SPEED)

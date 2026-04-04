@@ -2,7 +2,7 @@ package com.github.teachingai.ollama;
 
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import java.util.Scanner;
 
@@ -11,10 +11,13 @@ public class OllamaChatTest {
     public static void main(String[] args) {
 
          var ollamaApi = OllamaApi.builder().build();
-        var chatModel = new OllamaChatModel(ollamaApi)
-                .withDefaultOptions(OllamaOptions.create()
-                        .withModel("qwen:7b")
-                        .withTemperature(0.9f));
+        var chatModel = OllamaChatModel.builder()
+                .ollamaApi(ollamaApi)
+                .defaultOptions(OllamaChatOptions.builder()
+                        .model("qwen:7b")
+                        .temperature(0.9d)
+                        .build())
+                .build();
 
         Scanner scanner = new Scanner(System.in);
         while (true) {

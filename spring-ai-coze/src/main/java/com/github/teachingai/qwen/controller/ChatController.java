@@ -1,11 +1,11 @@
 package com.github.teachingai.qwen.controller;
 
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
-import org.springframework.ai.qwen.QWenAiChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,15 +19,15 @@ import java.util.Map;
 @RestController
 public class ChatController {
 
-    private final QWenAiChatClient chatModel;
+    private final ChatModel chatModel;
 
     @Autowired
-    public ChatController(QWenAiChatClient chatModel) {
+    public ChatController(ChatModel chatModel) {
         this.chatModel = chatModel;
     }
 
     @GetMapping("/v1/generate")
-    public Map generate(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+    public Map<String, Object> generate(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
         return Map.of("generation", chatModel.call(message));
     }
 
@@ -43,5 +43,4 @@ public class ChatController {
         Prompt prompt = new Prompt(new UserMessage(message));
         return chatModel.stream(prompt);
     }
-
 }

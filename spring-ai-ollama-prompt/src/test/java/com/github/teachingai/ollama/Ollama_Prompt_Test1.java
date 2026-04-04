@@ -8,7 +8,7 @@ import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class Ollama_Prompt_Test1 {
          * gemma3:4b ：https://ollama.com/library/gemma3
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder()
+        var ollamaOptions = OllamaChatOptions.builder()
                 .model("qwen3:8b")
                 .format("json")
                 .temperature(0.9d).build();
@@ -36,7 +36,7 @@ public class Ollama_Prompt_Test1 {
                         "根据用户输入，识别用户在上述三种属性上的倾向。"),
                 new UserMessage("办个100G的套餐。"));
 
-        Prompt prompt = new Prompt(messages, OllamaOptions.builder()
+        Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
                 .model("qwen3:8b")
                 .temperature(0d).build());
 

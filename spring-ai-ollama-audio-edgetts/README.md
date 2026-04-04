@@ -1,6 +1,8 @@
-## spring-ai-ollama-voice-edgetts
+## spring-ai-ollama-audio-edgetts
 
 > 基于 [Spring Boot 3.x](https://docs.spring.io/spring-boot/index.html) 、[Spring AI](https://docs.spring.io/spring-ai/reference/index.html)、[Ollama](https://ollama.com/) 和 [Edge-TTS](https://github.com/rany2/edge-tts) 的 Text-To-Speech (TTS) 功能示例。
+
+**官方文档对应：** [Spring AI Reference](https://docs.spring.io/spring-ai/reference/index.html) · [Audio — Speech](https://docs.spring.io/spring-ai/reference/api/audio/speech.html) · [ChatClient](https://docs.spring.io/spring-ai/reference/api/chatclient.html) · [Chat Model](https://docs.spring.io/spring-ai/reference/api/chatmodel.html)
 
 整合 Edge-TTS 与 本地 Ollama 服务器并输出 Text-To-Speech (TTS) 音频响应
 

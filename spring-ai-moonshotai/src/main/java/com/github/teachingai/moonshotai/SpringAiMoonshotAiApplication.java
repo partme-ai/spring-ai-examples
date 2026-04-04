@@ -9,5 +9,4 @@ public class SpringAiMoonshotAiApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringAiMoonshotAiApplication.class, args);
     }
-
 }

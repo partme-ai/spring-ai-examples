@@ -9,7 +9,7 @@ import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class OllamaChatTest {
          * gemma3:4b ：https://ollama.com/library/gemma3
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder()
+        var ollamaOptions = OllamaChatOptions.builder()
                 .model("gemma3:4b")
                 .temperature(0.9d).build();
         var chatModel = OllamaChatModel.builder()
@@ -38,9 +38,9 @@ public class OllamaChatTest {
         var chatTtsApi = new ChatTtsAudioApi();
         var chatTtsClient = new ChatTtsAudioSpeechModel(chatTtsApi, ChatTtsAudioSpeechOptions.builder()
                 .withPrompt("[oral_2][laugh_0][break_6]")
-                .withTemperature(ApiUtils.DEFAULT_TEMPERATURE)
-                .withTopP(ApiUtils.DEFAULT_TOP_P)
-                .withTopK(ApiUtils.DEFAULT_TOP_K)
+                .temperature(ApiUtils.DEFAULT_TEMPERATURE)
+                .topP(ApiUtils.DEFAULT_TOP_P)
+                .topK(ApiUtils.DEFAULT_TOP_K)
                 .withMaxInferTokens(ApiUtils.DEFAULT_MAX_INFER_TOKENS)
                 .withMaxRefineTokens(ApiUtils.DEFAULT_MAX_REFINE_TOKENS)
                 .withSpeed(ApiUtils.DEFAULT_SPEED)

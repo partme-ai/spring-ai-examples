@@ -8,7 +8,7 @@ import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
@@ -27,13 +27,17 @@ public class OllamaChatTest {
          * mistral ：https://ollama.com/library/mistral
          */
          var ollamaApi = OllamaApi.builder().build();
-        var chatModel = new OllamaChatModel(ollamaApi, OllamaOptions.create()
-                .withModel("qwen:7b")
-                .withTemperature(0.9f));
+        var chatModel = OllamaChatModel.builder()
+                .ollamaApi(ollamaApi)
+                .defaultOptions(OllamaChatOptions.builder()
+                        .model("qwen:7b")
+                        .temperature(0.9d)
+                        .build())
+                .build();
 
         var chatTtsApi = new EmotiVoiceAudioApi("");
         var chatTtsClient = new EmotiVoiceAudioSpeechClient(chatTtsApi, EmotiVoiceAudioSpeechOptions.builder()
-                .withModel("tts-1")
+                .model("tts-1")
                 .withVoice(EmotiVoiceAudioApi.SpeechRequest.Voice.ALLOY)
                 .withResponseFormat(EmotiVoiceAudioApi.SpeechRequest.AudioResponseFormat.MP3)    // MP3, OPUS, AAC, FLAC
                 .withSpeed(ApiUtils.DEFAULT_SPEED)
@@ -51,7 +55,7 @@ public class OllamaChatTest {
             Prompt prompt = new Prompt(historyList);
             ChatResponse chatResponse = chatModel.call(prompt);
             historyList.add(chatResponse.getResult().getOutput());
-            String resp = chatResponse.getResult().getOutput().getContent();
+            String resp = chatResponse.getResult().getOutput().getText();
             System.out.println("<<< " + resp);
             try {
                 System.out.print(">>> 开始生成音频...");

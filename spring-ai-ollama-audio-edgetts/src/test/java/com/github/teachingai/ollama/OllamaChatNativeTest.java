@@ -8,7 +8,7 @@ import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import java.io.File;
 import java.io.InputStream;
@@ -29,9 +29,13 @@ public class OllamaChatNativeTest {
          * mistral ：https://ollama.com/library/mistral
          */
          var ollamaApi = OllamaApi.builder().build();
-        var chatModel = new OllamaChatModel(ollamaApi, OllamaOptions.create()
-                .withModel("qwen:7b")
-                .withTemperature(0.9f));
+        var chatModel = OllamaChatModel.builder()
+                .ollamaApi(ollamaApi)
+                .defaultOptions(OllamaChatOptions.builder()
+                        .model("qwen:7b")
+                        .temperature(0.9d)
+                        .build())
+                .build();
         var dir = new File("E://edge-tts");
         if (!dir.exists()) {
             dir.mkdirs();
@@ -61,7 +65,7 @@ public class OllamaChatNativeTest {
             Prompt prompt = new Prompt(historyList);
             ChatResponse chatResponse = chatModel.call(prompt);
             historyList.add(chatResponse.getResult().getOutput());
-            String resp = chatResponse.getResult().getOutput().getContent();
+            String resp = chatResponse.getResult().getOutput().getText();
             System.out.println("<<< " + resp);
             try {
                 System.out.println(">>> 生成音频中...");

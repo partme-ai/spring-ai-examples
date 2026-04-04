@@ -4,6 +4,7 @@ package com.github.teachingai.ollama.metadata.audio;
 import com.github.teachingai.ollama.api.EmotiVoiceAudioApi;
 import org.springframework.ai.chat.metadata.EmptyRateLimit;
 import org.springframework.ai.chat.metadata.RateLimit;
+import org.springframework.ai.model.AbstractResponseMetadata;
 import org.springframework.ai.model.ResponseMetadata;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
@@ -14,7 +15,7 @@ import org.springframework.util.Assert;
  * @author Ahmed Yousri
  * @see RateLimit
  */
-public class EmotiVoiceAudioSpeechResponseMetadata implements ResponseMetadata {
+public class EmotiVoiceAudioSpeechResponseMetadata extends AbstractResponseMetadata implements ResponseMetadata {
 
     protected static final String AI_METADATA_STRING = "{ @type: %1$s, requestsLimit: %2$s }";
 

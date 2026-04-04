@@ -1,31 +1,30 @@
 package com.github.teachingai.zhipuai.router;
 
-import org.springframework.ai.zhipuai.ZhipuAiChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.function.RouterFunction;
-import org.springframework.web.servlet.function.RouterFunctions;
-import org.springframework.web.servlet.function.ServerResponse;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Configuration
 public class RouterFunctionConfig {
 
     @Bean
-    public RouterFunction<ServerResponse> routes(ZhipuAiChatClient chatModel) {
+    public RouterFunction<ServerResponse> routes(ChatClient chatClient) {
         return RouterFunctions.route()
-                .GET("/route/v1/generate", req ->
-                        ServerResponse.ok().body(
-                                chatModel.call(req.param("question")
-                                        .orElse("tell me a joke"))))
-                .GET("/route/v1/prompt", req ->
-                        ServerResponse.ok().body(
-                                chatModel.call(req.param("question")
-                                        .orElse("tell me a joke"))))
-                .GET("/route/v1/chat/completions", req ->
-                        ServerResponse.ok().body(
-                                chatModel.call(req.param("question")
-                                        .orElse("tell me a joke"))))
+                .GET("/route/v1/generate", req -> {
+                    String q = req.queryParam("question").orElse("tell me a joke");
+                    return ServerResponse.ok().bodyValue(chatClient.prompt(q).call().content());
+                })
+                .GET("/route/v1/prompt", req -> {
+                    String q = req.queryParam("question").orElse("tell me a joke");
+                    return ServerResponse.ok().bodyValue(chatClient.prompt(q).call().content());
+                })
+                .GET("/route/v1/chat/completions", req -> {
+                    String q = req.queryParam("question").orElse("tell me a joke");
+                    return ServerResponse.ok().bodyValue(chatClient.prompt(q).call().content());
+                })
                 .build();
     }
-
 }

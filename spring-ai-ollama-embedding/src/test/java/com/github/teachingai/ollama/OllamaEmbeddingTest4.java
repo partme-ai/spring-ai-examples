@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaEmbeddingOptions;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -29,7 +29,7 @@ public class OllamaEmbeddingTest4 {
          * shaw/dmeta-embedding-zh：https://ollama.com/shaw/dmeta-embedding-zh
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder().model("shaw/dmeta-embedding-zh").topK(3).build();
+        var ollamaOptions = OllamaEmbeddingOptions.builder().model("shaw/dmeta-embedding-zh").build();
         var embeddingModel = OllamaEmbeddingModel.builder().ollamaApi(ollamaApi)
                 .defaultOptions(ollamaOptions).build();
         /*

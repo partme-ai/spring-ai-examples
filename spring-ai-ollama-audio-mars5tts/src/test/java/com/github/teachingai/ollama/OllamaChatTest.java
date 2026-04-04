@@ -3,14 +3,12 @@ package com.github.teachingai.ollama;
 import com.github.teachingai.ollama.api.ApiUtils;
 import com.github.teachingai.ollama.api.ChatTtsAudioApi;
 import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
-import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
@@ -29,16 +27,20 @@ public class OllamaChatTest {
          * mistral ：https://ollama.com/library/mistral
          */
          var ollamaApi = OllamaApi.builder().build();
-        var chatModel = new OllamaChatModel(ollamaApi, OllamaOptions.create()
-                .withModel("qwen:7b")
-                .withTemperature(0.9f));
+        var chatModel = OllamaChatModel.builder()
+                .ollamaApi(ollamaApi)
+                .defaultOptions(OllamaChatOptions.builder()
+                        .model("qwen:7b")
+                        .temperature(0.9d)
+                        .build())
+                .build();
 
         var chatTtsApi = new ChatTtsAudioApi();
         var chatTtsClient = new ChatTtsAudioSpeechClient(chatTtsApi, ChatTtsAudioSpeechOptions.builder()
                 .withPrompt("[oral_2][laugh_0][break_6]")
-                .withTemperature(ApiUtils.DEFAULT_TEMPERATURE)
-                .withTopP(ApiUtils.DEFAULT_TOP_P)
-                .withTopK(ApiUtils.DEFAULT_TOP_K)
+                .temperature(ApiUtils.DEFAULT_TEMPERATURE)
+                .topP(ApiUtils.DEFAULT_TOP_P)
+                .topK(ApiUtils.DEFAULT_TOP_K)
                 .withMaxInferTokens(ApiUtils.DEFAULT_MAX_INFER_TOKENS)
                 .withMaxRefineTokens(ApiUtils.DEFAULT_MAX_REFINE_TOKENS)
                 .withSpeed(ApiUtils.DEFAULT_SPEED)
@@ -61,7 +63,7 @@ public class OllamaChatTest {
             Prompt prompt = new Prompt(historyList);
             ChatResponse chatResponse = chatModel.call(prompt);
             historyList.add(chatResponse.getResult().getOutput());
-            String resp = chatResponse.getResult().getOutput().getContent();
+            String resp = chatResponse.getResult().getOutput().getText();
             System.out.println("<<< " + resp);
             try {
                 System.out.print(">>> 开始生成音频...");

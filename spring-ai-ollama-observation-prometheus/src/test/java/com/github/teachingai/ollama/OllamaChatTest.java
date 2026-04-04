@@ -2,7 +2,7 @@ package com.github.teachingai.ollama;
 
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ public class OllamaChatTest {
          * gemma3:4b ：https://ollama.com/library/gemma3
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder()
+        var ollamaOptions = OllamaChatOptions.builder()
                 .model("qwen:7b")
                 .format("json")
                 .temperature(0.9d).build();

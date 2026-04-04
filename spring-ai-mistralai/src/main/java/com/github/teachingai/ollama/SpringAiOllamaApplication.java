@@ -1,6 +1,6 @@
 package com.github.teachingai.ollama;
 
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,12 +16,14 @@ public class SpringAiOllamaApplication {
     }
 
     @Bean
-    RouterFunction<ServerResponse> routes(ChatClient chatModel) {
+    RouterFunction<ServerResponse> routes(ChatClient chatClient) {
         return RouterFunctions.route()
             .GET("/ask", req ->
                 ServerResponse.ok().body(
-                    chatModel.call(req.param("question")
-                            .orElse("tell me a joke"))))
+                    chatClient.prompt(req.param("question")
+                            .orElse("tell me a joke"))
+                            .call()
+                            .content()))
             .build();
     }
 

@@ -10,7 +10,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,7 +54,7 @@ public class ChatController {
         // 打印请求消息
         chatRequest.messages().forEach(item -> log.info("{}", item));
         // 构建模型选项
-        ChatOptions modelOptions = new OllamaOptions.Builder()
+        ChatOptions modelOptions = new OllamaChatOptions.Builder()
                 .model(chatRequest.model())
                 .temperature(chatRequest.temperature())
                 .topP(chatRequest.topP())

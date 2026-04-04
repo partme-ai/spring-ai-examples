@@ -3,9 +3,10 @@ package com.github.teachingai.ollama;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaEmbeddingOptions;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.vectorstore.SearchRequest;
 
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class OllamaEmbeddingTest {
          * bge-m3 ：https://ollama.com/library/bge-m3
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder().model("bge-m3:latest").topK(3).build();
+        var ollamaOptions = OllamaEmbeddingOptions.builder().model("bge-m3:latest").build();
         var embeddingModel = OllamaEmbeddingModel.builder().ollamaApi(ollamaApi)
                 .defaultOptions(ollamaOptions).build();
         //测试数据
@@ -36,7 +37,7 @@ public class OllamaEmbeddingTest {
             if (message.equals("exit")) {
                 break;
             }
-            List<Document> documents = vectorStore.similaritySearch(message);
+            List<Document> documents = vectorStore.similaritySearch(SearchRequest.builder().query(message).topK(3).build());
             System.out.println("查询结果: ");
             for (Document doc : documents) {
                 System.out.println(doc.getFormattedContent());

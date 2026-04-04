@@ -1,0 +1,309 @@
+# Spring AI 入门实践：Spring AI 与阿里通义千问集成
+
+## 概述
+
+阿里云灵积模型服务（DashScope）是阿里云提供的大模型服务平台，提供了通义千问系列大语言模型。Spring AI 提供了对阿里云灵积 API 的集成支持，使得开发者可以轻松地在 Spring 应用中使用 Qwen-Max、Qwen-Plus、Qwen-Turbo 等模型进行文本生成、对话和嵌入计算。
+
+## 准备工作
+
+### 1. 阿里云灵积账号配置
+
+首先，您需要配置阿里云灵积账号并获取 API Key：
+
+1. 访问 [阿里云灵积模型服务](https://dashscope.console.aliyun.com/)
+2. 使用阿里云账号登录
+3. 开通灵积模型服务
+4. 在 API-KEY 管理页面创建新的 API Key
+5. 确保账号有足够的余额或使用额度
+
+### 2. 添加依赖
+
+在 `pom.xml` 文件中添加以下依赖：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-model-dashscope</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-autoconfigure-retry</artifactId>
+    </dependency>
+</dependencies>
+
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-bom</artifactId>
+            <version>1.1.4</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+### 3. 配置阿里云灵积连接
+
+在 `application.properties` 文件中配置阿里云灵积相关设置：
+
+```properties
+# 阿里云灵积模型服务配置
+spring.ai.qwen.api-key=你的API密钥
+
+# Chat 模型配置
+spring.ai.qwen.chat.enabled=true
+spring.ai.qwen.chat.options.model=qwen-plus
+
+# 嵌入模型配置
+spring.ai.qwen.embedding.enabled=true
+spring.ai.qwen.embedding.options.model=text-embedding-v2
+
+# 重试配置
+spring.ai.retry.max-attempts=3
+spring.ai.retry.backoff.initial-interval=2000
+spring.ai.retry.backoff.multiplier=2
+spring.ai.retry.backoff.max-interval=5000
+spring.ai.retry.on-client-errors=true
+```
+
+## 核心功能
+
+### 1. 文本生成
+
+使用阿里云通义千问进行文本生成：
+
+```java
+package com.github.teachingai.qwen.controller;
+
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
+/**
+ * 通义千问聊天示例
+ */
+@RestController
+public class ChatController {
+
+    private final ChatModel chatModel;
+
+    @Autowired
+    public ChatController(ChatModel chatModel) {
+        this.chatModel = chatModel;
+    }
+
+    @GetMapping("/v1/generate")
+    public Map<String, Object> generate(
+            @RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+        return Map.of("generation", chatModel.call(message));
+    }
+}
+```
+
+### 2. 提示模板使用
+
+使用 Spring AI 的提示模板功能：
+
+```java
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.model.Generation;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+public class ChatController {
+
+    private final ChatModel chatModel;
+
+    @GetMapping("/v1/prompt")
+    public List<Generation> prompt(
+            @RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+        PromptTemplate promptTemplate = new PromptTemplate("Tell me a {adjective} joke about {topic}");
+        Prompt prompt = promptTemplate.create(Map.of("adjective", "funny", "topic", "cats"));
+        return chatModel.call(prompt).getResults();
+    }
+}
+```
+
+### 3. 流式对话
+
+支持流式响应，适用于实时对话场景：
+
+```java
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+
+@RestController
+public class ChatController {
+
+    private final ChatModel chatModel;
+
+    @PostMapping("/v1/chat/completions")
+    public Flux<ChatResponse> chatCompletions(
+            @RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+        Prompt prompt = new Prompt(new UserMessage(message));
+        return chatModel.stream(prompt);
+    }
+}
+```
+
+### 4. 文本嵌入
+
+使用阿里云通义千问进行文本嵌入计算：
+
+```java
+package com.github.teachingai.qwen.controller;
+
+import org.springframework.ai.embedding.EmbeddingModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
+@RestController
+public class EmbeddingController {
+
+    private final EmbeddingModel embeddingModel;
+
+    @Autowired
+    public EmbeddingController(EmbeddingModel embeddingModel) {
+        this.embeddingModel = embeddingModel;
+    }
+
+    @GetMapping("/v1/embedding")
+    public Map<String, Object> embedding(
+            @RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+        return Map.of("embeddings", embeddingModel.embed(message));
+    }
+}
+```
+
+## 完整示例
+
+### 项目结构
+
+```
+spring-ai-qwen/
+├── src/main/java/com/github/teachingai/qwen/
+│   ├── controller/
+│   │   ├── ChatController.java
+│   │   └── EmbeddingController.java
+│   ├── agent/
+│   │   └── Todo.java
+│   ├── finetune/
+│   │   └── Todo.java
+│   ├── rag/
+│   │   └── Todo.java
+│   ├── router/
+│   │   └── RouterFunctionConfig.java
+│   └── SpringAiQwenApplication.java
+└── src/main/resources/
+    ├── application.properties
+    └── conf/
+        └── log4j2-dev.xml
+```
+
+### 运行应用
+
+1. 配置好 `application.properties` 中的 API Key
+2. 启动应用：
+
+```bash
+cd spring-ai-qwen
+mvn spring-boot:run
+```
+
+3. 访问 API 端点：
+   - `GET /v1/generate?message=你好` - 文本生成
+   - `GET /v1/prompt?message=测试` - 提示模板使用
+   - `POST /v1/chat/completions?message=讲个故事` - 流式对话
+   - `GET /v1/embedding?message=需要嵌入的文本` - 文本嵌入
+
+## 测试方法
+
+### 单元测试
+
+```java
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.ai.chat.model.ChatModel;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest
+class QwenIntegrationTest {
+
+    @Autowired
+    private ChatModel chatModel;
+
+    @Test
+    void testChatGeneration() {
+        String response = chatModel.call("你好");
+        assertThat(response).isNotEmpty();
+    }
+}
+```
+
+## 最佳实践
+
+1. **API Key 管理**：使用环境变量或配置中心管理敏感信息
+2. **模型选择**：根据需求选择合适的模型
+   - Qwen-Turbo：速度快，适合简单对话场景
+   - Qwen-Plus：平衡性能和成本，适合一般应用
+   - Qwen-Max：能力强，适合复杂推理和创作
+3. **错误处理**：合理处理 API 限流、超时等异常
+4. **成本控制**：监控 API 使用量，设置使用限额
+5. **性能优化**：对于批量处理，考虑使用异步调用
+
+## 故障排除
+
+| 问题 | 可能原因 | 解决方案 |
+|------|----------|----------|
+| 401 错误 | API Key 无效或过期 | 检查 API Key 是否正确，是否有足够的余额 |
+| 403 错误 | 账号权限不足或服务未开通 | 检查账号权限，确保已开通灵积服务 |
+| 429 错误 | 请求频率超限 | 降低请求频率，增加重试机制 |
+| 超时错误 | 网络问题或服务不稳定 | 检查网络连接，增加超时时间配置 |
+| 模型不可用 | 指定的模型不存在或不可访问 | 检查模型名称是否正确 |
+
+## 相关资源
+
+- [阿里云灵积官方文档](https://help.aliyun.com/zh/dashscope/)
+- [通义千问模型介绍](https://dashscope.console.aliyun.com/)
+- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-qwen)
+- [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
+
+## 扩展阅读
+
+- [Spring AI 与百度千帆集成](27、Spring AI 入门实践：Spring AI 与百度千帆集成.md)
+- [Spring AI 文本生成基础](1、Spring AI 入门实践：Spring AI 文本生成（Chat Completion API）.md)
+- [Spring AI 文本嵌入](5、Spring AI 入门实践：Spring AI 文本嵌入（Embeddings）.md)

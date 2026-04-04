@@ -7,7 +7,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -59,7 +59,7 @@ public class EvaluationAssistantController {
             List<Message> messages  = List.of(systemMessage, userMessage);
 
             // 3. 提示词对象
-            Prompt prompt = new Prompt(messages, OllamaOptions.builder()
+            Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
                     .model("qwen3:8b")
                     .temperature(0d).build());
 
@@ -90,7 +90,7 @@ public class EvaluationAssistantController {
             List<Message> messages  = List.of(systemMessage, userMessage);
 
             // 3. 提示词对象
-            Prompt prompt = new Prompt(messages, OllamaOptions.builder()
+            Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
                     .model("qwen3:8b")
                     .temperature(0d).build());
 
@@ -121,7 +121,7 @@ public class EvaluationAssistantController {
             List<Message> messages  = List.of(systemMessage, userMessage);
 
             // 3. 提示词对象
-            Prompt prompt = new Prompt(messages, OllamaOptions.builder()
+            Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
                     .model("qwen3:8b")
                     .temperature(0d).build());
 

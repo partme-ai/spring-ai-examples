@@ -69,11 +69,11 @@
         <perf4j.version>0.9.16</perf4j.version>
         <sa-token.version>1.44.0</sa-token.version>
         <springdoc.version>2.7.0</springdoc.version>
-        <spring-ai.version>1.1.2</spring-ai.version>
-        <spring-ai-alibaba.version>1.1.0.0</spring-ai-alibaba.version>
-        <spring-ai-alibaba-extensions.version>1.1.2.0</spring-ai-alibaba-extensions.version>
-        <spring-ai-alibaba-nl2sql.version>1.0.0.3</spring-ai-alibaba-nl2sql.version>
-        <spring-ai-alibaba-graph.version>1.1.0.0</spring-ai-alibaba-graph.version>
+        <spring-ai.version>1.1.4</spring-ai.version>
+        <spring-ai-alibaba.version>1.1.2.2</spring-ai-alibaba.version>
+        <spring-ai-alibaba-extensions.version>1.1.2.2</spring-ai-alibaba-extensions.version>
+        <spring-ai-alibaba-nl2sql.version>1.0.0.3-20260305-cve</spring-ai-alibaba-nl2sql.version>
+        <spring-ai-alibaba-graph.version>1.1.2.2</spring-ai-alibaba-graph.version>
         <spring-ai-alibaba-mcp.version>1.0.0.2</spring-ai-alibaba-mcp.version>
         <spring-ai-community.version>1.0.0</spring-ai-community.version>
         <spring-ai-retry.version>${spring-ai.version}</spring-ai-retry.version>
@@ -135,6 +135,11 @@
         <module>spring-ai-ollama-audio-mars5tts</module>
         <module>spring-ai-ollama-audio-unifiedtts</module>
         <module>spring-ai-ollama-audio-whisper</module>
+        <!-- 基于 ollama 的 OCR 示例 -->
+        <module>spring-ai-ollama-ocr-paddleocr</module>
+        <module>spring-ai-ollama-ocr-deepseek</module>
+        <module>spring-ai-ollama-ocr-glm</module>
+        <module>spring-ai-ollama-ocr-qianfan</module>
         <module>spring-ai-openai</module>
         <module>spring-ai-postgresml</module>
         <module>spring-ai-qianfan</module>

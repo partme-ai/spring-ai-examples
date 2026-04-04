@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.benmanes.caffeine.cache.*;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.ai.retry.RetryUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestClient;
@@ -41,7 +39,7 @@ public class GetWeatherFunction implements Function<GetWeatherFunction.Request, 
             .removalListener(new RemovalListener<String, Optional<JSONObject>>() {
 
                 @Override
-                public void onRemoval(@Nullable String key, @Nullable Optional<JSONObject> value, @NonNull RemovalCause cause) {
+                public void onRemoval(String key, Optional<JSONObject> value, RemovalCause cause) {
                     log.info("{} was removed, cause is {}", key, cause);
                 }
 

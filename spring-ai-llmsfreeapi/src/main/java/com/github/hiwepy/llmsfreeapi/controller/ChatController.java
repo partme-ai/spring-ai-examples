@@ -1,13 +1,12 @@
 package com.github.hiwepy.llmsfreeapi.controller;
 
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.chat.prompt.SystemPromptTemplate;
-import org.springframework.ai.llmsfreeapi.LLMsFreeApiChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -24,15 +23,18 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * LLMs Free API 聚合示例（Spring AI {@link ChatModel}）。
+ */
 @RestController
 public class ChatController {
 
     private final String systemPromptTemplate;
-    private final LLMsFreeApiChatClient chatModel;
+    private final ChatModel chatModel;
 
     @Autowired
-    public ChatController( @Value("classpath:/prompt.st") Resource sqlPromptTemplateResource,
-                           LLMsFreeApiChatClient chatModel) {
+    public ChatController(@Value("classpath:/prompt.st") Resource sqlPromptTemplateResource,
+                          ChatModel chatModel) {
         try (InputStream inputStream = sqlPromptTemplateResource.getInputStream()) {
             this.systemPromptTemplate = StreamUtils.copyToString(inputStream, Charset.defaultCharset());
         }
@@ -43,7 +45,8 @@ public class ChatController {
     }
 
     @GetMapping("/v1/generate")
-    public Map generate(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+    public Map<String, Object> generate(
+            @RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
         return Map.of("generation", chatModel.call(message));
     }
 
@@ -55,9 +58,9 @@ public class ChatController {
     }
 
     @PostMapping("/v1/chat/completions")
-    public Flux<ChatResponse> chatCompletions(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+    public Flux<ChatResponse> chatCompletions(
+            @RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
         Prompt prompt = new Prompt(new UserMessage(message));
         return chatModel.stream(prompt);
     }
-
 }

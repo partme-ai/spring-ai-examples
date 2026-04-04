@@ -7,7 +7,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import reactor.core.publisher.Flux;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class Ollama_Kuakua_Prompt_Test3 {
          * gemma3:4b ：https://ollama.com/library/gemma3
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder()
+        var ollamaOptions = OllamaChatOptions.builder()
                 .model("qwen3:8b")
                 .format("json")
                 .temperature(0.9d).build();
@@ -45,7 +45,7 @@ public class Ollama_Kuakua_Prompt_Test3 {
         // 生成对话
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            Prompt prompt = new Prompt(historyList, OllamaOptions.builder()
+            Prompt prompt = new Prompt(historyList, OllamaChatOptions.builder()
                     .model("qwen3:8b-kuakua")
                     .temperature(0.7d)
                     .lowVRAM(Boolean.TRUE)

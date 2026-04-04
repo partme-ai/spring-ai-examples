@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -52,7 +51,7 @@ public class MyOllamaApi {
         }
 
         @Override
-        public void handleError(@NotNull URI url, @NotNull HttpMethod method, ClientHttpResponse response) throws IOException {
+        public void handleError(URI url, HttpMethod method, ClientHttpResponse response) throws IOException {
             if (response.getStatusCode().isError()) {
                 int statusCode = response.getStatusCode().value();
                 String statusText = response.getStatusText();
@@ -199,7 +198,7 @@ public class MyOllamaApi {
                 return this;
             }
 
-            public MyOllamaApi.GenerateRequest.Builder withOptions(OllamaOptions options) {
+            public MyOllamaApi.GenerateRequest.Builder withOptions(OllamaChatOptions options) {
                 this.options = options.toMap();
                 return this;
             }
@@ -399,8 +398,8 @@ public class MyOllamaApi {
      * @param format The format to return the response in. Currently, the only accepted
      * value is "json".
      * @param keepAlive The duration to keep the model loaded in ollama while idle. https://pkg.go.dev/time#ParseDuration
-     * @param options Additional model parameters. You can use the {@link OllamaOptions} builder
-     * to create the options then {@link OllamaOptions#toMap()} to convert the options into a
+     * @param options Additional model parameters. You can use the {@link OllamaChatOptions} builder
+     * to create the options then {@link OllamaChatOptions#toMap()} to convert the options into a
      * map.
      */
     @JsonInclude(Include.NON_NULL)
@@ -453,13 +452,13 @@ public class MyOllamaApi {
             public MyOllamaApi.ChatRequest.Builder withOptions(Map<String, Object> options) {
                 Objects.requireNonNull(options, "The options can not be null.");
 
-                this.options = OllamaOptions.filterNonSupportedFields(options);
+                this.options = OllamaChatOptions.filterNonSupportedFields(options);
                 return this;
             }
 
-            public MyOllamaApi.ChatRequest.Builder withOptions(OllamaOptions options) {
+            public MyOllamaApi.ChatRequest.Builder withOptions(OllamaChatOptions options) {
                 Objects.requireNonNull(options, "The options can not be null.");
-                this.options = OllamaOptions.filterNonSupportedFields(options.toMap());
+                this.options = OllamaChatOptions.filterNonSupportedFields(options.toMap());
                 return this;
             }
 

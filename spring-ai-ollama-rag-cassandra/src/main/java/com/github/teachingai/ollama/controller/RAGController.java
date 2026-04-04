@@ -1,12 +1,12 @@
 package com.github.teachingai.ollama.controller;
 
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.parser.BeanOutputParser;
+import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,10 +34,10 @@ class RAGController {
     @GetMapping("/ai/rag/people")
     Person chatWithRag(@RequestParam String name) {
         // 使用自然语言查询 VectorStore，查找有关个人的信息。
-        List<Document> similarDocuments =
-                vectorStore.similaritySearch(SearchRequest.query(name).withTopK(2));
+        List<Document> similarDocuments = vectorStore.similaritySearch(
+                SearchRequest.builder().query(name).topK(2).build());
         String information = similarDocuments.stream()
-                .map(Document::getContent)
+                .map(Document::getText)
                 .collect(Collectors.joining(System.lineSeparator()));
 
         //构建 systemMessage 以指示人工智能模型使用传递的信息
@@ -51,8 +51,8 @@ class RAGController {
         var systemMessage = systemPromptTemplate.createMessage(
                 Map.of("information", information));
 
-        // 使用 BeanOutputParser 将响应解析为 Person 的实例。
-        var outputParser = new BeanOutputParser<>(Person.class);
+        // 使用 BeanOutputConverter 将响应解析为 Person 的实例。
+        var outputParser = new BeanOutputConverter<>(Person.class);
 
         // 构建用户信息（userMessage），要求人工智能模型介绍这个人。
         PromptTemplate userMessagePromptTemplate = new PromptTemplate("""
@@ -67,9 +67,9 @@ class RAGController {
 
         var prompt = new Prompt(List.of(systemMessage, userMessage));
 
-        var response = chatModel.call(prompt).getResult().getOutput().getContent();
+        String response = chatModel.prompt(prompt).call().content();
 
-        return outputParser.parse(response);
+        return outputParser.convert(response);
     }
 }
 

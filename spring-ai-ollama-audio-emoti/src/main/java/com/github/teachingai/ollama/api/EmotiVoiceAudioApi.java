@@ -211,6 +211,10 @@ public class EmotiVoiceAudioApi {
                 return this;
             }
 
+            public Builder model(String model) {
+                return withModel(model);
+            }
+
             public Builder withInput(String input) {
                 this.input = input;
                 return this;

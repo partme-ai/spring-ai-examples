@@ -1,7 +1,7 @@
 package com.github.hiwepy.ocigenai.aisql;
 
 import com.github.hiwepy.ocigenai.exception.SqlGenerationException;
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +39,7 @@ public class SqlController {
     public Answer sql(@RequestBody SqlRequest sqlRequest) throws IOException {
         String schema = ddlResource.getContentAsString(Charset.defaultCharset());
         Prompt prompt = sqlPromptTemplate.create(Map.of("question", sqlRequest.question(), "ddl", schema));
-        String query = aiClient.call(prompt).getResult().getOutput().getContent();
+        String query = aiClient.prompt(prompt).call().content();
 
         if (query.toLowerCase().startsWith("select")) {
             return new Answer(query, jdbcTemplate.queryForList(query));

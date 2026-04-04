@@ -105,14 +105,26 @@ public class ChatTtsAudioSpeechOptions implements ModelOptions {
             return this;
         }
 
+        public Builder temperature(Float temperature) {
+            return withTemperature(temperature);
+        }
+
         public Builder withTopP(Float topP) {
             options.topP = topP;
             return this;
         }
 
+        public Builder topP(Float topP) {
+            return withTopP(topP);
+        }
+
         public Builder withTopK(Integer topK) {
             options.topK = topK;
             return this;
+        }
+
+        public Builder topK(Integer topK) {
+            return withTopK(topK);
         }
 
         public Builder withMaxRefineTokens(Integer maxRefineTokens) {
