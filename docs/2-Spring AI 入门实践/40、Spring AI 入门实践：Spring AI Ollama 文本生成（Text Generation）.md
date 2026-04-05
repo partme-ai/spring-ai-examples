@@ -222,7 +222,7 @@ mvn spring-boot:run
 
 - [Ollama 官方文档](https://ollama.com/docs)
 - [Ollama 模型库](https://ollama.com/library)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-ollama-generation)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-ollama-generation)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

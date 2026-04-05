@@ -138,7 +138,7 @@ mvn spring-boot:run
 
 - [LLM Red Team GitHub](https://github.com/LLM-Red-Team)
 - [spring-ai-llms-free-api-spring-boot-starter](https://github.com/hiwepy/spring-ai-llms-free-api-spring-boot-starter)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-llmsfreeapi)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-llmsfreeapi)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

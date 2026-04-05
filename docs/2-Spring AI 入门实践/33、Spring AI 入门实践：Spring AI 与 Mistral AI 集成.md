@@ -105,7 +105,7 @@ mvn spring-boot:run
 ## 相关资源
 
 - [Mistral AI 官方文档](https://docs.mistral.ai/)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-mistralai)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-mistralai)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

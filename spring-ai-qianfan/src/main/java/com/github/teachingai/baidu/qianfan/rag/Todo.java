@@ -1,4 +1,4 @@
-package com.github.teachingai.baidu.qianfan.rag;
+package com.github.partmeai.baidu.qianfan.rag;
 
 public class Todo {
 }

@@ -83,7 +83,7 @@ spring.ai.retry.on-client-errors=true
 使用智谱AI进行文本生成：
 
 ```java
-package com.github.teachingai.zhipuai.controller;
+package com.github.partmeai.zhipuai.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.ai.zhipuai.ZhiPuAiChatModel;
@@ -157,7 +157,7 @@ public class ChatController {
 使用智谱AI进行文本嵌入计算：
 
 ```java
-package com.github.teachingai.zhipuai.controller;
+package com.github.partmeai.zhipuai.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -296,7 +296,7 @@ class ZhipuAiIntegrationTest {
 
 - [智谱AI官方文档](https://open.bigmodel.cn/dev/api)
 - [GLM系列模型介绍](https://open.bigmodel.cn/)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-zhipuai)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-zhipuai)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

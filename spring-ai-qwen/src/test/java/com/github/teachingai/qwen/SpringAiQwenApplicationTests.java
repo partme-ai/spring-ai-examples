@@ -1,4 +1,4 @@
-package com.github.teachingai.qwen;
+package com.github.partmeai.qwen;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

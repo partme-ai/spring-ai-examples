@@ -1,10 +1,10 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
-import com.github.teachingai.ollama.api.ChatTtsAudioApi;
-import com.github.teachingai.ollama.api.ChatTtsResponseHeaderExtractor;
-import com.github.teachingai.ollama.api.common.OllamaApiException;
-import com.github.teachingai.ollama.audio.speech.*;
-import com.github.teachingai.ollama.audio.ChatTtsAudioSpeechResponseMetadata;
+import com.github.partmeai.ollama.api.ChatTtsAudioApi;
+import com.github.partmeai.ollama.api.ChatTtsResponseHeaderExtractor;
+import com.github.partmeai.ollama.api.common.OllamaApiException;
+import com.github.partmeai.ollama.audio.speech.*;
+import com.github.partmeai.ollama.audio.ChatTtsAudioSpeechResponseMetadata;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

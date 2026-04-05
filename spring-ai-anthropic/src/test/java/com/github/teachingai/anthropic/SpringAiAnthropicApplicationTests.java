@@ -1,4 +1,4 @@
-package com.github.teachingai.anthropic;
+package com.github.partmeai.anthropic;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

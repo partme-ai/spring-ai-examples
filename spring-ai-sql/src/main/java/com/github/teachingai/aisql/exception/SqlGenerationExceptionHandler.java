@@ -1,4 +1,4 @@
-package com.github.teachingai.aisql.exception;
+package com.github.partmeai.aisql.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;

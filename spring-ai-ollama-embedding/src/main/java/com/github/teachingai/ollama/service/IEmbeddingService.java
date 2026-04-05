@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.service;
+package com.github.partmeai.ollama.service;
 
 import jakarta.servlet.http.Part;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,6 +1,6 @@
-package com.github.teachingai.ollama.service.impl;
+package com.github.partmeai.ollama.service.impl;
 
-import com.github.teachingai.ollama.service.IChatMessageService;
+import com.github.partmeai.ollama.service.IChatMessageService;
 import org.springframework.stereotype.Service;
 
 /**

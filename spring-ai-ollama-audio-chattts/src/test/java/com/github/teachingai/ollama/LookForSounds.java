@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;

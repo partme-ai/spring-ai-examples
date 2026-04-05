@@ -171,7 +171,7 @@ mvn spring-boot:run
 
 - [阶跃星辰官方文档](https://platform.stepfun.com/docs)
 - [Step系列模型介绍](https://platform.stepfun.com/)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-stepfun)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-stepfun)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

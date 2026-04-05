@@ -1,4 +1,4 @@
-package com.github.teachingai.openai.agent;
+package com.github.partmeai.openai.agent;
 
 public class Todo {
 }

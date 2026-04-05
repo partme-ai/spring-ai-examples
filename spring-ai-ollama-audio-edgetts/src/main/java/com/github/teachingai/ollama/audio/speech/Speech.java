@@ -1,8 +1,8 @@
-package com.github.teachingai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
 
-import com.github.teachingai.ollama.api.common.OllamaApiException;
-import com.github.teachingai.ollama.metadata.audio.EdgeTtsAudioSpeechMetadata;
+import com.github.partmeai.ollama.api.common.OllamaApiException;
+import com.github.partmeai.ollama.metadata.audio.EdgeTtsAudioSpeechMetadata;
 import org.springframework.ai.model.ModelResult;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;

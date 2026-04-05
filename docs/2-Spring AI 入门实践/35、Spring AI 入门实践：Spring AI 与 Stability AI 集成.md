@@ -114,7 +114,7 @@ mvn spring-boot:run
 
 - [Stability AI 官方文档](https://platform.stability.ai/docs)
 - [Stable Diffusion 模型介绍](https://stability.ai/)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-stabilityai)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-stabilityai)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

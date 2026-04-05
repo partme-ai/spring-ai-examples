@@ -1,4 +1,4 @@
-package com.github.teachingai.azure.openai.rag;
+package com.github.partmeai.azure.openai.rag;
 
 public class Todo {
 }

@@ -1,6 +1,6 @@
-package com.github.teachingai.postgresml.controller;
+package com.github.partmeai.postgresml.controller;
 
-import com.github.teachingai.postgresml.service.JdbcExampleService;
+import com.github.partmeai.postgresml.service.JdbcExampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

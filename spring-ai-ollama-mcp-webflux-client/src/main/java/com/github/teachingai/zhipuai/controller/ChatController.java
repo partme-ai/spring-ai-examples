@@ -1,4 +1,4 @@
-package com.github.teachingai.zhipuai.controller;
+package com.github.partmeai.zhipuai.controller;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;

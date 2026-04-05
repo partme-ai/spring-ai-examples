@@ -77,7 +77,7 @@ spring.ai.qianfan.embedding.options.model=Embedding-V1
 使用百度千帆进行文本生成：
 
 ```java
-package com.github.teachingai.baidu.qianfan.controller;
+package com.github.partmeai.baidu.qianfan.controller;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,7 +166,7 @@ public class ChatController {
 使用百度千帆进行文本嵌入计算：
 
 ```java
-package com.github.teachingai.baidu.qianfan.controller;
+package com.github.partmeai.baidu.qianfan.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -286,7 +286,7 @@ class QianfanIntegrationTest {
 
 - [百度千帆官方文档](https://cloud.baidu.com/doc/WENXINWORKSHOP/index.html)
 - [ERNIE系列模型介绍](https://cloud.baidu.com/product/wenxinworkshop)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-qianfan)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-qianfan)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

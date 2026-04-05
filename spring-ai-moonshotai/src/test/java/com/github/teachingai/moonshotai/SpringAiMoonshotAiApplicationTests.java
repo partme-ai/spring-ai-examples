@@ -1,4 +1,4 @@
-package com.github.teachingai.moonshotai;
+package com.github.partmeai.moonshotai;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

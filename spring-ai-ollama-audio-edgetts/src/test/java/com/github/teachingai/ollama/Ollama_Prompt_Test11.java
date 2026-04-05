@@ -1,6 +1,6 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
-import com.github.teachingai.ollama.api.EdgeTtsNativeAudioApi;
+import com.github.partmeai.ollama.api.EdgeTtsNativeAudioApi;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.model.Generation;

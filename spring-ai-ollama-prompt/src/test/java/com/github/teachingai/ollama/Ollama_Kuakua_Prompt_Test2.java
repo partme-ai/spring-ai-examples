@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;

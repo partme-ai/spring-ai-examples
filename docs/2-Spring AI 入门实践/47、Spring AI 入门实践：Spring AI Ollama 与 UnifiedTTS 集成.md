@@ -168,7 +168,7 @@ mvn spring-boot:run
 
 - [UnifiedTTS 官方网站](https://unifiedtts.com/)
 - [Ollama 官方文档](https://ollama.com/docs)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-ollama-audio-unifiedtts)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-ollama-audio-unifiedtts)
 
 ## 扩展阅读
 

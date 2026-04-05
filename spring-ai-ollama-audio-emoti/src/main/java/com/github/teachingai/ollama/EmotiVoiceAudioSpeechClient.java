@@ -1,11 +1,11 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
-import com.github.teachingai.ollama.api.EmotiVoiceAudioApi;
-import com.github.teachingai.ollama.api.EmotiVoiceAudioApi.SpeechRequest.AudioResponseFormat;
-import com.github.teachingai.ollama.api.EmotiVoiceResponseHeaderExtractor;
-import com.github.teachingai.ollama.api.common.OllamaApiException;
-import com.github.teachingai.ollama.metadata.audio.EmotiVoiceAudioSpeechResponseMetadata;
-import com.github.teachingai.ollama.audio.speech.*;
+import com.github.partmeai.ollama.api.EmotiVoiceAudioApi;
+import com.github.partmeai.ollama.api.EmotiVoiceAudioApi.SpeechRequest.AudioResponseFormat;
+import com.github.partmeai.ollama.api.EmotiVoiceResponseHeaderExtractor;
+import com.github.partmeai.ollama.api.common.OllamaApiException;
+import com.github.partmeai.ollama.metadata.audio.EmotiVoiceAudioSpeechResponseMetadata;
+import com.github.partmeai.ollama.audio.speech.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

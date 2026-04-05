@@ -1,4 +1,4 @@
-package com.github.teachingai.deepseek.router;
+package com.github.partmeai.deepseek.router;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;

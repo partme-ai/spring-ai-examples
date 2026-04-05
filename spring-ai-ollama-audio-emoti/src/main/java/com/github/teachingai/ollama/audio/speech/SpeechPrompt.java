@@ -1,6 +1,6 @@
-package com.github.teachingai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
-import com.github.teachingai.ollama.EmotiVoiceAudioSpeechOptions;
+import com.github.partmeai.ollama.EmotiVoiceAudioSpeechOptions;
 import org.springframework.ai.model.ModelOptions;
 import org.springframework.ai.model.ModelRequest;
 

@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.api;
+package com.github.partmeai.ollama.api;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

@@ -1,6 +1,6 @@
-package com.github.teachingai.ollama.controller;
+package com.github.partmeai.ollama.controller;
 
-import com.github.teachingai.ollama.request.ApiRequest;
+import com.github.partmeai.ollama.request.ApiRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;

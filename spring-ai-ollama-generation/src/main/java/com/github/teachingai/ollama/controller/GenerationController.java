@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.controller;
+package com.github.partmeai.ollama.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

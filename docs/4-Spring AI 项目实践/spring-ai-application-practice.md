@@ -15,7 +15,7 @@
 
 ## spring-ai-sql：NL2SQL
 
-核心类：`com.github.teachingai.aisql.controller.SqlController`
+核心类：`com.github.partmeai.aisql.controller.SqlController`
 
 - 注入 **`ChatClient`**，从 **`classpath:/sql-prompt-template.st`** 构造 **`PromptTemplate`**。  
 - 将 **用户问题** 与 **`schema.sql` DDL** 一并传入模型，得到 **SQL 字符串**。  
@@ -33,7 +33,7 @@ throw new SqlGenerationException(query);
 
 ## spring-ai-project-hotel-recommend
 
-当前入口为 **`com.github.teachingai.Main`**，为 **占位演示**（打印循环），尚未接入 Spring AI；可作为后续 **酒店推荐等业务** 的聚合模块骨架。扩展时建议：引入 Spring Boot 启动类、领域服务与 `ChatClient`/`VectorStore` 等 Bean，并复用父工程 **Spring AI** 版本。
+当前入口为 **`com.github.partmeai.Main`**，为 **占位演示**（打印循环），尚未接入 Spring AI；可作为后续 **酒店推荐等业务** 的聚合模块骨架。扩展时建议：引入 Spring Boot 启动类、领域服务与 `ChatClient`/`VectorStore` 等 Bean，并复用父工程 **Spring AI** 版本。
 
 ## 官方文档
 
@@ -61,7 +61,7 @@ curl -X POST "http://localhost:8080/sql" \
 
 ```bash
 cd spring-ai-project-hotel-recommend
-mvn -q compile exec:java -Dexec.mainClass="com.github.teachingai.Main"
+mvn -q compile exec:java -Dexec.mainClass="com.github.partmeai.Main"
 ```
 
 （当前仅验证占位 `main` 输出；与 Spring AI 联调需在模块内新增 Boot 应用与业务代码。）

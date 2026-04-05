@@ -1,4 +1,4 @@
-package com.github.teachingai.postgresml;
+package com.github.partmeai.postgresml;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
 import org.springframework.ai.model.StreamingModel;
 import reactor.core.publisher.Flux;

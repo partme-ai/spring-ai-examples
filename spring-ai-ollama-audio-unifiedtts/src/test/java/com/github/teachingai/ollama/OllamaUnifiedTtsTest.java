@@ -1,7 +1,7 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
-import com.github.teachingai.ollama.api.UnifiedTtsAudioApi;
-import com.github.teachingai.ollama.util.MarkdownUtils;
+import com.github.partmeai.ollama.api.UnifiedTtsAudioApi;
+import com.github.partmeai.ollama.util.MarkdownUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

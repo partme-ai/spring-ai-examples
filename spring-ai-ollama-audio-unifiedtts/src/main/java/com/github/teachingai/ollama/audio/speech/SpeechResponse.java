@@ -1,6 +1,6 @@
-package com.github.teachingai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
-import com.github.teachingai.ollama.audio.UnifiedTtsAudioSpeechResponseMetadata;
+import com.github.partmeai.ollama.audio.UnifiedTtsAudioSpeechResponseMetadata;
 import org.springframework.ai.model.ModelResponse;
 
 import java.util.Collections;

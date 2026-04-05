@@ -1,4 +1,4 @@
-package com.github.teachingai.postgresml.service;
+package com.github.partmeai.postgresml.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

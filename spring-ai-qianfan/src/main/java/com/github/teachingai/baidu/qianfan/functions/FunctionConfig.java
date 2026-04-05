@@ -1,4 +1,4 @@
-package com.github.teachingai.baidu.qianfan.functions;
+package com.github.partmeai.baidu.qianfan.functions;
 
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.function.FunctionToolCallback;

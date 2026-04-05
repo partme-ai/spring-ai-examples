@@ -105,7 +105,7 @@ mvn spring-boot:run
 ## 相关资源
 
 - [MiniMax 官方文档](https://www.minimaxi.com/document/)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-minimax)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-minimax)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

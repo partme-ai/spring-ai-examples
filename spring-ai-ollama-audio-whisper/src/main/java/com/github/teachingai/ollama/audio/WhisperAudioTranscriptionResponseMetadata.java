@@ -1,7 +1,7 @@
-package com.github.teachingai.ollama.audio;
+package com.github.partmeai.ollama.audio;
 
 
-import com.github.teachingai.ollama.api.ChatTtsAudioApi;
+import com.github.partmeai.ollama.api.ChatTtsAudioApi;
 import org.springframework.ai.chat.metadata.RateLimit;
 import org.springframework.ai.model.AbstractResponseMetadata;
 import org.springframework.ai.model.ResponseMetadata;

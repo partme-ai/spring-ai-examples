@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

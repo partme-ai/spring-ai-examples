@@ -72,7 +72,7 @@ springdoc:
     enabled: true
     path: /v3/api-docs
   packages-to-scan:
-    - com.github.teachingai.ollama
+    - com.github.partmeai.ollama
   swagger-ui:
     path: /swagger-ui.html
     tags-sorter: alpha

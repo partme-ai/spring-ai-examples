@@ -1,4 +1,4 @@
-package com.github.teachingai.moonshotai.router;
+package com.github.partmeai.moonshotai.router;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.context.annotation.Bean;

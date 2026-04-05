@@ -1,4 +1,4 @@
-package com.github.teachingai.azure.openai.functions;
+package com.github.partmeai.azure.openai.functions;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;

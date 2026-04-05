@@ -135,7 +135,7 @@ mvn spring-boot:run
 
 - [EmotiVoice 官方项目](https://github.com/netease-youdao/EmotiVoice)
 - [Ollama 官方文档](https://ollama.com/docs)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-ollama-audio-emoti)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-ollama-audio-emoti)
 
 ## 扩展阅读
 

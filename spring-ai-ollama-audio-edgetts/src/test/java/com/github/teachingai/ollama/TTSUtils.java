@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;

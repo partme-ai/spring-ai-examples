@@ -180,7 +180,7 @@ mvn spring-boot:run
 - [ChatTTS 官方项目](https://github.com/2noise/ChatTTS)
 - [ChatTTS-ui 项目](https://github.com/jianchang512/ChatTTS-ui)
 - [Ollama 官方文档](https://ollama.com/docs)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-ollama-audio-chattts)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-ollama-audio-chattts)
 
 ## 扩展阅读
 

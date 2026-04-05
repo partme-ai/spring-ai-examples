@@ -19,7 +19,7 @@
             <AppenderRef ref="Console"/>
             <AppenderRef ref="RollingFile"/>
         </Root>
-        <Logger name="com.github.teachingai" level="debug" additivity="false">
+        <Logger name="com.github.partmeai" level="debug" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="RollingFile"/>
         </Logger>

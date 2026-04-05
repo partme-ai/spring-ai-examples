@@ -1,4 +1,4 @@
-package com.github.teachingai.moonshotai.controller;
+package com.github.partmeai.moonshotai.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

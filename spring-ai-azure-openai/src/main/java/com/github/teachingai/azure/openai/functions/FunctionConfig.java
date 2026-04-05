@@ -1,4 +1,4 @@
-package com.github.teachingai.azure.openai.functions;
+package com.github.partmeai.azure.openai.functions;
 
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.function.FunctionToolCallback;

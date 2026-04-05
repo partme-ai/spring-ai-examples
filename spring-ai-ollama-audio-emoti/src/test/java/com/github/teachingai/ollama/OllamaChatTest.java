@@ -1,7 +1,7 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
-import com.github.teachingai.ollama.api.ApiUtils;
-import com.github.teachingai.ollama.api.EmotiVoiceAudioApi;
+import com.github.partmeai.ollama.api.ApiUtils;
+import com.github.partmeai.ollama.api.EmotiVoiceAudioApi;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;

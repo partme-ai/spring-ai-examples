@@ -1,4 +1,4 @@
-package com.github.teachingai.stabilityai;
+package com.github.partmeai.stabilityai;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

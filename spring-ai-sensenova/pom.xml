@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.github.teachingai</groupId>
+        <groupId>com.github.partmeai</groupId>
         <artifactId>spring-ai-examples</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
@@ -42,7 +42,7 @@
         </dependency>
         <!-- For Chat Completion & Embedding -->
         <!--<dependency>
-            <groupId>com.github.teachingai</groupId>
+            <groupId>com.github.partmeai</groupId>
             <artifactId>spring-ai-starter-model-ollama</artifactId>
             <version>${revision}</version>
         </dependency>-->

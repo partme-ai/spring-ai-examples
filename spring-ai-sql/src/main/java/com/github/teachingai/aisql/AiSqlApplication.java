@@ -1,4 +1,4 @@
-package com.github.teachingai.aisql;
+package com.github.partmeai.aisql;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

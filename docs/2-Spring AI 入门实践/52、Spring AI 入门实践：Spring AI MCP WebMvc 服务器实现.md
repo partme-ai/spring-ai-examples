@@ -233,7 +233,7 @@ mvn spring-boot:run
 
 - [MCP 协议规范](https://modelcontextprotocol.io/)
 - [Spring AI MCP 文档](https://docs.spring.io/spring-ai/reference/api/mcp.html)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-ollama-mcp-webmvc-server)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-ollama-mcp-webmvc-server)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

@@ -262,7 +262,7 @@ mvn spring-boot:run
 
 - [Ollama 官方文档](https://ollama.com/docs)
 - [Spring AI Function Calling 文档](https://docs.spring.io/spring-ai/reference/api/chat/functions.html)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-ollama-tools)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-ollama-tools)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

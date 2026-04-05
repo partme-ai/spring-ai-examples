@@ -1,4 +1,4 @@
-package com.github.teachingai.openai.service;
+package com.github.partmeai.openai.service;
 
 import java.util.function.Function;
 

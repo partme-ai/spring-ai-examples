@@ -363,8 +363,8 @@ Spring AI 的文本生成功能提供了简单易用的 API，支持基本的文
 
 ### 示例模块
 - **`spring-ai-ollama-generation`** - 本仓库中的文本生成示例模块
-  - 主类：`com.github.teachingai.ollama.SpringAiOllamaApplication`
-  - 控制器：`com.github.teachingai.ollama.controller.GenerationController`
+  - 主类：`com.github.partmeai.ollama.SpringAiOllamaApplication`
+  - 控制器：`com.github.partmeai.ollama.controller.GenerationController`
   - 路径：`/ai/generate`（同步）和 `/ai/generateStream`（流式）
 
 ### 运行与验证

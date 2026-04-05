@@ -1,4 +1,4 @@
-package com.github.teachingai.postgresml.controller;
+package com.github.partmeai.postgresml.controller;
 
 import org.springframework.ai.postgresml.PostgresMlEmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

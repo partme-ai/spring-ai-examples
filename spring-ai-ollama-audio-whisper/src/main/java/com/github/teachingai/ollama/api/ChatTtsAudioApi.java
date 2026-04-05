@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.api;
+package com.github.partmeai.ollama.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

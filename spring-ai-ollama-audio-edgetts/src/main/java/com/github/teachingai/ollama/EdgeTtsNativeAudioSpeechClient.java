@@ -1,12 +1,12 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
-import com.github.teachingai.ollama.api.ApiUtils;
-import com.github.teachingai.ollama.api.EdgeTtsNativeAudioApi;
-import com.github.teachingai.ollama.api.common.OllamaApiException;
-import com.github.teachingai.ollama.audio.speech.Speech;
-import com.github.teachingai.ollama.audio.speech.SpeechClient;
-import com.github.teachingai.ollama.audio.speech.SpeechPrompt;
-import com.github.teachingai.ollama.audio.speech.SpeechResponse;
+import com.github.partmeai.ollama.api.ApiUtils;
+import com.github.partmeai.ollama.api.EdgeTtsNativeAudioApi;
+import com.github.partmeai.ollama.api.common.OllamaApiException;
+import com.github.partmeai.ollama.audio.speech.Speech;
+import com.github.partmeai.ollama.audio.speech.SpeechClient;
+import com.github.partmeai.ollama.audio.speech.SpeechPrompt;
+import com.github.partmeai.ollama.audio.speech.SpeechResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.model.ModelOptions;

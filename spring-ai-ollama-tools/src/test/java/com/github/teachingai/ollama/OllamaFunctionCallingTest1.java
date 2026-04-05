@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.ollama.OllamaChatModel;

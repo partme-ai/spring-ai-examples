@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.ai.chat.model.ChatResponse;

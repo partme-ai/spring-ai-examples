@@ -1,7 +1,7 @@
-package com.github.teachingai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
 
-import com.github.teachingai.ollama.audio.ChatTtsAudioSpeechMetadata;
+import com.github.partmeai.ollama.audio.ChatTtsAudioSpeechMetadata;
 import org.springframework.ai.model.ModelResult;
 import org.springframework.lang.Nullable;
 

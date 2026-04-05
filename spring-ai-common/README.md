@@ -13,7 +13,7 @@
 
 ```xml
 <dependency>
-  <groupId>com.github.teachingai</groupId>
+  <groupId>com.github.partmeai</groupId>
   <artifactId>spring-ai-common</artifactId>
   <version>${revision}</version>
 </dependency>

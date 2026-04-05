@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.boot.SpringApplication;

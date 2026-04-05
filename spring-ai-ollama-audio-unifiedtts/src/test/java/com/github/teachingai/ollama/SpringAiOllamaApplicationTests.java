@@ -1,6 +1,6 @@
-package com.github.teachingai.ollama;
+package com.github.partmeai.ollama;
 
-import com.github.teachingai.ollama.UnifiedTtsAudioSpeechModel;
+import com.github.partmeai.ollama.UnifiedTtsAudioSpeechModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

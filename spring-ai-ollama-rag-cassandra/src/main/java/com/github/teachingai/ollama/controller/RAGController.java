@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.controller;
+package com.github.partmeai.ollama.controller;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;

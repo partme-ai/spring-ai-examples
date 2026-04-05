@@ -1,4 +1,4 @@
-package com.github.teachingai.amazon.bedrock.agent;
+package com.github.partmeai.amazon.bedrock.agent;
 
 public class Todo {
 }

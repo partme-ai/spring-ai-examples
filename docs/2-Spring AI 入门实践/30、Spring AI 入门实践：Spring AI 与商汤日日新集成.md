@@ -238,7 +238,7 @@ class SensenovaIntegrationTest {
 
 - [商汤开放平台官方文档](https://platform.sensenova.cn/docs)
 - [SenseNova 模型介绍](https://platform.sensenova.cn/)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-sensenova)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-sensenova)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

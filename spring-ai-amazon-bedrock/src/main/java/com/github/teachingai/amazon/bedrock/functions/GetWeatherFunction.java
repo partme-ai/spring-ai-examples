@@ -1,4 +1,4 @@
-package com.github.teachingai.amazon.bedrock.functions;
+package com.github.partmeai.amazon.bedrock.functions;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.annotation.JsonClassDescription;

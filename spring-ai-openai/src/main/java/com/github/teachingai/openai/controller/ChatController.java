@@ -1,4 +1,4 @@
-package com.github.teachingai.openai.controller;
+package com.github.partmeai.openai.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.ai.chat.messages.UserMessage;

@@ -1,4 +1,4 @@
-package com.github.teachingai.baidu.qianfan;
+package com.github.partmeai.baidu.qianfan;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.github.teachingai.qwen;
+package com.github.partmeai.qwen;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;

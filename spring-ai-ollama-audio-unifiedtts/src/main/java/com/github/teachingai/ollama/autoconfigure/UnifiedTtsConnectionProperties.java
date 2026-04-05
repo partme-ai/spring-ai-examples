@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.autoconfigure;
+package com.github.partmeai.ollama.autoconfigure;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

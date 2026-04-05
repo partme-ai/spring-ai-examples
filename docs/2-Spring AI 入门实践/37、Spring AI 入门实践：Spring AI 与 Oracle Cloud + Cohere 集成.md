@@ -112,7 +112,7 @@ mvn spring-boot:run
 
 - [Oracle Cloud Generative AI 文档](https://docs.oracle.com/en-us/iaas/Content/generative-ai/home.htm)
 - [Cohere 模型介绍](https://cohere.com/)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-oci-genai-cohere)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-oci-genai-cohere)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

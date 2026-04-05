@@ -284,7 +284,7 @@ mvn spring-boot:run
 - [MCP 官方文档](https://modelcontextprotocol.io/)
 - [Spring AI MCP 文档](https://docs.spring.io/spring-ai/reference/api/mcp.html)
 - [Spring WebFlux 文档](https://docs.spring.io/spring-framework/reference/web/webflux.html)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-ollama-mcp-webflux-server)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-ollama-mcp-webflux-server)
 
 ## 扩展阅读
 

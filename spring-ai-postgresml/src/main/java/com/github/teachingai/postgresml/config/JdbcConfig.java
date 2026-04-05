@@ -1,4 +1,4 @@
-package com.github.teachingai.postgresml.config;
+package com.github.partmeai.postgresml.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

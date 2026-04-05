@@ -417,8 +417,8 @@ Spring AI 的图片生成功能提供了简单易用的 API，支持基本的图
 
 ### 示例模块
 - **`spring-ai-stabilityai`** - 本仓库中的图片生成示例模块
-  - 主类：`com.github.teachingai.stabilityai.SpringAiStabilityAiApplication`
-  - 控制器：`com.github.teachingai.stabilityai.controller.ChatController`（历史遗留类名，实际为图像生成）
+  - 主类：`com.github.partmeai.stabilityai.SpringAiStabilityAiApplication`
+  - 控制器：`com.github.partmeai.stabilityai.controller.ChatController`（历史遗留类名，实际为图像生成）
   - 路径：`/v1/generate`（图像生成接口）
 
 ### 核心概念

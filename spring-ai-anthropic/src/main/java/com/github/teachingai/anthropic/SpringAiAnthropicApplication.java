@@ -1,4 +1,4 @@
-package com.github.teachingai.anthropic;
+package com.github.partmeai.anthropic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

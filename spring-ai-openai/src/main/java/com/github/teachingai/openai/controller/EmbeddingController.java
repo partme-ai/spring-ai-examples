@@ -1,4 +1,4 @@
-package com.github.teachingai.openai.controller;
+package com.github.partmeai.openai.controller;
 
 import org.springframework.ai.openai.OpenAiEmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

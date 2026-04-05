@@ -1,6 +1,6 @@
-package com.github.teachingai.ollama.router;
+package com.github.partmeai.ollama.router;
 
-import com.github.teachingai.ollama.service.IEmbeddingService;
+import com.github.partmeai.ollama.service.IEmbeddingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;

@@ -84,7 +84,7 @@ spring.ai.retry.on-client-errors=true
 使用 OpenAI 进行文本生成：
 
 ```java
-package com.github.teachingai.openai.controller;
+package com.github.partmeai.openai.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -163,7 +163,7 @@ public class ChatController {
 使用 DALL-E 模型进行图像生成：
 
 ```java
-package com.github.teachingai.openai.controller;
+package com.github.partmeai.openai.controller;
 
 import org.springframework.ai.image.*;
 import org.springframework.stereotype.Controller;
@@ -197,7 +197,7 @@ public class ImageGenController {
 图像生成请求类：
 
 ```java
-package com.github.teachingai.openai.controller;
+package com.github.partmeai.openai.controller;
 
 public class ImageGenRequest {
     private String prompt;
@@ -217,7 +217,7 @@ public class ImageGenRequest {
 使用 OpenAI 进行文本嵌入计算：
 
 ```java
-package com.github.teachingai.openai.controller;
+package com.github.partmeai.openai.controller;
 
 import org.springframework.ai.openai.OpenAiEmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -338,7 +338,7 @@ class OpenAiIntegrationTest {
 
 - [OpenAI 官方文档](https://platform.openai.com/docs/api-reference)
 - [Spring AI OpenAI 集成文档](https://docs.spring.io/spring-ai/reference/api/clients/openai.html)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-openai)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-openai)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

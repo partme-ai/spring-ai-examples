@@ -1,4 +1,4 @@
-package com.github.teachingai.amazon.bedrock;
+package com.github.partmeai.amazon.bedrock;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;

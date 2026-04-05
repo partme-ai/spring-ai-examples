@@ -1,4 +1,4 @@
-package com.github.teachingai.moonshotai.functions;
+package com.github.partmeai.moonshotai.functions;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;

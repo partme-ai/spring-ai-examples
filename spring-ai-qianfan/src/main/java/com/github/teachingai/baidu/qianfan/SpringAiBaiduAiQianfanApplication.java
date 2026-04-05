@@ -1,4 +1,4 @@
-package com.github.teachingai.baidu.qianfan;
+package com.github.partmeai.baidu.qianfan;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;

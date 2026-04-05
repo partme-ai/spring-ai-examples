@@ -1,4 +1,4 @@
-package com.github.teachingai.amazon.bedrock.router;
+package com.github.partmeai.amazon.bedrock.router;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;

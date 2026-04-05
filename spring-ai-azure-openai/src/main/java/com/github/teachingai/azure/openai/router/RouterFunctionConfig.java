@@ -1,4 +1,4 @@
-package com.github.teachingai.azure.openai.router;
+package com.github.partmeai.azure.openai.router;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;

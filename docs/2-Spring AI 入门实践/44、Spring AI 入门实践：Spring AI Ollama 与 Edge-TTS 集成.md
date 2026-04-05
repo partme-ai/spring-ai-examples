@@ -180,7 +180,7 @@ mvn spring-boot:run
 - [Edge-TTS 官方项目](https://github.com/rany2/edge-tts)
 - [Edge-TTS 声音列表](https://speech.microsoft.com/portal/voicegallery)
 - [Ollama 官方文档](https://ollama.com/docs)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-ollama-audio-edgetts)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-ollama-audio-edgetts)
 
 ## 扩展阅读
 

@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.config;
+package com.github.partmeai.ollama.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -18,8 +18,8 @@ public class SwaggerConfig {
                         .version("1.0.0")
                         .description("基于 PaddleOCR-VL 的 OCR 识别服务 API")
                         .contact(new Contact()
-                                .name("TeachingAI")
-                                .url("https://github.com/teachingai"))
+                                .name("PartMe.AI")
+                                .url("https://github.com/partme-ai"))
                         .license(new License()
                                 .name("Apache 2.0")
                                 .url("https://www.apache.org/licenses/LICENSE-2.0")));

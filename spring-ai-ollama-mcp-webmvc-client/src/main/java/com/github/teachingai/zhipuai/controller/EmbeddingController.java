@@ -1,4 +1,4 @@
-package com.github.teachingai.zhipuai.controller;
+package com.github.partmeai.zhipuai.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

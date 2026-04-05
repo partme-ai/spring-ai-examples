@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.request;
+package com.github.partmeai.ollama.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
