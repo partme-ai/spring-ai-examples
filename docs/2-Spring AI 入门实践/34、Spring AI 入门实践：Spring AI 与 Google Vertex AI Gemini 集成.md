@@ -1,10 +1,29 @@
-# 34、Spring AI 入门实践：Spring AI 与 Google Vertex AI Gemini 集成
+# Spring AI 入门实践：Spring AI 与 Google Vertex AI Gemini 集成
+
+> 基于 Spring AI 框架实现与 Google Vertex AI Gemini 的集成，提供多模态大语言模型、文本生成、图像理解、音频处理等功能，支持企业级多模态应用。
+
+---
 
 ## 一、项目概述
 
-Google Vertex AI 是 Google Cloud 提供的企业级 AI 平台，其中包含了 Gemini 系列多模态大语言模型。Spring AI 提供了对 Google Vertex AI Gemini API 的集成支持，使得开发者可以轻松地在 Spring 应用中使用 Gemini 系列模型进行文本生成和多模态对话。
+### 1.1 项目定位
 
-### 核心功能
+本项目是 Spring AI 框架下集成 Google Vertex AI Gemini 的示例，展示了如何在 Java/Spring Boot 应用中使用 Gemini 系列多模态模型。
+
+### 1.2 技术栈
+
+| 组件 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 3.5.6 | 基础框架 |
+| Spring AI | 1.1.4 | AI 能力集成 |
+| Google Vertex AI | - | Google Cloud AI 平台 |
+| spring-ai-starter-model-vertex-ai-gemini | - | Spring AI Vertex AI 集成 |
+
+### 1.3 代码地址
+**GitHub**：https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-vertex-ai-gemini
+**本地路径**：`spring-ai-vertex-ai-gemini/`
+
+### 1.4 核心功能
 
 - **Gemini 系列模型**：Gemini Pro、Gemini Ultra 等多种模型
 - **强大多模态能力**：支持文本、图像、音频等多模态交互
@@ -25,7 +44,11 @@ Google Vertex AI 是 Google Cloud 提供的企业级 AI 平台，其中包含了
 
 Google Vertex AI 是 Google Cloud 提供的企业级 AI 平台，包含 Gemini 系列多模态大语言模型。
 
-### 可用模型对比
+### 2.1 性能基准
+
+> ⚠️ 注：性能基准数据待补充。如需性能数据，请参考 [Google Vertex AI 官方文档](https://cloud.google.com/vertex-ai) 或 [Spring AI 官方文档](https://docs.spring.io/spring-ai/reference/)。
+
+### 2.2 可用模型对比
 
 | 模型 | 特点 | 适用场景 |
 |------|------|---------|
@@ -473,6 +496,42 @@ curl -X POST http://localhost:8080/api/chat \
 - Spring AI Vertex AI Gemini：参考官方文档
 - 示例模块：spring-ai-vertexai-gemini
 
-## 十四、致谢
+---
 
-感谢 Google Vertex AI 团队和 Spring AI 团队提供的优秀工具。
+## 十四、Java 客户端示例
+
+### 14.1 REST 客户端
+
+```java
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.Map;
+
+public class VertexAIClient {
+
+    private static final String BASE_URL = "http://localhost:8080/api/vertexai";
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String chat(String message) {
+        String url = BASE_URL + "/chat?message={message}";
+        return restTemplate.getForObject(url, String.class, message);
+    }
+
+    public Map<String, Object> chatCompletion(Map<String, Object> request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(request, headers);
+        return restTemplate.postForObject(BASE_URL + "/completions", entity, Map.class);
+    }
+}
+```
+
+---
+
+## 十五、致谢
+
+- **感谢 Google Vertex AI 团队** 提供强大的多模态 AI 平台
+- **感谢 Spring AI 团队** 提供 Vertex AI 集成框架
+- **感谢开源社区** 提供丰富的技术资源

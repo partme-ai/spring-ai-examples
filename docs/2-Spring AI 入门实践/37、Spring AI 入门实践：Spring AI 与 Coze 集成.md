@@ -1,10 +1,29 @@
-# 17、Spring AI 入门实践：Spring AI 与 Coze 集成
+# Spring AI 入门实践：Spring AI 与 Coze 集成
+
+> 基于 Spring AI 框架实现与 Coze（扣子）平台的集成，提供丰富的模型生态、工具集成、工作流编排、多渠道发布等功能，支持智能客服和企业助手应用。
+
+---
 
 ## 一、项目概述
 
-Coze（扣子）是字节跳动推出的 AI 对话平台，提供了丰富的大模型能力和工具生态。Spring AI 提供了对 Coze 平台的集成支持，使得开发者可以在 Spring 应用中轻松使用 Coze 的各种功能，包括文本生成、对话管理、工具集成等。
+### 1.1 项目定位
 
-### 核心功能
+本项目是 Spring AI 框架下集成 Coze 平台的示例，展示了如何在 Java/Spring Boot 应用中使用 Coze 的各种功能。
+
+### 1.2 技术栈
+
+| 组件 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 3.5.6 | 基础框架 |
+| Spring AI | 1.1.4 | AI 能力集成 |
+| Coze | - | 字节跳动 AI 对话平台 |
+| Coze API | - | Coze REST API |
+
+### 1.3 代码地址
+**GitHub**：https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-coze
+**本地路径**：`spring-ai-coze/`
+
+### 1.4 核心功能
 
 - **丰富的模型生态**：支持多种国内外大语言模型
 - **工具集成**：内置丰富的插件和工具生态
@@ -25,7 +44,11 @@ Coze（扣子）是字节跳动推出的 AI 对话平台，提供了丰富的大
 
 Coze 是一个一站式 AI Bot 开发平台，提供从 Bot 开发、调试到发布的完整解决方案。
 
-### 核心特性
+### 2.1 性能基准
+
+> ⚠️ 注：性能基准数据待补充。如需性能数据，请参考 [Coze 官方文档](https://www.coze.cn/docs) 或 [Spring AI 官方文档](https://docs.spring.io/spring-ai/reference/)。
+
+### 2.2 核心特性
 
 | 特性 | 说明 |
 |------|------|
@@ -572,6 +595,39 @@ curl -X POST http://localhost:8080/api/chat \
 - Coze 平台：https://www.coze.cn/
 - 示例模块：spring-ai-coze
 
-## 十四、致谢
+---
 
-感谢字节跳动 Coze 团队和 Spring AI 团队提供的优秀工具，让构建智能对话机器人变得如此简单易用。
+## 十四、Java 客户端示例
+
+### 14.1 REST 客户端
+
+```java
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.Map;
+
+public class CozeClient {
+
+    private static final String BASE_URL = "http://localhost:8080/api/coze";
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String chat(String botId, String message) {
+        String url = BASE_URL + "/chat?botId={botId}&message={message}";
+        return restTemplate.getForObject(url, String.class, botId, message);
+    }
+
+    public Map<String, Object> getBotStatus(String botId) {
+        return restTemplate.getForObject(BASE_URL + "/bot/{botId}/status", Map.class, botId);
+    }
+}
+```
+
+---
+
+## 十五、致谢
+
+- **感谢字节跳动 Coze 团队** 提供强大的 AI 对话平台
+- **感谢 Spring AI 团队** 提供 Coze 集成框架
+- **感谢开源社区** 提供丰富的技术资源

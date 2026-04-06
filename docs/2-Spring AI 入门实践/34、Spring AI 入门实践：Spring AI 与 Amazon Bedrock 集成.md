@@ -1,10 +1,29 @@
-# 14、Spring AI 入门实践：Spring AI 与 Amazon Bedrock 集成
+# Spring AI 入门实践：Spring AI 与 Amazon Bedrock 集成
+
+> 基于 Spring AI 框架实现与 Amazon Bedrock 的集成，提供多模型支持（Claude、Llama、Titan等）、文本生成、嵌入计算、工具调用等功能，支持企业级 AI 应用开发。
+
+---
 
 ## 一、项目概述
 
-Amazon Bedrock 是 AWS 提供的一项完全托管的服务，用于构建和扩展生成式 AI 应用。它提供了来自领先 AI 公司（如 Anthropic、Cohere、Meta、Stability AI 和 Amazon）的多种高性能基础模型选择。Spring AI 提供了对 Amazon Bedrock 的完整集成支持，使得开发者可以轻松地在 Spring 应用中使用 Bedrock 提供的各种模型。
+### 1.1 项目定位
 
-### 核心功能
+本项目是 Spring AI 框架下集成 Amazon Bedrock 的示例，展示了如何在 Java/Spring Boot 应用中使用 AWS Bedrock 提供的各种高性能基础模型。
+
+### 1.2 技术栈
+
+| 组件 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 3.5.6 | 基础框架 |
+| Spring AI | 1.1.4 | AI 能力集成 |
+| Amazon Bedrock | - | AWS 托管 AI 服务 |
+| AWS SDK | 2.x | AWS 集成 SDK |
+
+### 1.3 代码地址
+**GitHub**：https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-bedrock
+**本地路径**：`spring-ai-bedrock/`
+
+### 1.4 核心功能
 
 - **多模型支持**：Anthropic Claude、Cohere Command、Amazon Titan、Meta Llama 等多种模型
 - **文本生成**：强大的对话和内容生成能力
@@ -26,7 +45,11 @@ Amazon Bedrock 是 AWS 提供的一项完全托管的服务，用于构建和扩
 
 Amazon Bedrock 提供了一个统一的 API 来访问来自多个提供商的最新基础模型，让开发者可以灵活选择最适合其用例的模型。
 
-### 可用模型对比
+### 2.1 性能基准
+
+> ⚠️ 注：性能基准数据待补充。如需性能数据，请参考 [Amazon Bedrock 官方文档](https://docs.aws.amazon.com/bedrock/) 或 [Spring AI 官方文档](https://docs.spring.io/spring-ai/reference/)。
+
+### 2.2 可用模型对比
 
 | 模型提供商 | 模型名称 | 特点 | 适用场景 |
 |-----------|---------|------|---------|
@@ -898,6 +921,42 @@ curl -X POST http://localhost:8080/api/chat \
 - AWS SDK for Java：https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html
 - 示例模块：spring-ai-amazon-bedrock
 
-## 十四、致谢
+---
 
-感谢 AWS 团队和 Spring AI 团队提供的优秀工具，让企业级生成式 AI 应用开发变得如此简单易用。
+## 十四、Java 客户端示例
+
+### 14.1 REST 客户端
+
+```java
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.Map;
+
+public class BedrockClient {
+
+    private static final String BASE_URL = "http://localhost:8080/api/bedrock";
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String chat(String message, String model) {
+        String url = BASE_URL + "/chat?message={message}&model={model}";
+        return restTemplate.getForObject(url, String.class, message, model);
+    }
+
+    public Map<String, Object> chatCompletion(Map<String, Object> request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(request, headers);
+        return restTemplate.postForObject(BASE_URL + "/completions", entity, Map.class);
+    }
+}
+```
+
+---
+
+## 十五、致谢
+
+- **感谢 AWS 团队** 提供强大的企业级 AI 服务平台
+- **感谢 Spring AI 团队** 提供 AWS Bedrock 集成框架
+- **感谢开源社区** 提供丰富的技术资源

@@ -1,10 +1,47 @@
 # Spring AI 入门实践：Spring AI 与 Oracle Cloud + Cohere 集成
 
-## 概述
+> 基于 Spring AI 框架实现与 Oracle Cloud Infrastructure (OCI) Generative AI + Cohere 的集成，提供企业级 AI 服务、文本生成、嵌入计算等功能，支持 Oracle 云生态集成。
 
-Oracle Cloud Infrastructure (OCI) Generative AI 服务结合了 Cohere 的大语言模型，提供了强大的文本生成和嵌入能力。Spring AI 提供了对 OCI Gen AI + Cohere API 的集成支持，使得开发者可以轻松地在 Spring 应用中使用这些模型。
+---
 
-## 准备工作
+## 一、项目概述
+
+### 1.1 项目定位
+
+本项目是 Spring AI 框架下集成 Oracle Cloud + Cohere 的示例，展示了如何在 Java/Spring Boot 应用中使用 OCI Gen AI 结合 Cohere 模型。
+
+### 1.2 技术栈
+
+| 组件 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 3.5.6 | 基础框架 |
+| Spring AI | 1.1.4 | AI 能力集成 |
+| Oracle Cloud | - | OCI 云平台 |
+| Cohere | - | Cohere 大语言模型 |
+| spring-ai-starter-model-oci-genai | - | Spring AI OCI 集成 |
+
+### 1.3 代码地址
+**GitHub**：https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-oci-genai
+**本地路径**：`spring-ai-oci-genai/`
+
+### 1.4 核心功能
+
+- ✅ 企业级服务：Oracle Cloud 企业级服务
+- ✅ Cohere 模型：Command、Embed 等模型
+- ✅ 云原生集成：与 OCI 生态深度集成
+- ✅ 高可用性：支持高可用部署
+- ✅ 安全保障：企业级安全保障
+- ✅ 灵活部署：支持多种部署方式
+
+---
+
+## 二、Oracle Cloud + Cohere 简介
+
+### 2.1 性能基准
+
+> ⚠️ 注：性能基准数据待补充。如需性能数据，请参考 [Oracle Cloud 官方文档](https://www.oracle.com/cloud/) 或 [Cohere 官方文档](https://docs.cohere.com/)。
+
+## 三、环境准备
 
 ### 1. Oracle Cloud 账号配置
 
@@ -114,6 +151,56 @@ mvn spring-boot:run
 - [Cohere 模型介绍](https://cohere.com/)
 - [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-oci-genai-cohere)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
+
+---
+
+## 四、Java 客户端示例
+
+### 4.1 REST 客户端
+
+```java
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.Map;
+
+public class OCIGenAIClient {
+
+    private static final String BASE_URL = "http://localhost:8080/api/oci";
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String chat(String message) {
+        String url = BASE_URL + "/chat?message={message}";
+        return restTemplate.getForObject(url, String.class, message);
+    }
+
+    public Map<String, Object> chatCompletion(Map<String, Object> request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(request, headers);
+        return restTemplate.postForObject(BASE_URL + "/completions", entity, Map.class);
+    }
+}
+```
+
+---
+
+## 五、许可证
+
+- **Oracle Cloud**：商业许可
+- **Cohere**：商业许可
+- **Spring AI**：Apache 2.0
+- **本项目**：Apache 2.0
+
+---
+
+## 六、致谢
+
+- **感谢 Oracle 团队** 提供企业级云服务平台
+- **感谢 Cohere 团队** 提供强大的大语言模型
+- **感谢 Spring AI 团队** 提供 OCI 集成框架
+- **感谢开源社区** 提供丰富的技术资源
 
 ## 扩展阅读
 

@@ -1,28 +1,33 @@
-# 38、Spring AI 入门实践：Spring AI 与 LLMs Free API 集成
+# Spring AI 入门实践：Spring AI 与 LLMs Free API 集成
 
-## 一、项目概述
-
-LLMs Free API 是由 LLM Red Team 开源组织开发的免费 API 聚合服务，提供了对多个大模型平台的免费访问接口。Spring AI 提供了对 LLMs Free API 的集成支持，使得开发者可以免费使用 Kimi、通义千问、智谱清言、阶跃星辰等模型。
-
-### 核心功能
-
-- **多平台聚合**：支持 Kimi、通义千问、智谱清言、阶跃星辰等多种模型
-- **免费访问**：提供免费的 API 访问接口
-- **开源组织**：LLM Red Team 开源组织维护
-- **统一 API**：Spring AI 提供的统一抽象接口
-
-### 适用场景
-
-- 学习和研究用途
-- 快速原型开发
-- 个人项目实验
-- 教育和培训
+> 基于 Spring AI 框架实现与 LLMs Free API 的集成，提供多平台聚合服务、免费访问接口，支持 Kimi、通义千问、智谱清言、阶跃星辰等模型。
 
 ### ⚠️ 重要声明
 
-- **仅限学习研究，禁止对外提供服务或商用，避免对官方造成服务压力，否则风险自担！**
-- **仅限学习研究，禁止对外提供服务或商用，避免对官方造成服务压力，否则风险自担！**
-- **仅限学习研究，禁止对外提供服务或商用，避免对官方造成服务压力，否则风险自担！**
+**仅限学习研究，禁止对外提供服务或商用，避免对官方造成服务压力，否则风险自担！**
+
+---
+
+## 一、项目概述
+
+### 1.1 项目定位
+
+本项目是 Spring AI 框架下集成 LLMs Free API 的示例，展示了如何在 Java/Spring Boot 应用中免费使用多个大模型平台。
+
+### 1.2 技术栈
+
+| 组件 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 3.5.6 | 基础框架 |
+| Spring AI | 1.1.4 | AI 能力集成 |
+| LLMs Free API | - | 免费API聚合服务 |
+| llms-free-api | - | Node.js API 服务 |
+
+### 1.3 代码地址
+**GitHub**：https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-llms-free-api
+**本地路径**：`spring-ai-llms-free-api/`
+
+### 1.4 核心功能
 
 ## 二、LLMs Free API 简介
 
@@ -476,6 +481,48 @@ curl -X POST http://localhost:8080/api/chat \
 - spring-ai-starter-model-openai：https://github.com/hiwepy/spring-ai-starter-model-openai
 - 示例模块：spring-ai-llmsfreeapi
 
-## 十四、致谢
+---
 
-感谢 LLM Red Team 组织和 Spring AI 团队提供的优秀工具。
+## 十四、Java 客户端示例
+
+### 14.1 REST 客户端
+
+```java
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.Map;
+
+public class LLMsFreeClient {
+
+    private static final String BASE_URL = "http://localhost:8080/api/llmsfree";
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String chat(String platform, String message) {
+        String url = BASE_URL + "/chat?platform={platform}&message={message}";
+        return restTemplate.getForObject(url, String.class, platform, message);
+    }
+
+    public Map<String, Object> chatCompletion(String platform, Map<String, Object> request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(request, headers);
+        return restTemplate.postForObject(BASE_URL + "/{platform}/completions", entity, Map.class, platform);
+    }
+}
+```
+
+---
+
+## 十五、致谢
+
+- **感谢 LLM Red Team 组织** 提供免费的 API 聚合服务
+- **感谢 Spring AI 团队** 提供集成框架支持
+- **感谢开源社区** 提供丰富的技术资源
+
+---
+
+## ⚠️ 免责声明
+
+本项目仅用于学习和研究目的。禁止对外提供服务或商业用途，避免对官方服务造成压力。使用本服务所产生的任何后果，由使用者自行承担。

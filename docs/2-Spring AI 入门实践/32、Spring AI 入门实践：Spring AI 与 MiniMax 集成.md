@@ -1,10 +1,29 @@
-# 32、Spring AI 入门实践：Spring AI 与 MiniMax 集成
+# Spring AI 入门实践：Spring AI 与 MiniMax 集成
+
+> 基于 Spring AI 框架实现与 MiniMax 的集成，提供强大的中文大语言模型、文本生成、对话交互、工具调用等功能，支持中文智能客服和内容创作。
+
+---
 
 ## 一、项目概述
 
-MiniMax 是中国的人工智能公司，提供了强大的大语言模型。Spring AI 提供了对 MiniMax API 的集成支持，使得开发者可以轻松地在 Spring 应用中使用 MiniMax 系列模型进行文本生成和对话。
+### 1.1 项目定位
 
-### 核心功能
+本项目是 Spring AI 框架下集成 MiniMax 的示例，展示了如何在 Java/Spring Boot 应用中使用 MiniMax 系列模型进行文本生成和对话。
+
+### 1.2 技术栈
+
+| 组件 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 3.5.6 | 基础框架 |
+| Spring AI | 1.1.4 | AI 能力集成 |
+| MiniMax API | - | MiniMax 大语言模型 |
+| spring-ai-autoconfigure-model-minimax | - | Spring AI MiniMax 集成 |
+
+### 1.3 代码地址
+**GitHub**：https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-minimax
+**本地路径**：`spring-ai-minimax/`
+
+### 1.4 核心功能
 
 - **MiniMax 系列模型**：提供强大的大语言模型
 - **强大中文能力**：在中文理解和生成方面表现出色
@@ -24,7 +43,11 @@ MiniMax 是中国的人工智能公司，提供了强大的大语言模型。Spr
 
 MiniMax 是中国的人工智能公司，提供强大的大语言模型。
 
-### 核心特性
+### 2.1 性能基准
+
+> ⚠️ 注：性能基准数据待补充。如需性能数据，请参考 [MiniMax 官方文档](https://platform.minimaxi.com/document) 或 [Spring AI 官方文档](https://docs.spring.io/spring-ai/reference/)。
+
+### 2.2 核心特性
 
 | 特性 | 说明 |
 |------|------|
@@ -438,6 +461,42 @@ curl -X POST http://localhost:8080/api/chat \
 - Spring AI MiniMax：参考官方文档
 - 示例模块：spring-ai-minimax
 
-## 十四、致谢
+---
 
-感谢 MiniMax 团队和 Spring AI 团队提供的优秀工具。
+## 十四、Java 客户端示例
+
+### 14.1 REST 客户端
+
+```java
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.Map;
+
+public class MiniMaxClient {
+
+    private static final String BASE_URL = "http://localhost:8080/api/minimax";
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String chat(String message) {
+        String url = BASE_URL + "/chat?message={message}";
+        return restTemplate.getForObject(url, String.class, message);
+    }
+
+    public Map<String, Object> chatCompletion(Map<String, Object> request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(request, headers);
+        return restTemplate.postForObject(BASE_URL + "/completions", entity, Map.class);
+    }
+}
+```
+
+---
+
+## 十五、致谢
+
+- **感谢 MiniMax 团队** 提供强大的中文大语言模型
+- **感谢 Spring AI 团队** 提供 MiniMax 集成框架
+- **感谢开源社区** 提供丰富的技术资源

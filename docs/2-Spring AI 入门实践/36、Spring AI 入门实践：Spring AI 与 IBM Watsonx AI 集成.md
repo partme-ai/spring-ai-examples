@@ -1,10 +1,46 @@
 # Spring AI 入门实践：Spring AI 与 IBM Watsonx AI 集成
 
-## 概述
+> 基于 Spring AI 框架实现与 IBM Watsonx AI 的集成，提供企业级 AI 平台、多种大语言模型、文本生成、对话交互等功能，支持企业级 AI 应用开发。
 
-IBM Watsonx AI 是 IBM 提供的企业级人工智能平台，提供了多种大语言模型。Spring AI 提供了对 IBM Watsonx AI API 的集成支持，使得开发者可以轻松地在 Spring 应用中使用 Watsonx 模型进行文本生成和对话。
+---
 
-## 准备工作
+## 一、项目概述
+
+### 1.1 项目定位
+
+本项目是 Spring AI 框架下集成 IBM Watsonx AI 的示例，展示了如何在 Java/Spring Boot 应用中使用 Watsonx 模型进行文本生成和对话。
+
+### 1.2 技术栈
+
+| 组件 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 3.5.6 | 基础框架 |
+| Spring AI | 1.1.4 | AI 能力集成 |
+| IBM Watsonx AI | - | IBM 企业级 AI 平台 |
+| spring-ai-starter-model-watsonx-ai | - | Spring AI Watsonx 集成 |
+
+### 1.3 代码地址
+**GitHub**：https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-watsonx
+**本地路径**：`spring-ai-watsonx/`
+
+### 1.4 核心功能
+
+- ✅ 企业级平台：IBM Cloud 稳定可靠的服务
+- ✅ 多模型支持：Granite 系列等多种模型
+- ✅ 企业安全：企业级安全保障
+- ✅ 可定制性：支持模型微调和定制
+- ✅ 多语言支持：支持多种语言
+- ✅ 工具集成：与企业工具链集成
+
+---
+
+## 二、IBM Watsonx AI 简介
+
+### 2.1 性能基准
+
+> ⚠️ 注：性能基准数据待补充。如需性能数据，请参考 [IBM Watsonx 官方文档](https://www.ibm.com/products/watsonx-ai) 或 [Spring AI 官方文档](https://docs.spring.io/spring-ai/reference/)。
+
+## 三、环境准备
 
 ### 1. IBM Cloud 账号配置
 
@@ -113,6 +149,54 @@ mvn spring-boot:run
 - [Granite 模型介绍](https://www.ibm.com/products/watsonx-ai)
 - [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-watsonxai)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
+
+---
+
+## 四、Java 客户端示例
+
+### 4.1 REST 客户端
+
+```java
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.Map;
+
+public class WatsonxClient {
+
+    private static final String BASE_URL = "http://localhost:8080/api/watsonx";
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String chat(String message) {
+        String url = BASE_URL + "/chat?message={message}";
+        return restTemplate.getForObject(url, String.class, message);
+    }
+
+    public Map<String, Object> chatCompletion(Map<String, Object> request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(request, headers);
+        return restTemplate.postForObject(BASE_URL + "/completions", entity, Map.class);
+    }
+}
+```
+
+---
+
+## 五、许可证
+
+- **IBM Watsonx AI**：商业许可
+- **Spring AI**：Apache 2.0
+- **本项目**：Apache 2.0
+
+---
+
+## 六、致谢
+
+- **感谢 IBM 团队** 提供企业级 AI 平台
+- **感谢 Spring AI 团队** 提供 Watsonx 集成框架
+- **感谢开源社区** 提供丰富的技术资源
 
 ## 扩展阅读
 

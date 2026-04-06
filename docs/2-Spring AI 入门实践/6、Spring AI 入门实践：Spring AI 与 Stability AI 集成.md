@@ -1,10 +1,16 @@
-# 6、Spring AI 入门实践：Spring AI 图片生成（Image Generation API）
+# 6、Spring AI 入门实践：Spring AI 与 Stability AI 集成
 
 ## 一、项目概述
 
 图片生成功能允许开发者通过文本描述来生成高质量的图像。Spring AI 提供了统一的图片生成接口，支持多种图像生成模型。本文将介绍如何使用 Spring AI 集成 Stability AI 进行图片生成，包括简单生成、自定义选项、批量生成等功能。
 
-### 核心功能
+### 1.1 代码地址
+
+**GitHub**：https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-stabilityai
+
+**本地路径**：`spring-ai-stabilityai/`
+
+### 1.2 核心功能
 
 - **文本到图像**：通过描述生成图像
 - **自定义选项**：配置尺寸、质量、风格等
@@ -13,19 +19,17 @@
 - **图像变体**：生成现有图片的变体
 - **异步处理**：支持异步生成任务
 
-### 适用场景
+### 1.3 应用案例
 
-- 内容创作与设计
-- 原型快速生成
-- 教育培训材料制作
-- 创意广告设计
-- 游戏美术素材生成
+- **产品原型设计**：快速生成 UI 概念图，帮助产品经理和设计师快速验证想法，缩短设计迭代周期
+- **营销素材制作**：自动化生成广告 banner、社交媒体配图、宣传册插图等，降低设计成本
+- **游戏美术资产**：批量生成角色设计、场景概念图、道具图标等游戏资源，提升美术生产效率
 
 ## 二、图片生成简介
 
 图片生成技术通过深度学习模型将文本描述转换为视觉图像。Spring AI 提供了统一的抽象层，使得切换不同的图像生成提供商变得简单。
 
-### 常用图像生成模型
+### 2.1 常用图像生成模型
 
 | 模型 | 提供商 | 特点 |
 |------|--------|------|
@@ -34,7 +38,7 @@
 | Midjourney | Midjourney | 艺术风格强 |
 | Imagen | Google | 真实感强 |
 
-### 核心概念
+### 2.2 核心概念
 
 | 概念 | 说明 |
 |------|------|
@@ -43,7 +47,7 @@
 | ImageResponse | 包含生成结果和元数据 |
 | ImageOptions | 配置生成参数（尺寸、质量等） |
 
-## 三、环境准备          
+## 三、环境准备
 
 ### 3.1 开发环境
 
@@ -94,43 +98,43 @@ spring-ai-stabilityai/
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.6</version>
     </parent>
-    
+
     <groupId>com.github.partmeai</groupId>
     <artifactId>spring-ai-stabilityai</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    
+
     <properties>
         <java.version>17</java.version>
         <spring-ai.version>1.1.4</spring-ai.version>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-stability-ai</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -151,7 +155,7 @@ spring-ai-stabilityai/
 spring:
   application:
     name: spring-ai-stabilityai
-  
+
   ai:
     stabilityai:
       api-key: ${STABILITYAI_API_KEY:your-api-key}
@@ -205,42 +209,42 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/v1")
 public class ChatController {
-    
+
     private final StabilityAiImageModel imageModel;
-    
+
     public ChatController(StabilityAiImageModel imageModel) {
         this.imageModel = imageModel;
     }
-    
+
     @GetMapping("/generate")
     public Map<String, Object> generate(@RequestParam String message) {
         ImagePrompt imagePrompt = new ImagePrompt(message);
         ImageResponse response = imageModel.call(imagePrompt);
         Image image = response.getResult().getOutput();
-        
+
         return Map.of(
             "url", image.getUrl(),
             "revisedPrompt", image.getRevisedPrompt()
         );
     }
-    
+
     @PostMapping("/generate")
     public Map<String, Object> generateWithOptions(@RequestBody Map<String, Object> request) {
         String prompt = (String) request.get("prompt");
         Integer width = (Integer) request.getOrDefault("width", 1024);
         Integer height = (Integer) request.getOrDefault("height", 1024);
         Integer n = (Integer) request.getOrDefault("n", 1);
-        
+
         StabilityAiImageOptions options = StabilityAiImageOptions.builder()
                 .withModel("stable-diffusion-xl")
                 .withWidth(width)
                 .withHeight(height)
                 .withN(Math.min(n, 4))
                 .build();
-        
+
         ImagePrompt imagePrompt = new ImagePrompt(prompt, options);
         ImageResponse response = imageModel.call(imagePrompt);
-        
+
         List<Map<String, Object>> results = response.getResults().stream()
                 .map(result -> {
                     Image image = result.getOutput();
@@ -250,7 +254,7 @@ public class ChatController {
                     );
                 })
                 .collect(Collectors.toList());
-        
+
         return Map.of(
             "count", results.size(),
             "images", results
@@ -340,7 +344,7 @@ import urllib.parse
 class ImageGenerationClient:
     def __init__(self, base_url="http://localhost:8080"):
         self.base_url = base_url
-    
+
     def generate(self, prompt):
         encoded_prompt = urllib.parse.quote(prompt)
         response = requests.get(
@@ -348,7 +352,7 @@ class ImageGenerationClient:
             params={"message": encoded_prompt}
         )
         return response.json()
-    
+
     def generate_with_options(self, prompt, width=1024, height=1024, n=1):
         data = {
             "prompt": prompt,
@@ -378,7 +382,73 @@ result = client.generate_with_options(
 print(f"生成了 {result['count']} 张图片")
 ```
 
-### 9.2 最佳实践
+### 9.2 Java 客户端
+
+```java
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ImageGenerationClient {
+    private final RestTemplate restTemplate;
+    private final String baseUrl;
+
+    public ImageGenerationClient(String baseUrl) {
+        this.baseUrl = baseUrl;
+        this.restTemplate = new RestTemplate();
+    }
+
+    public Map<String, Object> generate(String prompt) {
+        String url = baseUrl + "/v1/generate?message=" + encode(prompt);
+        return restTemplate.getForObject(url, Map.class);
+    }
+
+    public Map<String, Object> generateWithOptions(String prompt, int width, int height, int n) {
+        String url = baseUrl + "/v1/generate";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("prompt", prompt);
+        requestBody.put("width", width);
+        requestBody.put("height", height);
+        requestBody.put("n", n);
+
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+        ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+
+        return response.getBody();
+    }
+
+    private String encode(String value) {
+        try {
+            return java.net.URLEncoder.encode(value, "UTF-8");
+        } catch (Exception e) {
+            throw new RuntimeException("编码失败", e);
+        }
+    }
+
+    public static void main(String[] args) {
+        ImageGenerationClient client = new ImageGenerationClient("http://localhost:8080");
+
+        // 简单生成
+        Map<String, Object> result = client.generate("一只可爱的猫咪");
+        System.out.println("图片 URL: " + result.get("url"));
+
+        // 自定义选项
+        result = client.generateWithOptions("美丽的山水风景", 1024, 768, 2);
+        System.out.println("生成了 " + result.get("count") + " 张图片");
+    }
+}
+```
+
+### 9.3 最佳实践
 
 1. **提示词设计**：描述越具体，生成效果越好
 2. **尺寸选择**：根据用途选择合适的宽高比
@@ -443,16 +513,32 @@ curl -G "http://localhost:8080/v1/generate" \
 - 缓存常用生成结果
 - 使用本地模型替代云服务
 
-## 十二、许可证
+## 十二、性能基准
+
+**待补充**：Stability AI 官方暂未提供公开的性能基准数据。
+
+如需了解模型性能信息，请访问：
+- Stability AI 官方文档：https://platform.stability.ai/docs
+- Stable Diffusion 基准测试：https://platform.stability.ai/docs/benchmarking
+
+## 十三、许可证
 
 本项目采用 Apache License 2.0 许可证。
 
-## 十三、参考资源
+## 十四、参考资源
 
 - Spring AI Image Client：https://docs.spring.io/spring-ai/reference/api/imageclient.html
 - Stability AI 文档：https://platform.stability.ai/docs
+- Stable Diffusion 模型：https://stability.ai/
 - 示例模块：spring-ai-stabilityai
 
-## 十四、致谢
+## 十五、致谢
 
-感谢 Stability AI 和 Spring AI 团队提供的优秀工具，让图片生成变得如此简单易用。
+感谢以下组织和项目：
+
+- **Stability AI**：提供 Stable Diffusion 等先进的开源图像生成模型，推动 AI 图像生成技术的民主化
+- **Spring AI 团队**：构建了简洁易用的 Spring AI 框架，为 Java 开发者集成 AI 能力提供了优秀的抽象层
+- **Spring Boot 团队**：打造了强大的 Java 应用开发框架，为微服务开发提供了坚实基础
+- **开源社区**：所有为 Spring AI 和 Stable Diffusion 生态贡献代码的开发者和研究者
+
+正是这些优秀的工具和社区贡献，让图片生成技术在 Java 应用中变得如此简单易用。

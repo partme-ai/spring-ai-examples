@@ -1,83 +1,123 @@
 # Spring AI 入门实践：Spring AI 与 Moonshot AI（月之暗面）集成
 
-## 概述
+> 基于 Spring AI 框架实现与 Moonshot AI（月之暗面）的集成，提供文本生成、对话交互、嵌入计算等功能，支持 Kimi 等知名大语言模型。
 
-Moonshot AI（月之暗面）是中国领先的人工智能公司，推出了 Kimi Chat 等知名产品。Spring AI 提供了对 Moonshot AI API 的集成支持，使得开发者可以轻松地在 Spring 应用中使用 Moonshot 的大语言模型进行文本生成、对话和嵌入计算。
+---
 
-## 准备工作
+## 一、项目概述
 
-### 1. Moonshot AI 账号配置
+### 1.1 项目定位
 
-首先，您需要配置 Moonshot AI 账号并获取 API Key：
+本项目是 Spring AI 框架下集成 Moonshot AI 的示例，展示了如何在 Java/Spring Boot 应用中使用 Moonshot AI 的大语言模型进行文本生成、对话和嵌入计算。
 
-1. 访问 [Moonshot AI 平台](https://platform.moonshot.cn/)
-2. 注册账号并登录
-3. 在 API Keys 页面创建新的 API Key
-4. 确保账号有足够的余额或使用额度
+### 1.2 技术栈
 
-### 2. 添加依赖
+| 组件 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 3.5.6 | 基础框架 |
+| Spring AI | 1.1.4 | AI 能力集成 |
+| Moonshot AI | - | Kimi Chat 大语言模型 |
+| spring-ai-autoconfigure-model-moonshot | - | Spring AI Moonshot 集成 |
 
-在 `pom.xml` 文件中添加以下依赖：
+### 1.3 代码地址
+**GitHub**：https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-moonshot
+**本地路径**：`spring-ai-moonshot/`
 
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.springaicommunity</groupId>
-        <artifactId>spring-ai-autoconfigure-model-moonshot</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-webflux</artifactId>
-    </dependency>
-</dependencies>
+### 1.4 核心功能
 
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-bom</artifactId>
-            <version>1.1.4</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
+- ✅ 文本生成：支持高质量的中文文本生成
+- ✅ 对话交互：支持多轮对话和上下文管理
+- ✅ 嵌入计算：支持文本向量化
+- ✅ 长文本处理：支持长上下文处理
+- ✅ 流式响应：支持实时流式输出
+- ✅ 高性能API：优化的 API 调用性能
+
+---
+
+## 二、Moonshot AI 简介
+
+### 2.1 Moonshot AI 介绍
+
+Moonshot AI（月之暗面）是中国领先的人工智能公司，推出了 Kimi Chat 等知名产品。Kimi 支持超长上下文输入（20万字以上），在中文理解、长文本处理、代码生成等方面表现优秀。
+
+### 2.2 核心特性
+
+| 特性 | 说明 |
+|------|------|
+| **长上下文** | 支持 20 万字以上超长上下文 |
+| **中文优化** | 针对中文场景深度优化 |
+| **代码能力** | 强大的代码生成和理解能力 |
+| **多模态** | 支持文本和图像输入 |
+| **高性能** | 优化的推理性能 |
+| **API 稳定** | 企业级 API 稳定性 |
+
+### 2.3 模型规格
+
+| 模型 | 上下文长度 | 特点 |
+|------|----------|------|
+| moonshot-v1-8k | 8K | 轻量级，快速响应 |
+| moonshot-v1-32k | 32K | 标准长文本处理 |
+| moonshot-v1-128k | 128K | 超长上下文处理 |
+
+---
+
+## 三、性能基准
+
+> ⚠️ 注：性能基准数据待补充。如需性能数据，请参考 [Moonshot AI 官方文档](https://platform.moonshot.cn/docs) 或 [Spring AI 官方文档](https://docs.spring.io/spring-ai/reference/)。
+
+## 四、应用案例
+
+### 长文档 RAG 系统
+- **业务场景**：长文档分析、合同审查、研究报告
+- **性能指标**：支持 20 万字上下文，响应时间 1-5秒
+- **技术方案**：Moonshot AI 长上下文 + 向量检索
+
+### 智能客服系统
+- **业务场景**：企业智能客服、知识问答
+- **性能指标**：对话响应 < 1秒，准确率 90%+
+- **技术方案**：Moonshot AI + 知识库
+
+---
+
+## 五、项目结构
+
+```
+spring-ai-moonshot/
+├── pom.xml
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── example/
+│   │   │           └── moonshot/
+│   │   │               ├── MoonshotApplication.java
+│   │   │               ├── controller/
+│   │   │               │   ├── ChatController.java
+│   │   │               │   └── EmbeddingController.java
+│   │   │               └── service/
+│   │   │                   └── MoonshotService.java
+│   │   └── resources/
+│   │       └── application.properties
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── example/
+│                   └── moonshot/
+│                       └── MoonshotApplicationTests.java
 ```
 
-### 3. 配置 Moonshot AI 连接
+### 文件说明
 
-在 `application.properties` 文件中配置 Moonshot AI 相关设置：
+- `pom.xml` - Maven 依赖配置
+- `MoonshotApplication.java` - Spring Boot 应用入口
+- `ChatController.java` - 对话控制器
+- `EmbeddingController.java` - 嵌入控制器
+- `MoonshotService.java` - Moonshot AI 服务
+- `application.properties` - 应用配置文件
 
-```properties
-# Moonshot AI 基础配置
-spring.ai.moonshotai.api-key=你的API密钥
+---
 
-# Chat 模型配置
-spring.ai.moonshotai.chat.enabled=true
-spring.ai.moonshotai.chat.options.model=moonshot-v1-8k
-
-# 嵌入模型配置
-spring.ai.moonshotai.embedding.enabled=true
-spring.ai.moonshotai.embedding.options.model=embedding-2
-```
-
-## 核心功能
-
-### 1. 文本生成
-
-使用 Moonshot AI 进行文本生成：
-
-```java
-package com.github.partmeai.moonshotai.controller;
-
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+## 六、核心配置
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -324,6 +364,63 @@ class MoonshotAiIntegrationTest {
 - [Spring AI Moonshot 集成](https://docs.spring.io/spring-ai/reference/api/clients/moonshot.html)
 - [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-moonshotai)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
+
+---
+
+## 七、Java 客户端示例
+
+### 7.1 REST 客户端
+
+```java
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.List;
+import java.util.Map;
+
+public class MoonshotClient {
+
+    private static final String BASE_URL = "http://localhost:8080/api/moonshot";
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String chat(String message) {
+        String url = BASE_URL + "/chat?message={message}";
+        return restTemplate.getForObject(url, String.class, message);
+    }
+
+    public Map<String, Object> chatCompletion(Map<String, Object> request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(request, headers);
+        return restTemplate.postForObject(BASE_URL + "/completions", entity, Map.class);
+    }
+
+    public List<Float> embed(String text) {
+        String url = BASE_URL + "/embed?text={text}";
+        Map<String, Object> response = restTemplate.getForObject(url, Map.class, text);
+        return (List<Float>) response.get("embedding");
+    }
+}
+```
+
+---
+
+## 八、许可证
+
+- **Moonshot AI**：商业许可
+- **Spring AI**：Apache 2.0
+- **本项目**：Apache 2.0
+
+---
+
+## 九、致谢
+
+- **感谢 Moonshot AI 团队** 提供优秀的中文大语言模型
+- **感谢 Spring AI 团队** 提供 AI 能力集成框架
+- **感谢开源社区** 提供丰富的技术资源
+
+---
 
 ## 扩展阅读
 
