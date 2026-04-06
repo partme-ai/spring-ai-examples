@@ -1573,7 +1573,7 @@ ollama list
 
 **Q2: 提示 "No qualifying bean of type 'ChatModel'"？**
 
-- 确认已添加 `spring-ai-ollama-spring-boot-starter` 依赖
+- 确认已添加 `spring-ai-starter-model-ollama` 依赖
 - 检查 `spring.ai.ollama.chat.enabled` 是否为 true（默认为 true）
 - 查看启动日志中的自动配置信息
 

@@ -67,12 +67,24 @@ curl -fsSL https://ollama.com/install.sh | sh
 # 2. 启动 Ollama 服务
 ollama serve
 
-# 3. 拉取模型（推荐使用 gemma3:4b 或 llama3.1:8b）
-ollama pull gemma3:4b
+# 3. 拉取模型（推荐使用 qwen3.5 或 deepseek-r1）
+ollama pull qwen3.5
+ollama pull deepseek-r1
+ollama pull llama3.1
+ollama pull mistral
 
 # 4. 验证模型
 ollama list
 ```
+
+### 3.3 推荐模型对比
+
+| 模型 | 特点 | 适用场景 |
+|------|------|---------|
+| Qwen3.5 | 阿里巴巴最新，中文支持好 | 中文文本生成 |
+| DeepSeek-R1 | 数学和推理能力强 | 复杂推理任务 |
+| Llama3.1 | Meta 最新开源，通用 | 通用文本生成 |
+| Mistral | 高效轻量，响应快 | 快速响应场景 |
 
 ## 四、项目结构
 
