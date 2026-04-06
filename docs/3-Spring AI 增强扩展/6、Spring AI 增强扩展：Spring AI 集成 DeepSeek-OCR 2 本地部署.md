@@ -561,9 +561,9 @@ spring.ai.ollama.chat.options.model=deepseek-ai/DeepSeek-OCR-2
 
 ---
 
-## 八、使用示例
+## 九、使用示例
 
-### 8.1 cURL 调用
+### 9.1 cURL 调用
 
 ```bash
 # 文档转 Markdown
@@ -577,7 +577,7 @@ curl -X POST http://localhost:8080/v1/ocr/table \
   -d '{"imageBase64": "'$(base64 -w 0 table.png)'"}'
 ```
 
-### 8.2 Java 客户端
+### 9.2 Java 客户端
 
 ```java
 import org.springframework.web.client.RestTemplate;
@@ -613,7 +613,7 @@ public class OcrClient {
 }
 ```
 
-### 8.3 Python 客户端
+### 9.3 Python 客户端
 
 ```python
 import requests
@@ -641,16 +641,16 @@ print(markdown)
 
 ---
 
-## 九、运行项目
+## 十、运行项目
 
-### 9.1 编译
+### 10.1 编译
 
 ```bash
 cd spring-ai-examples/spring-ai-ollama-ocr-deepseek
 mvn clean package -DskipTests
 ```
 
-### 9.2 运行
+### 10.2 运行
 
 ```bash
 java -jar target/spring-ai-ollama-ocr-deepseek-1.0.0-SNAPSHOT.jar
@@ -659,13 +659,13 @@ java -jar target/spring-ai-ollama-ocr-deepseek-1.0.0-SNAPSHOT.jar
 mvn spring-boot:run
 ```
 
-### 9.3 访问 API 文档
+### 10.3 访问 API 文档
 
 启动后访问：http://localhost:8080/swagger-ui.html
 
 ---
 
-## 十、常见问题
+## 十一、常见问题
 
 ### Q1: Ollama 连接失败？
 
@@ -694,7 +694,7 @@ java -Xmx4g -jar target/spring-ai-ollama-ocr-deepseek-1.0.0-SNAPSHOT.jar
 
 ---
 
-## 十一、许可证
+## 十二、许可证
 
 - **DeepSeek-OCR 2 模型**：Apache License 2.0
 
@@ -702,7 +702,7 @@ DeepSeek-OCR 2 采用 Apache License 2.0 开源许可证，用户在使用本项
 
 ---
 
-## 十二、参考资源
+## 参考资源
 
 - **DeepSeek-OCR-2 官方**：https://huggingface.co/deepseek-ai/DeepSeek-OCR-2
 - **ModelScope 镜像**：https://www.modelscope.cn/models/deepseek-ai/DeepSeek-OCR-2
@@ -711,5 +711,12 @@ DeepSeek-OCR 2 采用 Apache License 2.0 开源许可证，用户在使用本项
 - **vLLM 文档**：https://docs.vllm.ai/
 
 ---
+
+## 致谢
+
+- **感谢 DeepSeek AI 团队**开源高质量的 DeepSeek-OCR 2 模型
+- **感谢 Spring AI 社区**提供强大的 AI 集成框架
+- **感谢 Ollama 项目**简化大模型本地部署
+- **感谢 ModelScope 社区**提供模型镜像和中文支持
 
 

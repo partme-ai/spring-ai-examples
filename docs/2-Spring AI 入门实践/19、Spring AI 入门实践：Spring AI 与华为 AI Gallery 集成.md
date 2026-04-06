@@ -22,7 +22,7 @@
 <dependencies>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-huaweiai-gallery-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-huaweiai-gallery</artifactId>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>

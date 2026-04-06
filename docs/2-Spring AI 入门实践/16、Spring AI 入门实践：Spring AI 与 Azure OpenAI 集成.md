@@ -23,7 +23,7 @@ Azure OpenAI 是 Microsoft Azure 提供的一项服务，让开发者可以在 A
 <dependencies>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-azure-openai-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-azure-openai</artifactId>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>

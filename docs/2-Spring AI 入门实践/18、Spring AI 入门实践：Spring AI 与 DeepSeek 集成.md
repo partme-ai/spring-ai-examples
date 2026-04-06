@@ -22,7 +22,7 @@ DeepSeek 是一家专注于人工智能研究的公司，其开发的 DeepSeek-R
 <dependencies>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-deepseek-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-deepseek</artifactId>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>

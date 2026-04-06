@@ -22,7 +22,7 @@ Anthropic 是一家专注于人工智能安全和研究的公司，其开发的 
 <dependencies>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-anthropic-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-anthropic</artifactId>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>

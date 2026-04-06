@@ -23,7 +23,7 @@
 <dependencies>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-huaweiai-pangu-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-huaweiai-pangu</artifactId>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>

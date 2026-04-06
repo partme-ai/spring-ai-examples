@@ -22,7 +22,7 @@ Coze（扣子）是字节跳动推出的 AI 对话平台，提供了丰富的大
 <dependencies>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-coze-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-coze</artifactId>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>

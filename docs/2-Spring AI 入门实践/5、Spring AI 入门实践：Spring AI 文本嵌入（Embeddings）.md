@@ -1,280 +1,317 @@
 # 5、Spring AI 入门实践：Spring AI 文本嵌入（Embeddings）
 
-## 概述
+## 一、项目概述
 
-文本嵌入（Embeddings）是将文本转换为数值向量的技术，这些向量可以表示文本的语义信息。Spring AI 提供了丰富的文本嵌入功能，支持多种嵌入模型和向量存储。
+文本嵌入（Embeddings）是将文本转换为数值向量的技术，这些向量可以表示文本的语义信息。Spring AI 提供了丰富的文本嵌入功能，支持多种嵌入模型和向量存储。通过文本嵌入，可以实现语义搜索、相似度计算、推荐系统等功能。
 
-## 技术栈
+### 核心功能
 
-- **Spring Boot 3.2+**
-- **Spring AI 1.1.4+**
-- **OpenAI Embeddings API**（或其他嵌入模型）
+- **文本嵌入生成**：将文本转换为向量表示
+- **批量嵌入**：支持批量处理多个文本
+- **相似度计算**：计算文本间的语义相似度
+- **向量存储**：集成多种向量数据库
+- **语义搜索**：基于相似度的文档检索
+- **多模型支持**：支持 Ollama、OpenAI 等多种嵌入模型
 
-## 准备工作
+### 适用场景
 
-### 1. 添加依赖
+- 语义搜索系统
+- 文档相似度匹配
+- 推荐系统
+- 问答系统
+- 文本聚类
+- 信息检索
 
-在 `pom.xml` 中添加以下依赖：
+## 二、文本嵌入简介
+
+文本嵌入的核心思想是将自然语言文本映射到高维向量空间，语义相似的文本在向量空间中的距离也会更近。
+
+### 嵌入向量特性
+
+| 特性 | 说明 |
+|------|------|
+| 语义表示 | 向量包含文本的语义信息 |
+| 维度固定 | 同一模型输出维度一致 |
+| 距离可度量 | 可通过余弦相似度等度量距离 |
+| 可计算 | 支持向量运算和比较 |
+
+### 常用嵌入模型
+
+| 模型 | 维度 | 提供商 |
+|------|------|--------|
+| nomic-embed-text | 768 | Ollama |
+| bge-m3 | 1024 | Ollama |
+| text-embedding-3-small | 1536 | OpenAI |
+| text-embedding-3-large | 3072 | OpenAI |
+
+## 三、环境准备
+
+### 3.1 开发环境
+
+确保已安装：
+- JDK 17+
+- Maven 3.8+
+- IntelliJ IDEA 或 Eclipse
+- Ollama（本地模型）
+- Redis 或其他向量数据库（可选）
+
+### 3.2 Ollama 配置
+
+```bash
+# 安装 Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# 启动服务
+ollama serve
+
+# 拉取嵌入模型
+ollama pull nomic-embed-text
+# 或者
+ollama pull bge-m3
+```
+
+## 四、项目结构
+
+### 4.1 标准项目结构
+
+```
+spring-ai-ollama-embedding/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── github/
+│   │   │           └── partmeai/
+│   │   │               └── ollama/
+│   │   │                   ├── SpringAiOllamaApplication.java
+│   │   │                   ├── controller/
+│   │   │                   │   └── EmbeddingController.java
+│   │   │                   └── service/
+│   │   │                       ├── IEmbeddingService.java
+│   │   │                       └── OllamaEmbeddingService.java
+│   │   └── resources/
+│   │       └── application.yml
+│   └── test/
+└── pom.xml
+```
+
+### 4.2 核心类说明
+
+| 类名 | 职责 |
+|------|------|
+| `IEmbeddingService` | 嵌入服务接口 |
+| `OllamaEmbeddingService` | Ollama 嵌入服务实现 |
+| `EmbeddingController` | REST API 控制器 |
+
+## 五、核心配置
+
+### 5.1 Maven 依赖
 
 ```xml
 <dependencies>
+    <!-- For Spring AI Common -->
+    <dependency>
+        <groupId>com.github.partmeai</groupId>
+        <artifactId>spring-ai-common</artifactId>
+        <version>${revision}</version>
+    </dependency>
+    <!-- For Chat Completion & Embedding -->
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-ollama</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-logging</artifactId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-redis-store-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-autoconfigure-retry</artifactId>
+    </dependency>
+    <!-- Spring AI Document Reader -->
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-jsoup-document-reader</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-markdown-document-reader</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-pdf-document-reader</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-tika-document-reader</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+    <dependency>
+        <groupId>org.apache.pdfbox</groupId>
+        <artifactId>pdfbox</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox-tools -->
+    <dependency>
+        <groupId>org.apache.pdfbox</groupId>
+        <artifactId>pdfbox-tools</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox-io -->
+    <dependency>
+        <groupId>org.apache.pdfbox</groupId>
+        <artifactId>pdfbox-io</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/fontbox -->
+    <dependency>
+        <groupId>org.apache.pdfbox</groupId>
+        <artifactId>fontbox</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
+    <dependency>
+        <groupId>org.apache.tika</groupId>
+        <artifactId>tika-core</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-parsers-standard-package -->
+    <dependency>
+        <groupId>org.apache.tika</groupId>
+        <artifactId>tika-parsers-standard-package</artifactId>
+    </dependency>
+    <!-- For Log4j2 -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-log4j2</artifactId>
+    </dependency>
+    <!-- For Knife4j -->
+    <dependency>
+        <groupId>com.github.xiaoymin</groupId>
+        <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>${springdoc.version}</version>
+    </dependency>
+    <!-- For Embed Undertow -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-undertow</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <!-- For Testcontainers : https://testcontainers.com/ -->
+    <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>ollama</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>typesense</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <scope>test</scope>
     </dependency>
 </dependencies>
-
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-bom</artifactId>
-            <version>1.1.4</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
 ```
 
-### 2. 配置 API 密钥
+### 5.2 应用配置
 
-在 `application.properties` 中配置：
+```yaml
+spring:
+  application:
+    name: spring-ai-ollama-embedding
+  
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      embedding:
+        enabled: true
+        options:
+          model: nomic-embed-text
 
-```properties
-spring.ai.openai.api-key=your-api-key
-spring.ai.openai.embedding.options.model=text-embedding-3-small
-spring.ai.openai.embedding.options.dimensions=1536
-
-spring.ai.vectorstore.redis.uri=redis://localhost:6379
-spring.ai.vectorstore.redis.index-name=documents
-spring.ai.vectorstore.redis.prefix=doc:
+server:
+  port: 8080
 ```
 
-## 基本使用
+## 六、代码实现详解
 
-### 1. 生成文本嵌入
+### 6.1 嵌入服务接口
 
 ```java
+package com.github.partmeai.ollama.service;
+
+import java.util.List;
+
+public interface IEmbeddingService {
+    
+    float[] embed(String text);
+    
+    List<float[]> embedBatch(List<String> texts);
+    
+    double cosineSimilarity(float[] vectorA, float[] vectorB);
+    
+    double calculateSimilarity(String text1, String text2);
+}
+```
+
+### 6.2 Ollama 嵌入服务实现
+
+```java
+package com.github.partmeai.ollama.service;
+
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.embedding.EmbeddingResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class EmbeddingService {
-    
-    @Autowired
-    private EmbeddingModel embeddingModel;
-    
-    public float[] generateEmbedding(String text) {
-        EmbeddingResponse response = embeddingModel.embedForResponse(List.of(text));
-        return response.getResults().get(0).getOutput();
-    }
-    
-    public List<float[]> generateEmbeddings(List<String> texts) {
-        EmbeddingResponse response = embeddingModel.embedForResponse(texts);
-        return response.getResults().stream()
-            .map(result -> result.getOutput())
-            .collect(Collectors.toList());
-    }
-}
-```
-
-### 2. 计算相似度
-
-```java
-import org.springframework.ai.embedding.EmbeddingModel;
-import org.springframework.ai.embedding.EmbeddingResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import java.util.List;
-
-@Service
-public class SimilarityService {
-    
-    @Autowired
-    private EmbeddingModel embeddingModel;
-    
-    public double calculateSimilarity(String text1, String text2) {
-        float[] embedding1 = embeddingModel.embed(text1);
-        float[] embedding2 = embeddingModel.embed(text2);
-        
-        return cosineSimilarity(embedding1, embedding2);
-    }
-    
-    private double cosineSimilarity(float[] vectorA, float[] vectorB) {
-        double dotProduct = 0.0;
-        double normA = 0.0;
-        double normB = 0.0;
-        
-        for (int i = 0; i < vectorA.length; i++) {
-            dotProduct += vectorA[i] * vectorB[i];
-            normA += Math.pow(vectorA[i], 2);
-            normB += Math.pow(vectorB[i], 2);
-        }
-        
-        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-    }
-}
-```
-
-## 高级功能
-
-### 1. 向量存储
-
-```java
-import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Map;
-
-@Service
-public class VectorStoreService {
-    
-    @Autowired
-    private VectorStore vectorStore;
-    
-    public void addDocument(String id, String text, Map<String, Object> metadata) {
-        Document document = new Document(id, text, metadata);
-        vectorStore.add(List.of(document));
-    }
-    
-    public List<Document> searchSimilar(String query, int topK) {
-        SearchRequest request = SearchRequest.query(query).withTopK(topK);
-        return vectorStore.similaritySearch(request);
-    }
-    
-    public void deleteDocument(String id) {
-        vectorStore.delete(List.of(id));
-    }
-}
-```
-
-### 2. 批量处理
-
-```java
-import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class BatchEmbeddingService {
+public class OllamaEmbeddingService implements IEmbeddingService {
     
-    @Autowired
-    private VectorStore vectorStore;
+    private final EmbeddingModel embeddingModel;
     
-    public void batchAddDocuments(List<Map<String, Object>> documentData) {
-        List<Document> documents = documentData.stream()
-            .map(data -> new Document(
-                (String) data.get("id"),
-                (String) data.get("text"),
-                (Map<String, Object>) data.getOrDefault("metadata", Map.of())
-            ))
-            .collect(Collectors.toList());
-        
-        vectorStore.add(documents);
+    public OllamaEmbeddingService(EmbeddingModel embeddingModel) {
+        this.embeddingModel = embeddingModel;
     }
-}
-```
-
-### 3. 自定义嵌入模型
-
-```java
-import org.springframework.ai.embedding.EmbeddingModel;
-import org.springframework.ai.embedding.EmbeddingRequest;
-import org.springframework.ai.embedding.EmbeddingResponse;
-import org.springframework.stereotype.Service;
-import java.util.List;
-
-@Service
-public class CustomEmbeddingModel implements EmbeddingModel {
     
     @Override
     public float[] embed(String text) {
-        return embedForResponse(List.of(text)).getResults().get(0).getOutput();
-    }
-    
-    @Override
-    public EmbeddingResponse embedForResponse(List<String> texts) {
-        List<float[]> embeddings = texts.stream()
-            .map(this::computeEmbedding)
-            .collect(Collectors.toList());
-        
-        return new EmbeddingResponse(embeddings);
-    }
-    
-    @Override
-    public float[] embed(EmbeddingRequest request) {
-        return embed(request.getInstructions().get(0));
-    }
-    
-    private float[] computeEmbedding(String text) {
-        return new float[1536];
-    }
-}
-```
-
-## 示例代码
-
-完整的示例代码如下：
-
-```java
-import org.springframework.ai.document.Document;
-import org.springframework.ai.embedding.*;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
-import java.util.*;
-import java.util.stream.Collectors;
-
-@SpringBootApplication
-public class EmbeddingApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(EmbeddingApplication.class, args);
-    }
-}
-
-@Service
-class EmbeddingService {
-    
-    @Autowired
-    private EmbeddingModel embeddingModel;
-    
-    public float[] generateEmbedding(String text) {
         return embeddingModel.embed(text);
     }
     
-    public List<float[]> generateEmbeddings(List<String> texts) {
+    @Override
+    public List<float[]> embedBatch(List<String> texts) {
         EmbeddingResponse response = embeddingModel.embedForResponse(texts);
         return response.getResults().stream()
-            .map(result -> result.getOutput())
-            .collect(Collectors.toList());
+                .map(result -> result.getOutput())
+                .collect(Collectors.toList());
     }
     
-    public double calculateSimilarity(String text1, String text2) {
-        float[] embedding1 = embeddingModel.embed(text1);
-        float[] embedding2 = embeddingModel.embed(text2);
+    @Override
+    public double cosineSimilarity(float[] vectorA, float[] vectorB) {
+        if (vectorA.length != vectorB.length) {
+            throw new IllegalArgumentException("向量维度必须相同");
+        }
         
-        return cosineSimilarity(embedding1, embedding2);
-    }
-    
-    private double cosineSimilarity(float[] vectorA, float[] vectorB) {
         double dotProduct = 0.0;
         double normA = 0.0;
         double normB = 0.0;
@@ -287,46 +324,67 @@ class EmbeddingService {
         
         return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
     }
+    
+    @Override
+    public double calculateSimilarity(String text1, String text2) {
+        float[] embedding1 = embed(text1);
+        float[] embedding2 = embed(text2);
+        return cosineSimilarity(embedding1, embedding2);
+    }
 }
+```
 
-@Service
-class VectorStoreService {
-    
-    @Autowired
-    private VectorStore vectorStore;
-    
-    public void addDocument(String id, String text, Map<String, Object> metadata) {
-        Document document = new Document(id, text, metadata);
-        vectorStore.add(List.of(document));
-    }
-    
-    public List<Document> searchSimilar(String query, int topK) {
-        SearchRequest request = SearchRequest.query(query).withTopK(topK);
-        return vectorStore.similaritySearch(request);
-    }
-    
-    public void deleteDocument(String id) {
-        vectorStore.delete(List.of(id));
-    }
-}
+### 6.3 REST 控制器
+
+```java
+package com.github.partmeai.ollama.controller;
+
+import com.github.partmeai.ollama.service.IEmbeddingService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/embeddings")
-class EmbeddingController {
+@RequestMapping("/v1")
+public class EmbeddingController {
     
-    @Autowired
-    private EmbeddingService embeddingService;
+    private final IEmbeddingService embeddingService;
     
-    @Autowired
-    private VectorStoreService vectorStoreService;
+    public EmbeddingController(IEmbeddingService embeddingService) {
+        this.embeddingService = embeddingService;
+    }
     
-    @PostMapping("/generate")
-    public Map<String, Object> generateEmbedding(@RequestBody String text) {
-        float[] embedding = embeddingService.generateEmbedding(text);
+    @GetMapping("/embedding")
+    public Map<String, Object> getEmbedding(@RequestParam String text) {
+        float[] embedding = embeddingService.embed(text);
         return Map.of(
             "text", text,
             "embedding", embedding,
             "dimension", embedding.length
+        );
+    }
+    
+    @PostMapping("/embedding")
+    public Map<String, Object> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        String content = new String(file.getBytes(), StandardCharsets.UTF_8);
+        float[] embedding = embeddingService.embed(content);
+        return Map.of(
+            "filename", file.getOriginalFilename(),
+            "embedding", embedding,
+            "dimension", embedding.length
+        );
+    }
+    
+    @PostMapping("/embedding/batch")
+    public Map<String, Object> batchEmbedding(@RequestBody List<String> texts) {
+        List<float[]> embeddings = embeddingService.embedBatch(texts);
+        return Map.of(
+            "count", texts.size(),
+            "embeddings", embeddings
         );
     }
     
@@ -342,120 +400,200 @@ class EmbeddingController {
             "similarity", similarity
         );
     }
-    
-    @PostMapping("/documents")
-    public void addDocument(@RequestBody Map<String, Object> request) {
-        String id = (String) request.get("id");
-        String text = (String) request.get("text");
-        Map<String, Object> metadata = (Map<String, Object>) request.getOrDefault("metadata", Map.of());
-        
-        vectorStoreService.addDocument(id, text, metadata);
-    }
-    
-    @PostMapping("/search")
-    public List<Map<String, Object>> searchSimilar(@RequestBody Map<String, Object> request) {
-        String query = (String) request.get("query");
-        int topK = (int) request.getOrDefault("topK", 5);
-        
-        return vectorStoreService.searchSimilar(query, topK).stream()
-            .map(doc -> Map.of(
-                "id", doc.getId(),
-                "text", doc.getText(),
-                "metadata", doc.getMetadata(),
-                "score", doc.getScore()
-            ))
-            .collect(Collectors.toList());
-    }
-    
-    @DeleteMapping("/documents/{id}")
-    public void deleteDocument(@PathVariable String id) {
-        vectorStoreService.deleteDocument(id);
-    }
 }
 ```
 
-## 测试方法
+## 七、API 接口说明
 
-1. **启动应用**：运行 `EmbeddingApplication` 类
-2. **生成嵌入**：
-   ```bash
-   curl -X POST http://localhost:8080/api/embeddings/generate \
-     -H "Content-Type: application/json" \
-     -d "Spring AI 是一个强大的 AI 框架"
-   ```
-3. **计算相似度**：
-   ```bash
-   curl -X POST http://localhost:8080/api/embeddings/similarity \
-     -H "Content-Type: application/json" \
-     -d '{"text1":"Spring AI 是一个强大的 AI 框架","text2":"Spring AI 提供了丰富的 AI 功能"}'
-   ```
-4. **添加文档**：
-   ```bash
-   curl -X POST http://localhost:8080/api/embeddings/documents \
-     -H "Content-Type: application/json" \
-     -d '{"id":"1","text":"Spring AI 是一个强大的 AI 框架","metadata":{"category":"tech"}}'
-   ```
-5. **搜索相似文档**：
-   ```bash
-   curl -X POST http://localhost:8080/api/embeddings/search \
-     -H "Content-Type: application/json" \
-     -d '{"query":"AI 框架","topK":3}'
-   ```
+### 7.1 接口总览
 
-## 总结
+| 接口 | 方法 | 路径 | 说明 |
+|------|------|------|------|
+| 查询嵌入 | GET | `/v1/embedding` | 生成文本嵌入向量 |
+| 文件嵌入 | POST | `/v1/embedding` | 上传文件并生成嵌入 |
+| 批量嵌入 | POST | `/v1/embedding/batch` | 批量生成嵌入 |
+| 相似度计算 | POST | `/v1/similarity` | 计算文本相似度 |
 
-Spring AI 的文本嵌入功能提供了完整的文本向量化解决方案，包括嵌入生成、相似度计算和向量存储。通过这些功能，可以构建语义搜索、推荐系统、问答系统等应用。
+### 7.2 接口使用示例
 
-## 相关资源
+#### 查询文本嵌入
 
-- [Spring AI 官方文档](https://spring.io/projects/spring-ai)
-- [OpenAI Embeddings API](https://platform.openai.com/docs/guides/embeddings)
-
-## 扩展阅读
-
-本文档内容基于 Spring AI 1.1.x 版本。有关文本嵌入的更多详细信息和更新，请参考以下资源：
-
-### 官方文档
-- [Spring AI Embeddings](https://docs.spring.io/spring-ai/reference/api/embeddings.html) - 嵌入模型接口详解
-- [Spring AI Vector Databases](https://docs.spring.io/spring-ai/reference/api/vectordbs.html) - 向量数据库集成
-- [Spring AI ETL Pipeline](https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html) - 文档解析与切块
-
-### 示例模块
-- **`spring-ai-ollama-embedding`** - 本仓库中的文本嵌入示例模块
-  - 主类：`com.github.partmeai.ollama.SpringAiOllamaApplication`
-  - 控制器：`com.github.partmeai.ollama.controller.EmbeddingController`
-  - 服务层：`com.github.partmeai.ollama.service.IEmbeddingService` 及实现类
-  - 路径：`/v1/embedding`（GET 查询字符串，POST 文件上传）
-
-### 核心概念
-- **`EmbeddingModel`**：文本 → 向量的统一抽象（Ollama 实现为 `OllamaEmbeddingModel`）
-- **向量维度统一**：确保嵌入模型输出维度与向量库索引维度一致
-- **`SearchRequest.topK`**：检索时指定返回结果数量，**不要** 放在 `OllamaEmbeddingOptions` 上
-
-### 运行与验证
 ```bash
-# 进入示例模块目录
-cd spring-ai-ollama-embedding
-
-# 启动应用
-mvn spring-boot:run
-
-# 测试文本嵌入
 curl "http://localhost:8080/v1/embedding?text=hello"
+```
 
-# 测试文件嵌入（multipart 上传）
+响应：
+```json
+{
+  "text": "hello",
+  "embedding": [0.1, 0.2, ...],
+  "dimension": 768
+}
+```
+
+#### 上传文件
+
+```bash
 curl -X POST http://localhost:8080/v1/embedding \
   -F "file=@document.txt"
 ```
 
-### 配置要点
+#### 批量嵌入
+
+```bash
+curl -X POST http://localhost:8080/v1/embedding/batch \
+  -H "Content-Type: application/json" \
+  -d '["文本1", "文本2", "文本3"]'
+```
+
+#### 计算相似度
+
+```bash
+curl -X POST http://localhost:8080/v1/similarity \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text1": "Spring AI 是一个强大的 AI 框架",
+    "text2": "Spring AI 提供了丰富的 AI 功能"
+  }'
+```
+
+## 八、部署方式
+
+### 8.1 本地运行
+
+```bash
+cd spring-ai-ollama-embedding
+mvn spring-boot:run
+```
+
+### 8.2 打包部署
+
+```bash
+mvn clean package -DskipTests
+java -jar target/spring-ai-ollama-embedding-1.0.0-SNAPSHOT.jar
+```
+
+## 九、使用示例
+
+### 9.1 Python 客户端
+
+```python
+import requests
+import json
+
+class EmbeddingClient:
+    def __init__(self, base_url="http://localhost:8080"):
+        self.base_url = base_url
+    
+    def get_embedding(self, text):
+        response = requests.get(
+            f"{self.base_url}/v1/embedding",
+            params={"text": text}
+        )
+        return response.json()
+    
+    def calculate_similarity(self, text1, text2):
+        response = requests.post(
+            f"{self.base_url}/v1/similarity",
+            json={"text1": text1, "text2": text2}
+        )
+        return response.json()["similarity"]
+
+client = EmbeddingClient()
+
+# 获取嵌入
+result = client.get_embedding("Spring AI")
+print(f"维度: {result['dimension']}")
+
+# 计算相似度
+similarity = client.calculate_similarity(
+    "Spring AI 是一个 AI 框架",
+    "Spring Boot 是一个 Web 框架"
+)
+print(f"相似度: {similarity}")
+```
+
+### 9.2 配置要点
+
 1. **嵌入模型配置**：`spring.ai.ollama.embedding.options.model` 指定 Ollama 嵌入模型
 2. **模型下载**：使用 `ollama pull` 下载对应嵌入模型（如 `nomic-embed-text`、`bge-m3`）
 3. **连接设置**：Ollama `base-url`、超时与重试配置
 4. **与 RAG 衔接**：向量生成后由 `VectorStore.add(documents)` 写入向量库
 
-### 注意事项
+### 9.3 注意事项
+
 1. 嵌入模型维度需与向量库索引维度匹配
 2. 生产环境建议配置适当的超时和重试机制
 3. 文件上传接口支持批量处理，注意内存和性能优化
-4. 参考 [RAG-SHARED.md](./RAG-SHARED.md) 了解嵌入与检索的职责划分
+
+## 十、运行项目
+
+### 10.1 前置检查
+
+```bash
+# 检查 Ollama
+curl http://localhost:11434/api/tags
+
+# 确认嵌入模型已下载
+ollama list | grep embed
+```
+
+### 10.2 启动应用
+
+```bash
+cd spring-ai-ollama-embedding
+mvn spring-boot:run
+```
+
+### 10.3 简单测试
+
+```bash
+curl "http://localhost:8080/v1/embedding?text=hello"
+```
+
+## 十一、常见问题
+
+### 11.1 嵌入问题
+
+**Q: 嵌入维度与向量库不匹配怎么办？**
+
+确保使用的嵌入模型输出维度与向量库索引创建时的维度一致。可以通过以下方式检查：
+- 查看模型文档确认维度
+- 调用一次嵌入接口查看返回的维度
+- 重新创建向量库索引
+
+**Q: 批量处理时内存占用过高？**
+
+- 减少单次批量处理的数量
+- 使用分批处理策略
+- 调整 JVM 内存参数
+
+### 11.2 性能问题
+
+**Q: 如何提升嵌入速度？**
+
+- 使用更小的嵌入模型
+- 启用批量处理
+- 使用 GPU 加速（如果可用）
+- 缓存常用文本的嵌入结果
+
+**Q: 相似度计算不准确？**
+
+- 确保使用合适的相似度度量方法
+- 检查文本预处理是否合适
+- 考虑使用更高质量的嵌入模型
+
+## 十二、许可证
+
+本项目采用 Apache License 2.0 许可证。
+
+## 十三、参考资源
+
+- Spring AI Embeddings：https://docs.spring.io/spring-ai/reference/api/embeddings.html
+- Spring AI Vector Databases：https://docs.spring.io/spring-ai/reference/api/vectordbs.html
+- Spring AI ETL Pipeline：https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html
+- 示例模块：spring-ai-ollama-embedding
+
+## 十四、致谢
+
+感谢 Spring AI 团队提供的优秀框架，让文本嵌入功能变得如此简单易用。

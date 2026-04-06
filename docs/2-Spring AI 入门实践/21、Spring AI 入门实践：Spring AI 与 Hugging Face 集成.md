@@ -22,7 +22,7 @@ Hugging Face 是一个开源的 AI 模型和数据集平台，提供了大量预
 <dependencies>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-huggingface-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-huggingface</artifactId>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>

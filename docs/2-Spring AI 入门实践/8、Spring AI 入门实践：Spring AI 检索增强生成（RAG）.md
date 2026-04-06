@@ -1,411 +1,338 @@
 # 8、Spring AI 入门实践：Spring AI 检索增强生成（RAG）
 
-## 概述
+## 一、项目概述
 
-检索增强生成（Retrieval-Augmented Generation，RAG）是一种结合了检索和生成的技术，通过从知识库中检索相关信息来增强大语言模型的生成能力。Spring AI 提供了完整的 RAG 解决方案。
+检索增强生成（Retrieval-Augmented Generation，RAG）是一种结合了检索和生成的技术，通过从知识库中检索相关信息来增强大语言模型的生成能力。Spring AI 提供了完整的 RAG 解决方案，包括文档加载、分块、向量存储、相似度搜索和答案生成等完整流程。
 
-## 技术栈
+### 核心功能
 
-- **Spring Boot 3.2+**
-- **Spring AI 1.1.4+**
-- **OpenAI API**（或其他兼容的 LLM API）
-- **向量数据库**（如 Redis、Chroma、Milvus 等）
+- **文档加载**：支持 PDF、文本等多种格式
+- **文档分块**：灵活的文本分割策略
+- **向量存储**：集成多种向量数据库
+- **相似度搜索**：基于语义的文档检索
+- **上下文增强**：将检索结果拼接到提示中
+- **答案生成**：基于增强上下文生成答案
 
-## 准备工作
+### 适用场景
 
-### 1. 添加依赖
+- 智能问答系统
+- 知识库问答
+- 文档检索与摘要
+- 企业内部知识库
+- 技术文档助手
 
-在 `pom.xml` 中添加以下依赖：
+## 二、RAG 简介
+
+RAG 的核心思想是先从知识库中检索相关文档，然后将这些文档作为上下文，让模型基于这些信息生成更准确的答案。
+
+### RAG 流程
+
+| 步骤 | 说明 |
+|------|------|
+| 文档切块与写入 | 将文档分割为适当大小的块并存入向量库 |
+| 用户查询嵌入 | 将用户问题转换为向量表示 |
+| 相似度检索 | 在向量库中搜索与查询最相关的文档块 |
+| 上下文拼接 | 将检索结果拼接到系统提示中 |
+| LLM 调用 | 使用增强的上下文生成最终答案 |
+
+### 优势
+
+- 减少幻觉：基于真实文档生成答案
+- 知识更新：无需重新训练模型即可更新知识
+- 可追溯性：答案来源可追溯到具体文档
+- 成本效益：相比微调更经济
+
+## 三、环境准备
+
+### 3.1 开发环境
+
+确保已安装：
+- JDK 17+
+- Maven 3.8+
+- IntelliJ IDEA 或 Eclipse
+- Ollama（本地模型）
+- 向量数据库（Cassandra、Chroma 等
+
+### 3.2 Ollama 配置
+
+```bash
+# 安装 Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# 启动服务
+ollama serve
+
+# 拉取模型
+ollama pull llama3.1:8b
+ollama pull nomic-embed-text
+```
+
+## 四、项目结构
+
+### 4.1 标准项目结构
+
+```
+spring-ai-ollama-rag-cassandra/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── github/
+│   │   │           └── partmeai/
+│   │   │               └── ollama/
+│   │   │                   ├── SpringAiOllamaApplication.java
+│   │   │                   ├── controller/
+│   │   │                   │   └── RAGController.java
+│   │   │                   └── service/
+│   │   │                       └── RagService.java
+│   │   └── resources/
+│   │       └── application.yml
+│   └── test/
+└── pom.xml
+```
+
+### 4.2 核心类说明
+
+| 类名 | 职责 |
+|------|------|
+| `RagService` | RAG 业务逻辑 |
+| `RAGController` | REST API 控制器 |
+
+## 五、核心配置
+
+### 5.1 Maven 依赖
 
 ```xml
 <dependencies>
+    <!-- For Spring AI Common -->
+    <dependency>
+        <groupId>com.github.partmeai</groupId>
+        <artifactId>spring-ai-common</artifactId>
+        <version>${revision}</version>
+    </dependency>
+    <!-- For Chat Completion & Embedding -->
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-ollama</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-logging</artifactId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-redis-store-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-autoconfigure-retry</artifactId>
+    </dependency>
+    <!-- For Chat Memory -->
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-model-chat-memory</artifactId>
     </dependency>
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-pdf-document-reader</artifactId>
+        <artifactId>spring-ai-starter-model-chat-memory-repository-jdbc</artifactId>
+    </dependency>
+    <!-- For Vector Store  -->
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-azure</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-azure-cosmos-db</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-cassandra</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-chroma</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-couchbase</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-elasticsearch</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-gemfire</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-mariadb</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-milvus</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-mongodb-atlas</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-neo4j</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-opensearch</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-oracle</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-pgvector</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-pinecone</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-qdrant</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-redis</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-typesense</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-vector-store-weaviate</artifactId>
+    </dependency>
+    <!-- For Log4j2 -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-log4j2</artifactId>
+    </dependency>
+    <!-- For Knife4j -->
+    <dependency>
+        <groupId>com.github.xiaoymin</groupId>
+        <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>${springdoc.version}</version>
+    </dependency>
+    <!-- For Embed Undertow -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-undertow</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <!-- For Testcontainers : https://testcontainers.com/ -->
+    <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>ollama</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>typesense</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <scope>test</scope>
     </dependency>
 </dependencies>
-
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-bom</artifactId>
-            <version>1.1.4</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
 ```
 
-### 2. 配置 API 密钥
+### 5.2 应用配置
 
-在 `application.properties` 中配置：
+```yaml
+spring:
+  application:
+    name: spring-ai-ollama-rag-cassandra
+  
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        enabled: true
+        options:
+          model: llama3.1:8b
+          temperature: 0.7
+      embedding:
+        enabled: true
+        options:
+          model: nomic-embed-text
 
-```properties
-spring.ai.openai.api-key=your-api-key
-spring.ai.openai.chat.options.model=gpt-4
-spring.ai.openai.embedding.options.model=text-embedding-3-small
-
-spring.ai.vectorstore.redis.uri=redis://localhost:6379
-spring.ai.vectorstore.redis.index-name=documents
-spring.ai.vectorstore.redis.prefix=doc:
+server:
+  port: 8080
 ```
 
-## 基本使用
+## 六、代码实现详解
 
-### 1. 文档加载和分块
+### 6.1 RAG 服务
 
 ```java
-import org.springframework.ai.document.Document;
-import org.springframework.ai.document.DocumentReader;
-import org.springframework.ai.document.TextSplitter;
-import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
-import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
-import org.springframework.ai.transformer.splitter.TokenTextSplitter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Service;
-import java.util.List;
+package com.github.partmeai.ollama.service;
 
-@Service
-public class DocumentLoaderService {
-    
-    @Autowired
-    private TextSplitter textSplitter;
-    
-    public List<Document> loadAndSplitDocuments(Resource resource) {
-        PdfDocumentReaderConfig config = PdfDocumentReaderConfig.builder()
-            .withPageTopMargin(0)
-            .withPageExtractedTextFormatter(ExtractedTextFormatter.builder()
-                .withNumberOfTopTextLinesToDelete(0)
-                .withNumberOfBottomTextLinesToDelete(0)
-                .build())
-            .withPagesPerDocument(1)
-            .build();
-        
-        DocumentReader pdfReader = new PagePdfDocumentReader(resource, config);
-        List<Document> documents = pdfReader.get();
-        
-        return textSplitter.apply(documents);
-    }
-}
-```
-
-### 2. 向量存储
-
-```java
-import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.List;
-
-@Service
-public class VectorStoreService {
-    
-    @Autowired
-    private VectorStore vectorStore;
-    
-    public void addDocuments(List<Document> documents) {
-        vectorStore.add(documents);
-    }
-    
-    public List<Document> searchSimilar(String query, int topK) {
-        SearchRequest request = SearchRequest.query(query).withTopK(topK);
-        return vectorStore.similaritySearch(request);
-    }
-}
-```
-
-### 3. RAG 查询
-
-```java
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
+import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
+import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class RagService {
     
-    @Autowired
-    private ChatClient chatClient;
+    private final ChatClient chatClient;
+    private final VectorStore vectorStore;
+    private final TokenTextSplitter textSplitter;
     
-    @Autowired
-    private VectorStore vectorStore;
-    
-    public String queryWithRag(String userQuery) {
-        List<Document> relevantDocs = vectorStore.similaritySearch(
-            SearchRequest.query(userQuery).withTopK(3)
-        );
-        
-        String context = relevantDocs.stream()
-            .map(Document::getText)
-            .collect(Collectors.joining("\n\n"));
-        
-        String systemPrompt = """
-            你是一个智能助手。请根据以下上下文信息回答用户的问题。
-            如果上下文中没有相关信息，请说明你无法从提供的上下文中找到答案。
-            
-            上下文信息：
-            %s
-            """.formatted(context);
-        
-        Prompt prompt = new Prompt(List.of(
-            new SystemMessage(systemPrompt),
-            new UserMessage(userQuery)
-        ));
-        
-        return chatClient.call(prompt).getResult().getOutput().getContent();
+    public RagService(ChatClient chatClient,
+                      VectorStore vectorStore,
+                      TokenTextSplitter textSplitter) {
+        this.chatClient = chatClient;
+        this.vectorStore = vectorStore;
+        this.textSplitter = textSplitter;
     }
-}
-```
-
-## 高级功能
-
-### 1. 自定义分块策略
-
-```java
-import org.springframework.ai.document.Document;
-import org.springframework.ai.transformer.splitter.TextSplitter;
-import org.springframework.stereotype.Component;
-import java.util.List;
-import java.util.ArrayList;
-
-@Component
-public class CustomTextSplitter implements TextSplitter {
-    
-    private final int chunkSize;
-    private final int chunkOverlap;
-    
-    public CustomTextSplitter(int chunkSize, int chunkOverlap) {
-        this.chunkSize = chunkSize;
-        this.chunkOverlap = chunkOverlap;
-    }
-    
-    @Override
-    public List<Document> apply(List<Document> documents) {
-        List<Document> splitDocuments = new ArrayList<>();
-        
-        for (Document document : documents) {
-            String text = document.getText();
-            List<String> chunks = splitText(text);
-            
-            for (int i = 0; i < chunks.size(); i++) {
-                Document chunk = new Document(
-                    document.getId() + "_" + i,
-                    chunks.get(i),
-                    document.getMetadata()
-                );
-                splitDocuments.add(chunk);
-            }
-        }
-        
-        return splitDocuments;
-    }
-    
-    private List<String> splitText(String text) {
-        List<String> chunks = new ArrayList<>();
-        int start = 0;
-        
-        while (start < text.length()) {
-            int end = Math.min(start + chunkSize, text.length());
-            chunks.add(text.substring(start, end));
-            start = end - chunkOverlap;
-        }
-        
-        return chunks;
-    }
-}
-```
-
-### 2. 混合检索
-
-```java
-import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.stream.Collectors;
-
-@Service
-public class HybridRetrievalService {
-    
-    @Autowired
-    private VectorStore vectorStore;
-    
-    public List<Document> hybridSearch(String query, int topK) {
-        List<Document> vectorResults = vectorStore.similaritySearch(
-            SearchRequest.query(query).withTopK(topK * 2)
-        );
-        
-        List<Document> keywordResults = keywordSearch(query, topK * 2);
-        
-        return combineResults(vectorResults, keywordResults, topK);
-    }
-    
-    private List<Document> keywordSearch(String query, int topK) {
-        return vectorStore.similaritySearch(
-            SearchRequest.query(query).withTopK(topK)
-        );
-    }
-    
-    private List<Document> combineResults(List<Document> vectorResults, 
-                                         List<Document> keywordResults, 
-                                         int topK) {
-        return vectorResults.stream()
-            .limit(topK)
-            .collect(Collectors.toList());
-    }
-}
-```
-
-### 3. RAG 链
-
-```java
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.messages.SystemMessage;
-import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.stream.Collectors;
-
-@Service
-public class RagChainService {
-    
-    @Autowired
-    private ChatClient chatClient;
-    
-    @Autowired
-    private VectorStore vectorStore;
-    
-    public String ragChain(String userQuery) {
-        String context = retrieveContext(userQuery);
-        String answer = generateAnswer(userQuery, context);
-        String refinedAnswer = refineAnswer(userQuery, context, answer);
-        
-        return refinedAnswer;
-    }
-    
-    private String retrieveContext(String query) {
-        List<Document> relevantDocs = vectorStore.similaritySearch(
-            SearchRequest.query(query).withTopK(3)
-        );
-        
-        return relevantDocs.stream()
-            .map(Document::getText)
-            .collect(Collectors.joining("\n\n"));
-    }
-    
-    private String generateAnswer(String query, String context) {
-        String systemPrompt = """
-            你是一个智能助手。请根据以下上下文信息回答用户的问题。
-            
-            上下文信息：
-            %s
-            """.formatted(context);
-        
-        Prompt prompt = new Prompt(List.of(
-            new SystemMessage(systemPrompt),
-            new UserMessage(query)
-        ));
-        
-        return chatClient.call(prompt).getResult().getOutput().getContent();
-    }
-    
-    private String refineAnswer(String query, String context, String initialAnswer) {
-        String systemPrompt = """
-            你是一个答案优化专家。请根据以下信息优化答案：
-            
-            原始问题：%s
-            上下文信息：%s
-            初始答案：%s
-            
-            请优化答案，使其更准确、更完整、更易理解。
-            """.formatted(query, context, initialAnswer);
-        
-        Prompt prompt = new Prompt(List.of(
-            new SystemMessage(systemPrompt),
-            new UserMessage("请优化以上答案")
-        ));
-        
-        return chatClient.call(prompt).getResult().getOutput().getContent();
-    }
-}
-```
-
-## 示例代码
-
-完整的示例代码如下：
-
-```java
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.messages.*;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.document.*;
-import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
-import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
-import org.springframework.ai.transformer.splitter.TokenTextSplitter;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import java.util.*;
-import java.util.stream.Collectors;
-
-@SpringBootApplication
-public class RagApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(RagApplication.class, args);
-    }
-}
-
-@Service
-class RagService {
-    
-    @Autowired
-    private ChatClient chatClient;
-    
-    @Autowired
-    private VectorStore vectorStore;
-    
-    @Autowired
-    private TokenTextSplitter textSplitter;
     
     public void ingestDocument(Resource resource) {
         PdfDocumentReaderConfig config = PdfDocumentReaderConfig.builder()
-            .withPageTopMargin(0)
-            .withPagesPerDocument(1)
-            .build();
+                .withPageTopMargin(0)
+                .withPagesPerDocument(1)
+                .build();
         
         PagePdfDocumentReader pdfReader = new PagePdfDocumentReader(resource, config);
         List<Document> documents = pdfReader.get();
@@ -416,12 +343,12 @@ class RagService {
     
     public String queryWithRag(String userQuery) {
         List<Document> relevantDocs = vectorStore.similaritySearch(
-            SearchRequest.query(userQuery).withTopK(3)
+                SearchRequest.query(userQuery).withTopK(3)
         );
         
         String context = relevantDocs.stream()
-            .map(Document::getText)
-            .collect(Collectors.joining("\n\n"));
+                .map(Document::getText)
+                .collect(Collectors.joining("\n\n"));
         
         String systemPrompt = """
             你是一个智能助手。请根据以下上下文信息回答用户的问题。
@@ -432,33 +359,55 @@ class RagService {
             """.formatted(context);
         
         Prompt prompt = new Prompt(List.of(
-            new SystemMessage(systemPrompt),
-            new UserMessage(userQuery)
+                new SystemMessage(systemPrompt),
+                new UserMessage(userQuery)
         ));
         
         return chatClient.call(prompt).getResult().getOutput().getContent();
     }
 }
+```
+
+### 6.2 REST 控制器
+
+```java
+package com.github.partmeai.ollama.controller;
+
+import com.github.partmeai.ollama.service.RagService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/rag")
-class RagController {
+@RequestMapping("/ai/rag")
+public class RAGController {
     
-    @Autowired
-    private RagService service;
+    private final RagService ragService;
+    
+    public RAGController(RagService ragService) {
+        this.ragService = ragService;
+    }
     
     @PostMapping("/ingest")
     public Map<String, String> ingestDocument(@RequestParam("file") MultipartFile file) {
-        Resource resource = file.getResource();
-        service.ingestDocument(resource);
-        return Map.of("status", "success", "message", "Document ingested successfully");
+        try {
+            ragService.ingestDocument(file.getResource());
+            return Map.of(
+                "status", "success",
+                "message", "文档处理成功"
+            );
+        } catch (Exception e) {
+            return Map.of(
+                "status", "error",
+                "message", e.getMessage()
+            );
+        }
     }
     
-    @PostMapping("/query")
-    public Map<String, Object> queryWithRag(@RequestBody Map<String, String> request) {
-        String query = request.get("query");
-        String answer = service.queryWithRag(query);
-        
+    @GetMapping("/query")
+    public Map<String, Object> query(@RequestParam String query) {
+        String answer = ragService.queryWithRag(query);
         return Map.of(
             "query", query,
             "answer", answer
@@ -467,100 +416,176 @@ class RagController {
 }
 ```
 
-## 测试方法
+## 七、API 接口说明
 
-1. **启动应用**：运行 `RagApplication` 类
-2. **上传文档**：
-   ```bash
-   curl -X POST http://localhost:8080/api/rag/ingest \
-     -F "file=@document.pdf"
-   ```
-3. **查询**：
-   ```bash
-   curl -X POST http://localhost:8080/api/rag/query \
-     -H "Content-Type: application/json" \
-     -d '{"query":"Spring AI 的主要功能是什么？"}'
-   ```
+### 7.1 接口总览
 
-## 总结
+| 接口 | 方法 | 路径 | 说明 |
+|------|------|------|------|
+| 文档上传 | POST | `/ai/rag/ingest` | 上传并处理文档 |
+| RAG 查询 | GET | `/ai/rag/query` | 基于知识库查询 |
 
-Spring AI 的 RAG 功能提供了完整的检索增强生成解决方案，包括文档加载、分块、向量存储、相似度搜索和答案生成等。通过这些功能，可以构建基于知识库的智能问答系统。
+### 7.2 接口使用示例
 
-## 相关资源
+#### 上传文档
 
-- [Spring AI 官方文档](https://spring.io/projects/spring-ai)
-- [RAG 论文](https://arxiv.org/abs/2005.11401)
-
-## 扩展阅读
-
-本文档内容基于 Spring AI 1.1.x 版本。有关检索增强生成（RAG）的更多详细信息和更新，请参考以下资源：
-
-### 官方文档
-- [Spring AI ChatClient — RAG](https://docs.spring.io/spring-ai/reference/api/chatclient.html#_retrieval_augmented_generation) - RAG 集成指南
-- [Spring AI Vector Databases](https://docs.spring.io/spring-ai/reference/api/vectordbs.html) - 向量数据库集成
-
-### RAG 流程
-典型的 RAG 流程包括以下步骤：
-1. **文档切块与写入**：将文档分割为适当大小的块并存入向量库
-2. **用户查询嵌入**：将用户问题转换为向量表示
-3. **相似度检索**：在向量库中搜索与查询最相关的文档块
-4. **上下文拼接**：将检索结果拼接到系统提示中
-5. **LLM 调用**：使用增强的上下文生成最终答案
-
-### 示例模块
-- **`spring-ai-ollama-rag-cassandra`** - 本仓库中的 RAG 示例模块（Cassandra 向量库）
-  - 控制器：`com.github.partmeai.ollama.controller.RAGController`
-  - 核心逻辑：`vectorStore.similaritySearch()` + `SystemPromptTemplate` + `BeanOutputConverter<Person>`
-- **`spring-ai-ollama-rag-chroma`** - 基于 Chroma 向量库的 RAG 示例
-  - 集成测试：`OllamaEmbeddingTest` 演示 `SimpleVectorStore` 与相似度检索
-
-### 运行与验证
 ```bash
-# 进入 Cassandra RAG 示例模块
+curl -X POST http://localhost:8080/ai/rag/ingest \
+  -F "file=@document.pdf"
+```
+
+响应：
+```json
+{
+  "status": "success",
+  "message": "文档处理成功"
+}
+```
+
+#### RAG 查询
+
+```bash
+curl "http://localhost:8080/ai/rag/query?query=Spring+AI+的主要功能是什么？"
+```
+
+响应：
+```json
+{
+  "query": "Spring AI 的主要功能是什么？",
+  "answer": "Spring AI 提供了完整的 AI 集成功能，包括..."
+}
+```
+
+## 八、部署方式
+
+### 8.1 本地运行
+
+```bash
 cd spring-ai-ollama-rag-cassandra
-
-# 启动应用
 mvn spring-boot:run
-
-# 测试 RAG 接口（示例）
-curl "http://localhost:8080/ai/rag/people?name=Alice"
 ```
 
-### 最佳实践
-1. **文档切块优化**：控制 `Document` 粒度，添加适当的元数据便于过滤与溯源
-2. **检索参数调优**：使用 `SearchRequest` 调整 `topK` 和相似度阈值，平衡召回率与噪声
-3. **幻觉防范**：将检索片段作为唯一事实来源的提示策略，生产环境建议人工抽检
-4. **模块选择**：根据需求选择合适的向量库（Cassandra、Chroma 等），逻辑均为 `VectorStore + ChatClient` 组合
+### 8.2 打包部署
 
-### RAG 类模块共用说明
-以下说明适用于本仓库中所有以 **Ollama** 作为 **Chat / Embedding** 后端、以 **不同向量存储** 作为 `VectorStore` 的 RAG 示例模块：
-
-#### 官方文档对应
-- [Introduction](https://docs.spring.io/spring-ai/reference/index.html)  
-- [Embeddings](https://docs.spring.io/spring-ai/reference/api/embeddings.html)  
-- [Vector Databases](https://docs.spring.io/spring-ai/reference/api/vectordbs.html)  
-- [ChatClient — Retrieval Augmented Generation](https://docs.spring.io/spring-ai/reference/api/chatclient.html#_retrieval_augmented_generation)  
-- [ETL Pipeline](https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html)  
-
-#### 共性先决条件
-1. **JDK 17+**，父工程已统一 **Spring AI 1.1.x**（见 `spring-ai-examples/pom.xml` 中 `spring-ai.version`）。  
-2. 本地安装并启动 [Ollama](https://ollama.com/)，并拉取对话与嵌入所用模型（各模块 `application.yml` 中一般有默认模型名，可按需修改）。  
-3. 启动 **对应向量数据库** 或 **云托管向量服务**（各模块 README 中列出端口与镜像说明）。  
-
-#### 共性依赖思路
-- `spring-ai-starter-model-ollama`：对话与向量嵌入。  
-- `spring-ai-starter-vector-store-{provider}`：与具体向量库对应的 Spring AI Starter（artifact 名因库而异，见各模块 `pom.xml`）。  
-- 版本由父 POM BOM 管理，子模块 **勿** 手写 Spring AI 版本号。
-
-#### 共性运行方式
 ```bash
-cd spring-ai-ollama-rag-{provider}
+mvn clean package -DskipTests
+java -jar target/spring-ai-ollama-rag-cassandra-1.0.0-SNAPSHOT.jar
+```
+
+## 九、使用示例
+
+### 9.1 Python 客户端
+
+```python
+import requests
+
+class RAGClient:
+    def __init__(self, base_url="http://localhost:8080"):
+        self.base_url = base_url
+    
+    def ingest_document(self, file_path):
+        with open(file_path, 'rb') as f:
+            files = {'file': f}
+            response = requests.post(
+                f"{self.base_url}/ai/rag/ingest",
+                files=files
+            )
+            return response.json()
+    
+    def query(self, query):
+        response = requests.get(
+            f"{self.base_url}/ai/rag/query",
+            params={'query': query}
+        )
+        return response.json()
+
+client = RAGClient()
+
+# 上传文档
+result = client.ingest_document("document.pdf")
+print(result)
+
+# 查询
+result = client.query("Spring AI 的主要功能是什么？")
+print(f"答案: {result['answer']}")
+```
+
+### 9.2 最佳实践
+
+1. **文档切块优化**：控制 Document 粒度，添加适当的元数据便于过滤与溯源
+2. **检索参数调优**：使用 SearchRequest 调整 topK 和相似度阈值，平衡召回率与噪声
+3. **幻觉防范**：将检索片段作为唯一事实来源的提示策略，生产环境建议人工抽检
+4. **模块选择**：根据需求选择合适的向量库（Cassandra、Chroma 等），逻辑均为 VectorStore + ChatClient 组合
+
+### 9.3 注意事项
+
+- 向量检索的 Top-K、相似度阈值等应使用 SearchRequest（见 VectorStore#similaritySearch(SearchRequest)），不要放在 OllamaEmbeddingOptions 上（嵌入选项与检索参数职责不同。
+
+## 十、运行项目
+
+### 10.1 前置检查
+
+```bash
+# 检查 Ollama
+curl http://localhost:11434/api/tags
+
+# 确认向量数据库运行
+# 根据使用的向量数据库进行相应检查
+```
+
+### 10.2 启动应用
+
+```bash
+cd spring-ai-ollama-rag-cassandra
 mvn spring-boot:run
 ```
-若模块集成了 Knife4j/SpringDoc，启动后可通过 OpenAPI 页面调试 RAG 相关接口。
 
-#### 检索参数说明（Spring AI 1.1.x）
-- 向量检索的 **Top-K**、相似度阈值等应使用 `SearchRequest`（见 `VectorStore#similaritySearch(SearchRequest)`），**不要** 放在 `OllamaEmbeddingOptions` 上（嵌入选项与检索参数职责不同）。
+### 10.3 简单测试
 
-#### 各向量库差异
-请打开具体模块目录下的 `README.md`，查看该模块使用的 **Starter 名称**、**连接配置键名**及 **官方 Vector Store 文档小节**（若有）。
+```bash
+curl "http://localhost:8080/ai/rag/query?query=hello"
+```
+
+## 十一、常见问题
+
+### 11.1 文档处理问题
+
+**Q: 文档上传后检索不到相关内容？**
+
+- 检查文档是否成功分块并写入向量库
+- 调整分块大小，确保语义完整性
+- 检查嵌入模型是否正常工作
+
+**Q: 如何提高检索准确率？**
+
+- 调整 topK 参数（一般 3-5 个文档块较合适
+- 优化文档分块策略，确保块大小适中
+- 使用更好的嵌入模型
+
+### 11.2 性能问题
+
+**Q: 检索速度慢怎么办？**
+
+- 优化向量数据库索引
+- 使用缓存机制缓存常见查询
+- 减少 topK 数量
+
+**Q: 如何减少幻觉？**
+
+- 明确要求模型只基于上下文回答
+- 添加"不知道时明确说明
+- 生产环境建议人工验证
+
+## 十二、许可证
+
+本项目采用 Apache License 2.0 许可证。
+
+## 十三、参考资源
+
+- Spring AI ChatClient — RAG：https://docs.spring.io/spring-ai/reference/api/chatclient.html#_retrieval_augmented_generation
+- Spring AI Vector Databases：https://docs.spring.io/spring-ai/reference/api/vectordbs.html
+- 示例模块：spring-ai-ollama-rag-cassandra、spring-ai-ollama-rag-chroma
+
+## 十四、致谢
+
+感谢 Spring AI 团队提供的优秀框架，让 RAG 功能变得如此简单易用。

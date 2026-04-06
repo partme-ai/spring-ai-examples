@@ -33,6 +33,15 @@
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-autoconfigure-retry</artifactId>
         </dependency>
+        <!-- For Chat Memory -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-chat-memory</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-chat-memory-repository-jdbc</artifactId>
+        </dependency>
         <!-- Web MVC + OpenAPI（与 ollama-generation 对齐，供 RouterFunction / Swagger 使用） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -44,6 +53,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- For Knife4j -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
@@ -58,11 +68,6 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
-        </dependency>
-        <!-- For Chat Memory -->
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-model-chat-memory</artifactId>
         </dependency>
         <!-- For Log4j2 -->
         <dependency>

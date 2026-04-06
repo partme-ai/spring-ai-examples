@@ -44,7 +44,7 @@ LLMs Free API 是由 LLM Red Team 开源组织开发的免费 API 聚合服务�
 <dependencies>
     <dependency>
         <groupId>com.github.hiwepy</groupId>
-        <artifactId>spring-ai-llms-free-api-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-model-llms-free-api</artifactId>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
