@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaEmbeddingOptions;
 import org.springframework.ai.reader.ExtractedTextFormatter;
 import org.springframework.ai.reader.pdf.ParagraphPdfDocumentReader;
 import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
@@ -28,7 +28,7 @@ public class OllamaEmbeddingTest3 {
          * shaw/dmeta-embedding-zh：https://ollama.com/shaw/dmeta-embedding-zh
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder().model("mxbai-embed-large").topK(3).build();
+        var ollamaOptions = OllamaEmbeddingOptions.builder().model("mxbai-embed-large").build();
         var embeddingModel = OllamaEmbeddingModel.builder().ollamaApi(ollamaApi)
                 .defaultOptions(ollamaOptions).build();
 

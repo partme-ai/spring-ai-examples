@@ -1,7 +1,7 @@
 package com.github.teachingai.ollama.audio.speech;
 
 
-import org.springframework.ai.model.ModelClient;
+import org.springframework.ai.model.Model;
 
 import java.io.InputStream;
 
@@ -13,7 +13,7 @@ import java.io.InputStream;
  * @since 2026.06.28
  */
 @FunctionalInterface
-public interface SpeechClient extends ModelClient<SpeechPrompt, SpeechResponse> {
+public interface SpeechClient extends Model<SpeechPrompt, SpeechResponse> {
 
     /**
      * Generates spoken audio from the provided text message.

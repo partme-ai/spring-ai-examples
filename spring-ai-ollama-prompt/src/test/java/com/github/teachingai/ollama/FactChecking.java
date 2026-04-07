@@ -9,7 +9,7 @@ import org.springframework.ai.evaluation.EvaluationRequest;
 import org.springframework.ai.evaluation.EvaluationResponse;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import java.util.Collections;
 
@@ -23,10 +23,10 @@ void testFactChecking() {
     OllamaApi ollamaApi = OllamaApi.builder().baseUrl("http://localhost:11434").build();
 
     ChatModel chatModel = OllamaChatModel.builder().ollamaApi(ollamaApi).defaultOptions(
-            OllamaOptions.builder().model(BESPOKE_MINICHECK).numPredict(2).temperature(0.0d).build()).build();
+            OllamaChatOptions.builder().model(BESPOKE_MINICHECK).numPredict(2).temperature(0.0d).build()).build();
 
-    // Create the FactCheckingEvaluator
-    var factCheckingEvaluator = new FactCheckingEvaluator(ChatClient.builder(chatModel));
+    // Create the FactCheckingEvaluator（1.1.x 使用工厂方法，内部绑定 bespoke-minicheck 模型名）
+    var factCheckingEvaluator = FactCheckingEvaluator.forBespokeMinicheck(ChatClient.builder(chatModel));
 
     // Example context and claim
     String context = "The Earth is the third planet from the Sun and the only astronomical object known to harbor life.";

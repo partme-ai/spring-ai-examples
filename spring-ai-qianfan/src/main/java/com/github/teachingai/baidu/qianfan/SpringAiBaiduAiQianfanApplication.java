@@ -1,12 +1,10 @@
 package com.github.teachingai.baidu.qianfan;
 
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.function.RouterFunction;
-import org.springframework.web.servlet.function.RouterFunctions;
-import org.springframework.web.servlet.function.ServerResponse;
 
 @SpringBootApplication
 public class SpringAiBaiduAiQianfanApplication {
@@ -15,14 +13,11 @@ public class SpringAiBaiduAiQianfanApplication {
         SpringApplication.run(SpringAiBaiduAiQianfanApplication.class, args);
     }
 
+    /**
+     * 供路由与演示使用的 {@link ChatClient}（基于千帆 {@link ChatModel} 实现）。
+     */
     @Bean
-    RouterFunction<ServerResponse> routes(ChatClient chatModel) {
-        return RouterFunctions.route()
-            .GET("/ask", req ->
-                ServerResponse.ok().body(
-                    chatModel.call(req.param("question")
-                            .orElse("tell me a joke"))))
-            .build();
+    ChatClient chatClient(ChatModel chatModel) {
+        return ChatClient.builder(chatModel).build();
     }
-
 }

@@ -1,17 +1,37 @@
 # Spring AI 学习示例项目
 
-> 这是一个基于 Spring Boot 3.4.x 和 Spring AI 1.0.3 的全面 AI 能力演示和开发实践项目。通过 60+ 个实际示例模块，帮助开发者快速学习和掌握现代 AI 应用开发。
+> 基于 **Spring Boot 3.5.6** 与 **Spring AI 1.1.4**（版本以 `pom.xml` 中 `spring-boot-starter-parent` / `spring-ai.version` 为准）的多模块示例工程，覆盖 Chat、Embedding、RAG、Tool Calling、MCP、可观测性等能力。
 
-**项目文档对应地址:** [Spring AI 完整教程](https://wiki.hiwepy.com/docs/spring-ai)
+**官方文档（验收与迁移请以官方为准）:** [Spring AI Reference](https://docs.spring.io/spring-ai/reference/index.html)
+
+**本地教程（可选）:** [Spring AI 完整教程](https://wiki.hiwepy.com/docs/spring-ai) · **文档四层索引（基础 / 入门 / 增强 / 项目）:** [docs/README.md](docs/README.md)
+
+**子模块 README 结构说明:** [docs/README-TEMPLATE.md](docs/README-TEMPLATE.md) · **RAG 共用说明:** [docs/2-Spring AI 入门实践/RAG-SHARED.md](docs/2-Spring%20AI%20入门实践/RAG-SHARED.md) · **架构图与调用链:** 见下文 [项目结构图与对象关系图](#项目结构图与对象关系图)（原 `docs/architecture-diagrams.md` 已合并至此）
 
 ![Java](https://img.shields.io/badge/Java-17%2B-blue)
-![Spring%20Boot](https://img.shields.io/badge/Spring%20Boot-3.4.x-brightgreen)
-![Spring%20AI](https://img.shields.io/badge/Spring%20AI-1.0.3-orange)
+![Spring%20Boot](https://img.shields.io/badge/Spring%20Boot-3.5.6-brightgreen)
+![Spring%20AI](https://img.shields.io/badge/Spring%20AI-1.1.4-orange)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
+
+## 能力 → 模块 → Reference 章节（索引）
+
+| Spring AI 能力域 | Reference 章节 | 示例模块（节选） |
+|------------------|----------------|-------------------|
+| Chat / ChatClient | [Chat Model](https://docs.spring.io/spring-ai/reference/api/chatmodel.html)、[ChatClient](https://docs.spring.io/spring-ai/reference/api/chatclient.html) | `spring-ai-ollama-chat`、`spring-ai-openai`、`spring-ai-deepseek` |
+| Embedding | [Embeddings](https://docs.spring.io/spring-ai/reference/api/embeddings.html) | `spring-ai-ollama-embedding` |
+| RAG | [RAG（ChatClient）](https://docs.spring.io/spring-ai/reference/api/chatclient.html#_retrieval_augmented_generation) | `spring-ai-ollama-rag-*` |
+| Vector Store | [Vector Databases](https://docs.spring.io/spring-ai/reference/api/vectordbs.html) | 同上 |
+| Tool Calling | [Tools](https://docs.spring.io/spring-ai/reference/api/tools.html) | `spring-ai-ollama-tools` |
+| MCP | [MCP](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-overview.html) | `spring-ai-ollama-mcp-webmvc-*`、`spring-ai-ollama-mcp-webflux-*` |
+| ETL / 文档 | [ETL Pipeline](https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html) | `spring-ai-ollama-embedding`（PDF 等） |
+| Observability | [Observability](https://docs.spring.io/spring-ai/reference/observability/index.html) | `spring-ai-ollama-observation-prometheus`、`spring-ai-ollama-observation-langfuse` |
+| Structured Output | [Structured Output](https://docs.spring.io/spring-ai/reference/api/structured-output-converter.html) | 各厂商示例中结构化返回示例 |
+
+各子目录均有 `README.md`，含运行步骤与官方链接；RAG 向量库差异见 [docs/2-Spring AI 入门实践/RAG-SHARED.md](docs/2-Spring%20AI%20入门实践/RAG-SHARED.md)。
 
 ## 项目简介
 本项目同时具备两重属性：
-- Spring AI 学习示例：基于 Spring Boot 3.4.x 与 Spring AI 1.0.3，覆盖 AI 模型集成、Ollama 本地推理、RAG 检索增强、语音处理、监控与日志，以及典型应用示例，具备文本、图像、语音等多模态能力。
+- Spring AI 学习示例：基于 Spring Boot 3.5.x 与 Spring AI 1.1.x（以父 `pom.xml` 为准），覆盖 AI 模型集成、Ollama 本地推理、RAG 检索增强、语音处理、监控与日志，以及典型应用示例，具备文本、图像、语音等多模态能力。
 - 博客文案配套：与博客文档一一对应，便于“实践代码 ↔ 教程文章”的同步学习与输出。详见文档：https://wiki.hiwepy.com/docs/spring-ai。
 
 ### 目录
@@ -36,9 +56,9 @@
 
 本项目是一个企业级的 Spring AI 学习平台，涵盖：
 
-- ✅ **15 个 AI 模型集成示例** - OpenAI、Anthropic、Azure、Ollama 等主流供应商
+- ✅ **20 个 AI 模型集成示例** - OpenAI、Anthropic、Azure、Bedrock、Ollama 等主流供应商
 - ✅ **8 个 Ollama 核心功能** - 本地部署和推理
-- ✅ **15 个 RAG 检索增强示例** - 多种向量数据库集成
+- ✅ **17 个 RAG 检索增强示例** - 多种向量数据库集成
 - ✅ **6 个语音处理模块** - 识别、合成、助手等
 - ✅ **2 个监控追踪模块** - Prometheus 和 Langfuse
 - ✅ **4 个实战应用示例** - SQL 生成、Agent、MVC 等
@@ -66,8 +86,8 @@
 |-----|--------|------|
 | **Java** | 17+ | 编译和运行基础 |
 | **Maven** | 3.6+ | 项目构建和依赖管理 |
-| **Spring Boot** | 3.4.x | 应用基础框架 |
-| **Spring AI** | 1.0.3 | AI 集成框架 |
+| **Spring Boot** | 3.5.6（见父 POM） | 应用基础框架 |
+| **Spring AI** | 1.1.4（见父 POM `spring-ai.version`） | AI 集成框架 |
 
 ### 可选环境
 
@@ -121,26 +141,37 @@ mvn spring-boot:run
 
 ### 模块分类
 
+下列树形结构与父工程 `pom.xml` 中 `<modules>` 一致（按「能力域」归类）；教程索引见 [docs/README.md](docs/README.md)。
+
 ```
 spring-ai-examples/
-├── 【AI 模型集成 - 15个模块】
-│   ├── spring-ai-openai/                    # OpenAI
+├── pom.xml                                  # 父工程聚合与统一版本
+├── docs/                                    # 教程（四层目录：1 基础 / 2 入门实践 / 3 增强扩展 / 4 项目实践）与 README-TEMPLATE 等
+├── spring-ai-common/                        # 公共依赖模块
+│
+├── 【AI 模型集成（云端）- 20 个模块】
+│   ├── spring-ai-amazon-bedrock/            # AWS Bedrock
 │   ├── spring-ai-anthropic/                 # Claude
 │   ├── spring-ai-azure-openai/              # Azure OpenAI
-│   ├── spring-ai-mistralai/                 # Mistral
-│   ├── spring-ai-qwen/                      # 阿里通义千问
-│   ├── spring-ai-qianfan/                   # 百度千帆
-│   ├── spring-ai-zhipuai/                   # 智谱 AI
+│   ├── spring-ai-coze/                      # Coze / 扣子
 │   ├── spring-ai-deepseek/                  # DeepSeek
+│   ├── spring-ai-huaweiai-gallery/          # 华为云 Gallery
 │   ├── spring-ai-huaweiai-pangu/            # 华为盘古
-│   ├── spring-ai-huaweiai-gallery/          # 华为云
-│   ├── spring-ai-moonshotai/                # 月之暗面
+│   ├── spring-ai-huggingface/               # Hugging Face
+│   ├── spring-ai-llmsfreeapi/               # LLMs Free API 聚合
 │   ├── spring-ai-minimax/                   # MiniMax
-│   ├── spring-ai-stepfun/                   # 阶跃星辰
+│   ├── spring-ai-mistralai/                 # Mistral
+│   ├── spring-ai-moonshotai/                # 月之暗面
+│   ├── spring-ai-oci-genai-cohere/          # Oracle OCI GenAI / Cohere
+│   ├── spring-ai-openai/                    # OpenAI
+│   ├── spring-ai-qianfan/                   # 百度千帆
+│   ├── spring-ai-qwen/                      # 阿里通义千问
+│   ├── spring-ai-stabilityai/               # Stability AI
 │   ├── spring-ai-vertexai-gemini/           # Google Gemini
-│   └── spring-ai-stabilityai/               # Stability AI
+│   ├── spring-ai-watsonxai/                 # IBM watsonx.ai
+│   └── spring-ai-zhipuai/                   # 智谱 AI
 │
-├── 【Ollama 核心功能 - 8个模块】
+├── 【Ollama 核心功能 - 8 个模块】
 │   ├── spring-ai-ollama-chat/               # 文本对话
 │   ├── spring-ai-ollama-generation/         # 文本生成
 │   ├── spring-ai-ollama-vision/             # 图像理解
@@ -150,24 +181,26 @@ spring-ai-examples/
 │   ├── spring-ai-ollama-prompt/             # 提示工程
 │   └── spring-ai-ollama-fine-tuning/        # 模型微调
 │
-├── 【RAG 检索增强 - 15个模块】
-│   ├── spring-ai-ollama-rag-chroma/         # Chroma 向量库
-│   ├── spring-ai-ollama-rag-elasticsearch/  # Elasticsearch
-│   ├── spring-ai-ollama-rag-mongodb/        # MongoDB
-│   ├── spring-ai-ollama-rag-neo4j/          # Neo4j 图数据库
-│   ├── spring-ai-ollama-rag-pinecone/       # Pinecone
-│   ├── spring-ai-ollama-rag-redis/          # Redis
-│   ├── spring-ai-ollama-rag-pgvector/       # PostgreSQL PGVector
-│   ├── spring-ai-ollama-rag-weaviate/       # Weaviate
-│   ├── spring-ai-ollama-rag-qdrant/         # Qdrant
-│   ├── spring-ai-ollama-rag-milvus/         # Milvus
-│   ├── spring-ai-ollama-rag-opensearch/     # OpenSearch
-│   ├── spring-ai-ollama-rag-oracle/         # Oracle
-│   ├── spring-ai-ollama-rag-mariadb/        # MariaDB
-│   ├── spring-ai-ollama-rag-cassandra/      # Cassandra
-│   └── spring-ai-ollama-rag-couchbase/      # Couchbase
+├── 【RAG 检索增强 - 17 个模块】
+│   ├── spring-ai-ollama-rag-cassandra/
+│   ├── spring-ai-ollama-rag-chroma/
+│   ├── spring-ai-ollama-rag-couchbase/
+│   ├── spring-ai-ollama-rag-elasticsearch/
+│   ├── spring-ai-ollama-rag-gemfire/
+│   ├── spring-ai-ollama-rag-mariadb/
+│   ├── spring-ai-ollama-rag-milvus/
+│   ├── spring-ai-ollama-rag-mongodb/
+│   ├── spring-ai-ollama-rag-neo4j/
+│   ├── spring-ai-ollama-rag-opensearch/
+│   ├── spring-ai-ollama-rag-oracle/
+│   ├── spring-ai-ollama-rag-pgvector/
+│   ├── spring-ai-ollama-rag-pinecone/
+│   ├── spring-ai-ollama-rag-qdrant/
+│   ├── spring-ai-ollama-rag-redis/
+│   ├── spring-ai-ollama-rag-typesense/
+│   └── spring-ai-ollama-rag-weaviate/
 │
-├── 【语音处理 - 6个模块】
+├── 【语音处理 - 6 个模块】
 │   ├── spring-ai-ollama-audio-whisper/      # Whisper 语音识别
 │   ├── spring-ai-ollama-audio-chattts/      # ChatTTS 语音合成
 │   ├── spring-ai-ollama-audio-edgetts/      # EdgeTTS 语音合成
@@ -175,25 +208,75 @@ spring-ai-examples/
 │   ├── spring-ai-ollama-audio-mars5tts/     # MARS5 语音合成
 │   └── spring-ai-ollama-audio-unifiedtts/   # 统一 TTS 接口
 │
-├── 【监控与日志 - 2个模块】
+├── 【监控与日志 - 2 个模块】
 │   ├── spring-ai-ollama-observation-prometheus/  # Prometheus 监控
-│   └── spring-ai-ollama-observation-langfuse/    # Langfuse 追踪
+│   └── spring-ai-ollama-observation-langfuse/      # Langfuse 追踪
 │
-├── 【MCP 框架 - 4个模块】
-│   ├── spring-ai-ollama-mcp-webmvc-server/      # WebMVC MCP 服务端
-│   ├── spring-ai-ollama-mcp-webmvc-client/      # WebMVC MCP 客户端
-│   ├── spring-ai-ollama-mcp-webflux-server/     # WebFlux MCP 服务端
-│   └── spring-ai-ollama-mcp-webflux-client/     # WebFlux MCP 客户端
+├── 【MCP 框架 - 4 个模块】
+│   ├── spring-ai-ollama-mcp-webmvc-server/       # WebMVC MCP 服务端
+│   ├── spring-ai-ollama-mcp-webmvc-client/       # WebMVC MCP 客户端
+│   ├── spring-ai-ollama-mcp-webflux-server/      # WebFlux MCP 服务端
+│   └── spring-ai-ollama-mcp-webflux-client/      # WebFlux MCP 客户端
 │
-├── 【应用示例 - 4个模块】
-│   ├── spring-ai-sql/                       # SQL 生成器
-│   ├── spring-ai-project-hotel-recommend/   # 酒店推荐系统
-│   ├── spring-ai-postgresml/                # PostgresML 集成
-│   └── spring-ai-common/                    # 通用工具库
-│
-└── pom.xml                                  # 父工程 POM 配置
-
+└── 【应用示例 - 3 个模块】
+    ├── spring-ai-sql/                       # SQL 生成器
+    ├── spring-ai-postgresml/                # PostgresML 集成
+    └── spring-ai-project-hotel-recommend/   # 酒店推荐系统
 ```
+
+### 项目结构图与对象关系图
+
+**结构说明**
+
+- 父工程 `pom.xml` 统一管理 `spring-ai.version`、`springdoc.version` 等，聚合所有子模块。
+- 各子模块一般为独立 Spring Boot 可运行应用，典型包含启动类、`Controller`、`application.properties`。
+- RAG 系列以**向量库**为维度划分，演示同一套「嵌入 + 检索 + 生成」流水线在不同存储上的替换方式。
+
+#### 对象关系图（典型调用链）
+
+以下示意与 Spring AI 1.1.x 抽象一致；具体类名以各模块源码为准。
+
+**以 `spring-ai-ollama-rag-neo4j` 为例（聊天）**
+
+```mermaid
+classDiagram
+    SpringAiOllamaApplication --> ChatController
+    ChatController --> OllamaChatModel
+    ChatController ..> Prompt
+    Prompt o--> Message
+    Message <|-- UserMessage
+    Message <|-- SystemMessage
+    Message <|-- AssistantMessage
+    ChatController ..> OllamaChatOptions
+    OllamaChatModel --> ChatResponse
+    ChatResponse --> Generation
+```
+
+- 入口类：`spring-ai-ollama-rag-neo4j/src/main/java/com/github/teachingai/ollama/SpringAiOllamaApplication.java`
+- 控制器：`.../controller/ChatController.java`
+- 请求 DTO：`.../request/ApiRequest.java`
+
+**以 `spring-ai-ollama-rag-neo4j` 为例（嵌入）**
+
+```mermaid
+classDiagram
+    SpringAiOllamaApplication --> EmbeddingController
+    EmbeddingController --> EmbeddingModel
+```
+
+- 嵌入接口：`.../controller/EmbeddingController.java`
+- 配置：`src/main/resources/application.properties`
+
+**以 `spring-ai-vertexai-gemini` 为例（云端聊天）**
+
+```mermaid
+classDiagram
+    SpringAiVertexAiApplication --> ChatController
+    ChatController --> VertexAiGeminiChatModel
+    VertexAiGeminiChatModel --> ChatResponse
+```
+
+- 入口与配置：`spring-ai-vertexai-gemini/` 模块内 `SpringAiVertexAiApplication`、`controller/ChatController.java`
 
 ---
 
@@ -258,7 +341,7 @@ public String chat(@RequestParam String message) {
 
 ### 3. RAG 检索增强生成
 
-集成 15 种向量数据库，构建企业知识库：
+集成 17 种向量数据库，构建企业知识库：
 
 ```java
 // RAG 示例：基于 Elasticsearch

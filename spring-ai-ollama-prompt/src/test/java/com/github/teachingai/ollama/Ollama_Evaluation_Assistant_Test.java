@@ -11,7 +11,7 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import reactor.core.publisher.Flux;
@@ -34,7 +34,7 @@ public class Ollama_Evaluation_Assistant_Test {
          * gemma3:4b ：https://ollama.com/library/gemma3
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder()
+        var ollamaOptions = OllamaChatOptions.builder()
                 //.model("gemma3:4b")
                 .model("qwen3:8b")
                 //.format("json")
@@ -112,7 +112,7 @@ public class Ollama_Evaluation_Assistant_Test {
                 new UserMessage("请以老师的视角，帮我写一个给小明的教师寄语，150字以内！"));
 
         // 3. 提示词对象
-        Prompt prompt = new Prompt(messages, OllamaOptions.builder()
+        Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
                 //.model("qwen3:8b")
                 .topK(5)
                 .temperature(0.85d).build());
@@ -195,7 +195,7 @@ public class Ollama_Evaluation_Assistant_Test {
                 new UserMessage("请以爸爸的视角，请帮我写一个小明的家长寄语，150字以内！"));
 
         // 3. 提示词对象
-        Prompt prompt = new Prompt(messages, OllamaOptions.builder()
+        Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
                 //.model("qwen3:8b")
                 .topK(5)
                 .temperature(0.85d).build());

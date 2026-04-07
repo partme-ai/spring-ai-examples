@@ -1,6 +1,6 @@
 package com.github.teachingai.stabilityai;
 
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +15,11 @@ public class SpringAiStabilityAiApplication {
         SpringApplication.run(SpringAiStabilityAiApplication.class, args);
     }
 
+    /**
+     * 函数式路由示例：直接使用 {@link ChatModel}，避免单独引入 spring-ai-client 模块。
+     */
     @Bean
-    RouterFunction<ServerResponse> routes(ChatClient chatModel) {
+    RouterFunction<ServerResponse> routes(ChatModel chatModel) {
         return RouterFunctions.route()
             .GET("/ask", req ->
                 ServerResponse.ok().body(
@@ -24,5 +27,4 @@ public class SpringAiStabilityAiApplication {
                             .orElse("tell me a joke"))))
             .build();
     }
-
 }

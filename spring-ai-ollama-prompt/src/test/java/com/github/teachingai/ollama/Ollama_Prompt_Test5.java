@@ -10,7 +10,7 @@ import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class Ollama_Prompt_Test5 {
      * gemma3:4b ：https://ollama.com/library/gemma3
      */
     private static OllamaApi ollamaApi = OllamaApi.builder().build();
-    private static OllamaOptions ollamaOptions = OllamaOptions.builder()
+    private static OllamaChatOptions ollamaOptions = OllamaChatOptions.builder()
             .model("qwen3:8b")
             .format("json")
             .temperature(0.9d).build();
@@ -43,7 +43,7 @@ public class Ollama_Prompt_Test5 {
 
         private String getCompletion(NLU self, String promptStr, String model){
             messages.add(new UserMessage(promptStr));
-            Prompt prompt = new Prompt(messages, OllamaOptions.builder()
+            Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
                     .model("qwen3:8b")
                     .format("json")
                     .temperature(0d).numGPU(3).build());
@@ -87,7 +87,7 @@ public class Ollama_Prompt_Test5 {
          * gemma3:4b ：https://ollama.com/library/gemma3
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder()
+        var ollamaOptions = OllamaChatOptions.builder()
                 .model("qwen3:8b")
                 .format("json")
                 .temperature(0.9d).build();
@@ -155,7 +155,7 @@ public class Ollama_Prompt_Test5 {
                 new UserMessage("用户：" + input_text),
                 userMessage);
 
-        Prompt prompt = new Prompt(messages, OllamaOptions.builder()
+        Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
                 .model("qwen3:8b")
                 .format("json")
                 .temperature(0d).build());

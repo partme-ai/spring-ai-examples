@@ -42,7 +42,7 @@ public class EmotiVoiceAudioSpeechClient implements SpeechClient, StreamingSpeec
     public EmotiVoiceAudioSpeechClient(EmotiVoiceAudioApi audioApi) {
         this(audioApi,
                 EmotiVoiceAudioSpeechOptions.builder()
-                        .withModel(EmotiVoiceAudioApi.TtsModel.TTS_1.getValue())
+                        .model(EmotiVoiceAudioApi.TtsModel.TTS_1.getValue())
                         .withResponseFormat(AudioResponseFormat.MP3)
                         .withVoice(EmotiVoiceAudioApi.SpeechRequest.Voice.ALLOY)
                         .withSpeed(SPEED)
@@ -122,7 +122,7 @@ public class EmotiVoiceAudioSpeechClient implements SpeechClient, StreamingSpeec
                 : request.getInstructions().getText();
 
         EmotiVoiceAudioApi.SpeechRequest.Builder requestBuilder = EmotiVoiceAudioApi.SpeechRequest.builder()
-                .withModel(options.getModel())
+                .model(options.getModel())
                 .withInput(input)
                 .withVoice(options.getVoice())
                 .withResponseFormat(options.getResponseFormat())
@@ -134,7 +134,7 @@ public class EmotiVoiceAudioSpeechClient implements SpeechClient, StreamingSpeec
     private EmotiVoiceAudioSpeechOptions merge(EmotiVoiceAudioSpeechOptions source, EmotiVoiceAudioSpeechOptions target) {
         EmotiVoiceAudioSpeechOptions.Builder mergedBuilder = EmotiVoiceAudioSpeechOptions.builder();
 
-        mergedBuilder.withModel(source.getModel() != null ? source.getModel() : target.getModel());
+        mergedBuilder.model(source.getModel() != null ? source.getModel() : target.getModel());
         mergedBuilder.withInput(source.getInput() != null ? source.getInput() : target.getInput());
         mergedBuilder.withVoice(source.getVoice() != null ? source.getVoice() : target.getVoice());
         mergedBuilder.withResponseFormat(

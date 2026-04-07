@@ -2,6 +2,7 @@ package com.github.teachingai.amazon.bedrock.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,16 @@ import reactor.core.publisher.Flux;
 
 import java.util.Map;
 
+/**
+ * Amazon Bedrock 对话示例：依赖容器中唯一的 {@link ChatModel}（由 Bedrock Starter 自动配置）。
+ */
 @RestController
 public class ChatController {
 
-    private final BenchmarkChatModel chatModel;
+    private final ChatModel chatModel;
 
     @Autowired
-    public ChatController(AzureOpenAiChatModel chatModel) {
+    public ChatController(ChatModel chatModel) {
         this.chatModel = chatModel;
     }
 
@@ -28,23 +32,21 @@ public class ChatController {
         try {
             String response = chatModel.call(message);
             return Map.of(
-                "success", true,
-                "generation", response,
-                "message", "Generated successfully"
-            );
+                    "success", true,
+                    "generation", response,
+                    "message", "Generated successfully");
         } catch (Exception e) {
             return Map.of(
-                "success", false,
-                "error", e.getMessage(),
-                "message", "Generation failed"
-            );
+                    "success", false,
+                    "error", e.getMessage(),
+                    "message", "Generation failed");
         }
     }
 
     @GetMapping("/ai/generateStream")
-    public Flux<ChatResponse> generateStream(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+    public Flux<ChatResponse> generateStream(
+            @RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
         Prompt prompt = new Prompt(new UserMessage(message));
         return this.chatModel.stream(prompt);
     }
-
 }

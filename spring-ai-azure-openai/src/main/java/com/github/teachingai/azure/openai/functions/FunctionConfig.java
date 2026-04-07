@@ -1,7 +1,7 @@
 package com.github.teachingai.azure.openai.functions;
 
-import org.springframework.ai.model.function.FunctionCallback;
-import org.springframework.ai.model.function.FunctionCallbackWrapper;
+import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.function.FunctionToolCallback;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
@@ -12,29 +12,29 @@ import java.util.function.Function;
 public class FunctionConfig {
 
     @Bean
-    @Description("获取天气：根据给出的城市ID获取天气信息") // function description
+    @Description("获取天气：根据给出的城市ID获取天气信息")
     public Function<GetWeatherFunction.Request, GetWeatherFunction.Response> weatherFunction() {
         return new GetWeatherFunction();
     }
 
     @Bean
-    public FunctionCallback ipRegionFunctionInfo() {
-        return FunctionCallbackWrapper.builder(new PconlineRegionFunction())
-                .withName("getLocationByIp") // (1) function name
-                .withDescription("IP地址解析: 根据IP解析IP所在位置信息") // (2) function description
-                .withSchemaType(FunctionCallbackWrapper.Builder.SchemaType.JSON_SCHEMA) // (3) schema type. Compulsory for Gemini function calling.
-                .withInputType(PconlineRegionFunction.Request.class) // (4) input type
-                .withInputTypeSchema("{\n" +
-                        "  \"type\": \"object\",\n" +
-                        "  \"properties\": {\n" +
-                        "    \"ip\": {\n" +
-                        "      \"type\": \"string\"\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"required\": [\"ip\"]\n" +
-                        "}") // (5) input type schema
-                .withResponseConverter((response) -> String.format("您的IP当前位置是：%s", response.addr())) // (6) response converter
+    public ToolCallback ipRegionFunctionInfo() {
+        return FunctionToolCallback.builder("getLocationByIp", new PconlineRegionFunction())
+                .description("IP地址解析: 根据IP解析IP所在位置信息")
+                .inputType(PconlineRegionFunction.Request.class)
+                .inputSchema(
+                        """
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "ip": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": ["ip"]
+                                }""")
+                .toolCallResultConverter((response, _type) -> String.format("您的IP当前位置是：%s",
+                        ((PconlineRegionFunction.Response) response).addr()))
                 .build();
     }
-
 }

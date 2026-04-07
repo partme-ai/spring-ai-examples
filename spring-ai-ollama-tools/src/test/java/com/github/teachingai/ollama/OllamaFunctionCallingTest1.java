@@ -1,33 +1,23 @@
 package com.github.teachingai.ollama;
 
-import java.util.Scanner;
+import org.junit.jupiter.api.Test;
+import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-public class OllamaFunctionCallingTest1 {
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-    public static void main(String[] args) {
+/**
+ * 冒烟：验证 Ollama 工具调用场景下 {@link OllamaChatModel} 可被 Spring 容器装配。
+ */
+@SpringBootTest
+class OllamaFunctionCallingTest1 {
 
-        /**
-         * qwen2:7b ：https://ollama.com/library/qwen2
-         * mistral ：https://ollama.com/library/mistral
-         */
-        var ollamaApi = new MyOllamaApi();
-        var chatModel = new MyOllamaChatClient(ollamaApi, OllamaChatOptions.builder()
-                .withModel("qwen:7b")
-                .withFormat("json")
-                .withFunction("CurrentWeather")
-                .withTemperature(0.9f)
-                .build());
+    @Autowired
+    private OllamaChatModel chatModel;
 
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print(">>> ");
-            String message = scanner.nextLine();
-            if (message.equals("exit")) {
-                break;
-            }
-            String resp = chatModel.call(message);
-            System.out.println("<<< " + resp);
-        }
+    @Test
+    void contextLoadsOllamaChatModel() {
+        assertNotNull(chatModel);
     }
-
 }

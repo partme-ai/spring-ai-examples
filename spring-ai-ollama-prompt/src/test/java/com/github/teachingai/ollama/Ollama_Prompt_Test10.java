@@ -8,7 +8,7 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class Ollama_Prompt_Test10 {
 
         messages.add(new UserMessage(promptStr));
 
-        Prompt prompt = new Prompt(messages, OllamaOptions.builder()
+        Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
                 .model(model)
                 .temperature(0d)
                 .numGPU(3).build());
@@ -65,7 +65,7 @@ public class Ollama_Prompt_Test10 {
          * gemma3:4b ：https://ollama.com/library/gemma3
          */
         var ollamaApi = OllamaApi.builder().build();
-        var ollamaOptions = OllamaOptions.builder()
+        var ollamaOptions = OllamaChatOptions.builder()
                 .model("qwen3:8b")
                 .format("json")
                 .temperature(0.9d).build();

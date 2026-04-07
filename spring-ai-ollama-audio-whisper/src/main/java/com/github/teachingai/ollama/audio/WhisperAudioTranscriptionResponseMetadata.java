@@ -3,6 +3,7 @@ package com.github.teachingai.ollama.audio;
 
 import com.github.teachingai.ollama.api.ChatTtsAudioApi;
 import org.springframework.ai.chat.metadata.RateLimit;
+import org.springframework.ai.model.AbstractResponseMetadata;
 import org.springframework.ai.model.ResponseMetadata;
 import org.springframework.util.Assert;
 
@@ -11,7 +12,7 @@ import org.springframework.util.Assert;
  * @since 0.8.1
  * @see RateLimit
  */
-public class WhisperAudioTranscriptionResponseMetadata implements ResponseMetadata {
+public class WhisperAudioTranscriptionResponseMetadata extends AbstractResponseMetadata implements ResponseMetadata {
 
     protected static final String AI_METADATA_STRING = "{ @type: %1$s, rateLimit: %4$s }";
 

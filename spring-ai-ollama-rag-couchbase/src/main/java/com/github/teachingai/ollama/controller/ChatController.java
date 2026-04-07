@@ -11,7 +11,7 @@ import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.ollama.OllamaChatModel;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -48,9 +48,14 @@ public class ChatController {
         chatRequest.messages().forEach(System.out::println);
 
 
-        ChatOptions modelOptions = new OllamaOptions()
-                .withModel(chatRequest.model())
-                .withTemperature(chatRequest.temperature()).withTopP(chatRequest.topP());
+        var optBuilder = OllamaChatOptions.builder().model(chatRequest.model());
+        if (chatRequest.temperature() != null) {
+            optBuilder.temperature(chatRequest.temperature().doubleValue());
+        }
+        if (chatRequest.topP() != null) {
+            optBuilder.topP(chatRequest.topP().doubleValue());
+        }
+        ChatOptions modelOptions = optBuilder.build();
 
         List<Message> messages = chatRequest.messages().stream().map(msg -> {
             switch (msg.role()) {

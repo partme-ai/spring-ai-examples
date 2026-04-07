@@ -7,7 +7,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import reactor.core.publisher.Flux;
@@ -34,7 +34,7 @@ public class Ollama_Hong_Prompt_Test {
          */
         var ollamaApi = OllamaApi.builder().build();
         var model = "gemma3:4b";
-        var ollamaOptions = OllamaOptions.builder()
+        var ollamaOptions = OllamaChatOptions.builder()
                 //.model("qwen3:8b")
                 .model(model)
                 .temperature(0.9d).build();
@@ -51,7 +51,7 @@ public class Ollama_Hong_Prompt_Test {
         // 生成对话
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            Prompt prompt = new Prompt(historyList, OllamaOptions.builder().build());
+            Prompt prompt = new Prompt(historyList, OllamaChatOptions.builder().build());
             Flux<ChatResponse> flux = chatModel.stream(prompt);
             System.out.print(">>> ");
             flux.doFinally(e -> {

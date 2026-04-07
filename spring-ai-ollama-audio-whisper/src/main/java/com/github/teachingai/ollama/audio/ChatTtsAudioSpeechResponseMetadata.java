@@ -1,20 +1,17 @@
 package com.github.teachingai.ollama.audio;
 
-
 import com.github.teachingai.ollama.api.ChatTtsAudioApi;
 import org.springframework.ai.chat.metadata.EmptyRateLimit;
 import org.springframework.ai.chat.metadata.RateLimit;
+import org.springframework.ai.model.AbstractResponseMetadata;
 import org.springframework.ai.model.ResponseMetadata;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
- * Audio speech metadata implementation for {@literal OpenAI}.
- *
- * @author Ahmed Yousri
- * @see RateLimit
+ * Whisper / ChatTTS 相关响应元数据。
  */
-public class ChatTtsAudioSpeechResponseMetadata implements ResponseMetadata {
+public class ChatTtsAudioSpeechResponseMetadata extends AbstractResponseMetadata implements ResponseMetadata {
 
     protected static final String AI_METADATA_STRING = "{ @type: %1$s, requestsLimit: %2$s }";
 
@@ -23,14 +20,12 @@ public class ChatTtsAudioSpeechResponseMetadata implements ResponseMetadata {
 
     public static ChatTtsAudioSpeechResponseMetadata from(ChatTtsAudioApi.StructuredResponse result) {
         Assert.notNull(result, "ChatTTS speech must not be null");
-        ChatTtsAudioSpeechResponseMetadata speechResponseMetadata = new ChatTtsAudioSpeechResponseMetadata();
-        return speechResponseMetadata;
+        return new ChatTtsAudioSpeechResponseMetadata();
     }
 
     public static ChatTtsAudioSpeechResponseMetadata from(String result) {
         Assert.notNull(result, "ChatTTS speech must not be null");
-        ChatTtsAudioSpeechResponseMetadata speechResponseMetadata = new ChatTtsAudioSpeechResponseMetadata();
-        return speechResponseMetadata;
+        return new ChatTtsAudioSpeechResponseMetadata();
     }
 
     @Nullable
@@ -59,5 +54,4 @@ public class ChatTtsAudioSpeechResponseMetadata implements ResponseMetadata {
     public String toString() {
         return AI_METADATA_STRING.formatted(getClass().getName(), getRateLimit());
     }
-
 }

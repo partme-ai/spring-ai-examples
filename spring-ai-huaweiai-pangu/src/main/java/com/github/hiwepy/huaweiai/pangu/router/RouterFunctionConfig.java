@@ -1,6 +1,6 @@
 package com.github.hiwepy.huaweiai.pangu.router;
 
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.function.RouterFunction;
@@ -11,13 +11,13 @@ import org.springframework.web.servlet.function.ServerResponse;
 public class RouterFunctionConfig {
 
     @Bean
-    RouterFunction<ServerResponse> routes(ChatClient chatModel) {
+    RouterFunction<ServerResponse> routes(ChatClient chatClient) {
         return RouterFunctions.route()
-                .GET("/ask", req ->
-                        ServerResponse.ok().body(
-                                chatModel.call(req.param("question")
-                                        .orElse("tell me a joke"))))
+                .GET("/ask", req -> ServerResponse.ok()
+                        .body(chatClient
+                                .prompt(req.param("question").orElse("tell me a joke"))
+                                .call()
+                                .content()))
                 .build();
     }
-
 }

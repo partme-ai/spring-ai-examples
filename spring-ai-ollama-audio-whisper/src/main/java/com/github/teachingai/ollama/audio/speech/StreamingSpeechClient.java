@@ -1,6 +1,6 @@
 package com.github.teachingai.ollama.audio.speech;
 
-import org.springframework.ai.model.StreamingModelClient;
+import org.springframework.ai.model.StreamingModel;
 import reactor.core.publisher.Flux;
 
 /**
@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
  * generated audio in a real-time fashion.
  */
 @FunctionalInterface
-public interface StreamingSpeechClient extends StreamingModelClient<SpeechPrompt, SpeechResponse> {
+public interface StreamingSpeechClient extends StreamingModel<SpeechPrompt, SpeechResponse> {
 
     /**
      * Generates a stream of audio bytes from the provided text message.

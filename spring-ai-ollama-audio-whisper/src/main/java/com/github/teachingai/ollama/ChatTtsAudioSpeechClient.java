@@ -4,7 +4,7 @@ import com.github.teachingai.ollama.api.ChatTtsAudioApi;
 import com.github.teachingai.ollama.api.ChatTtsResponseHeaderExtractor;
 import com.github.teachingai.ollama.api.common.OllamaApiException;
 import com.github.teachingai.ollama.audio.speech.*;
-import com.github.teachingai.ollama.metadata.audio.ChatTtsAudioSpeechResponseMetadata;
+import com.github.teachingai.ollama.audio.ChatTtsAudioSpeechResponseMetadata;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class ChatTtsAudioSpeechClient implements SpeechClient, StreamingSpeechCl
     public ChatTtsAudioSpeechClient(ChatTtsAudioApi audioApi) {
         this(audioApi,
                 ChatTtsAudioSpeechOptions.builder()
-                        .withModel(ChatTtsAudioApi.TtsModel.TTS_1.getValue())
+                        .model(ChatTtsAudioApi.TtsModel.TTS_1.getValue())
                         .withResponseFormat(ChatTtsAudioApi.SpeechRequest.AudioResponseFormat.MP3)
                         .withVoice(ChatTtsAudioApi.SpeechRequest.Voice.ALLOY)
                         .withSpeed(SPEED)
@@ -121,7 +121,7 @@ public class ChatTtsAudioSpeechClient implements SpeechClient, StreamingSpeechCl
                 : request.getInstructions().getText();
 
         ChatTtsAudioApi.SpeechRequest.Builder requestBuilder = ChatTtsAudioApi.SpeechRequest.builder()
-                .withModel(options.getModel())
+                .model(options.getModel())
                 .withInput(input)
                 .withVoice(options.getVoice())
                 .withResponseFormat(options.getResponseFormat())
@@ -133,7 +133,7 @@ public class ChatTtsAudioSpeechClient implements SpeechClient, StreamingSpeechCl
     private ChatTtsAudioSpeechOptions merge(ChatTtsAudioSpeechOptions source, ChatTtsAudioSpeechOptions target) {
         ChatTtsAudioSpeechOptions.Builder mergedBuilder = ChatTtsAudioSpeechOptions.builder();
 
-        mergedBuilder.withModel(source.getModel() != null ? source.getModel() : target.getModel());
+        mergedBuilder.model(source.getModel() != null ? source.getModel() : target.getModel());
         mergedBuilder.withInput(source.getInput() != null ? source.getInput() : target.getInput());
         mergedBuilder.withVoice(source.getVoice() != null ? source.getVoice() : target.getVoice());
         mergedBuilder.withResponseFormat(
@@ -142,3 +142,5 @@ public class ChatTtsAudioSpeechClient implements SpeechClient, StreamingSpeechCl
 
         return mergedBuilder.build();
     }
+
+}

@@ -57,6 +57,10 @@ public class EmotiVoiceAudioSpeechOptions implements ModelOptions {
             return this;
         }
 
+        public Builder model(String model) {
+            return withModel(model);
+        }
+
         public Builder withInput(String input) {
             options.input = input;
             return this;

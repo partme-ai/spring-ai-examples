@@ -10,7 +10,7 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -33,7 +33,7 @@ public class Ollama_Prompt_Test11 {
     public static void main(String[] args) throws IOException {
 
          var ollamaApi = OllamaApi.builder().build();
-        var chatModel = new OllamaChatModel(ollamaApi);
+        var chatModel = OllamaChatModel.builder().ollamaApi(ollamaApi).build();
 
         Resource systemResource = new ClassPathResource("prompts/system-message.st");
         String systemPrompt =  systemResource.getContentAsString(StandardCharsets.UTF_8);
@@ -96,13 +96,14 @@ public class Ollama_Prompt_Test11 {
 
         List<Message> messages  = List.of(systemMessage, new UserMessage(input_text), new UserMessage("请一步步的分析前面给的数据，写200字关于小明的综合评价评语，不需要分析过程，只需要返回评语"));
 
-        Prompt prompt = new Prompt(messages, OllamaOptions.create()
-                .withModel("qwen2")
-                .withTemperature(0f));
+        Prompt prompt = new Prompt(messages, OllamaChatOptions.builder()
+                .model("qwen2")
+                .temperature(0d)
+                .build());
 
         ChatResponse chatResponse = chatModel.call(prompt);
 
-        String resp = chatResponse.getResult().getOutput().getContent();
+        String resp = chatResponse.getResult().getOutput().getText();
         System.out.println("<<< " + resp);
 
         var chatTtsApi = new EdgeTtsNativeAudioApi();
