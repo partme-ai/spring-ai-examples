@@ -72,7 +72,7 @@ spring.ai.moonshotai.embedding.options.model=embedding-2
 使用 Moonshot AI 进行文本生成：
 
 ```java
-package com.github.teachingai.moonshotai.controller;
+package io.github.partmeai.moonshotai.controller;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,7 +166,7 @@ public class ChatController {
 Moonshot AI 支持工具调用功能，可以与外部工具集成：
 
 ```java
-package com.github.teachingai.moonshotai.functions;
+package io.github.partmeai.moonshotai.functions;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -211,7 +211,7 @@ public class FunctionConfig {
 使用 Moonshot AI 进行文本嵌入计算：
 
 ```java
-package com.github.teachingai.moonshotai.controller;
+package io.github.partmeai.moonshotai.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

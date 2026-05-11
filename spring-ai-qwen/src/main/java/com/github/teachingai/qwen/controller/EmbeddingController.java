@@ -1,4 +1,4 @@
-package com.github.teachingai.qwen.controller;
+package io.github.partmeai.qwen.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

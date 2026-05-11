@@ -1,11 +1,11 @@
-package com.github.teachingai.ollama;
+package io.github.partmeai.ollama;
 
-import com.github.teachingai.ollama.api.ApiUtils;
-import com.github.teachingai.ollama.api.ChatTtsAudioApi;
-import com.github.teachingai.ollama.api.ChatTtsResponseHeaderExtractor;
-import com.github.teachingai.ollama.api.common.OllamaApiException;
-import com.github.teachingai.ollama.audio.speech.*;
-import com.github.teachingai.ollama.metadata.audio.ChatTtsAudioSpeechResponseMetadata;
+import io.github.partmeai.ollama.api.ApiUtils;
+import io.github.partmeai.ollama.api.ChatTtsAudioApi;
+import io.github.partmeai.ollama.api.ChatTtsResponseHeaderExtractor;
+import io.github.partmeai.ollama.api.common.OllamaApiException;
+import io.github.partmeai.ollama.audio.speech.*;
+import io.github.partmeai.ollama.metadata.audio.ChatTtsAudioSpeechResponseMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.metadata.RateLimit;

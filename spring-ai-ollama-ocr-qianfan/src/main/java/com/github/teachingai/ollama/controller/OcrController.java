@@ -1,8 +1,8 @@
-package com.github.teachingai.ollama.controller;
+package io.github.partmeai.ollama.controller;
 
-import com.github.teachingai.ollama.request.OcrRequest;
-import com.github.teachingai.ollama.response.OcrResponse;
-import com.github.teachingai.ollama.service.QianfanOcrService;
+import io.github.partmeai.ollama.request.OcrRequest;
+import io.github.partmeai.ollama.response.OcrResponse;
+import io.github.partmeai.ollama.service.QianfanOcrService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package io.github.partmeai.ollama;
 
 import javax.sound.sampled.*;
 import java.io.File;

@@ -77,7 +77,7 @@ spring.ai.qianfan.embedding.options.model=Embedding-V1
 使用百度千帆进行文本生成：
 
 ```java
-package com.github.teachingai.baidu.qianfan.controller;
+package io.github.partmeai.baidu.qianfan.controller;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,7 +166,7 @@ public class ChatController {
 使用百度千帆进行文本嵌入计算：
 
 ```java
-package com.github.teachingai.baidu.qianfan.controller;
+package io.github.partmeai.baidu.qianfan.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.github.teachingai.ollama;
+package io.github.partmeai.ollama;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.teachingai.ollama.api.ChatTtsAudioApi;
+import io.github.partmeai.ollama.api.ChatTtsAudioApi;
 import org.springframework.ai.model.ModelOptions;
 
 /**

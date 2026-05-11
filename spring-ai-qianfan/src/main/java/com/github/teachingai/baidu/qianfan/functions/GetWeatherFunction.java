@@ -1,4 +1,4 @@
-package com.github.teachingai.baidu.qianfan.functions;
+package io.github.partmeai.baidu.qianfan.functions;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.annotation.JsonClassDescription;

@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.config;
+package io.github.partmeai.ollama.config;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;

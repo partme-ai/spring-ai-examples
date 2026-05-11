@@ -1,4 +1,4 @@
-package com.github.teachingai.zhipuai.router;
+package io.github.partmeai.zhipuai.router;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;

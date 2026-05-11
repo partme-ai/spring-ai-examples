@@ -1,4 +1,4 @@
-package com.github.teachingai.qwen.finetune;
+package io.github.partmeai.qwen.finetune;
 
 public class Todo {
 }

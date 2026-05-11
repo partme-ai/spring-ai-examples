@@ -179,9 +179,9 @@ public class ConversationService {
 
 ### 示例模块
 - **`spring-ai-ollama-chat`** - 本仓库中的多轮对话示例模块
-  - 主类：`com.github.teachingai.ollama.SpringAiOllamaApplication`
-  - 控制器：`com.github.teachingai.ollama.controller.ChatController`
-  - 请求 DTO：`com.github.teachingai.ollama.request.ApiRequest`
+  - 主类：`io.github.partmeai.ollama.SpringAiOllamaApplication`
+  - 控制器：`io.github.partmeai.ollama.controller.ChatController`
+  - 请求 DTO：`io.github.partmeai.ollama.request.ApiRequest`
   - 路径：`/v1/chat/completions`（流式接口）
 
 ### 运行与验证

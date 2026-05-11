@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.metadata.audio;
+package io.github.partmeai.ollama.metadata.audio;
 
 
 import org.springframework.ai.model.ResultMetadata;

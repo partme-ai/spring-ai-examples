@@ -1,4 +1,4 @@
-package com.github.teachingai.azure.openai;
+package io.github.partmeai.azure.openai;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

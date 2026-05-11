@@ -1,4 +1,4 @@
-package com.github.teachingai.moonshotai.controller;
+package io.github.partmeai.moonshotai.controller;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;

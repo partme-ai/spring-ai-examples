@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package io.github.partmeai.ollama;
 
 import org.springframework.ai.document.Document;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;

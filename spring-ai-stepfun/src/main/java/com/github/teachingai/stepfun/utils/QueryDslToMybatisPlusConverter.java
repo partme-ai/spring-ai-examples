@@ -1,4 +1,4 @@
-package com.github.teachingai.stepfun.utils;
+package io.github.partmeai.stepfun.utils;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.querydsl.core.types.Predicate;

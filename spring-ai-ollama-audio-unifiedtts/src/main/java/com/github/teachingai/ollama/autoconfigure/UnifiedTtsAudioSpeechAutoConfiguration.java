@@ -1,8 +1,8 @@
-package com.github.teachingai.ollama.autoconfigure;
+package io.github.partmeai.ollama.autoconfigure;
 
 
-import com.github.teachingai.ollama.UnifiedTtsAudioSpeechModel;
-import com.github.teachingai.ollama.api.UnifiedTtsAudioApi;
+import io.github.partmeai.ollama.UnifiedTtsAudioSpeechModel;
+import io.github.partmeai.ollama.api.UnifiedTtsAudioApi;
 import org.springframework.ai.model.SimpleApiKey;
 import org.springframework.ai.model.SpringAIModelProperties;
 import org.springframework.ai.retry.autoconfigure.SpringAiRetryAutoConfiguration;

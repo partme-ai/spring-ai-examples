@@ -1,8 +1,8 @@
-package com.github.teachingai.ollama.api;
+package io.github.partmeai.ollama.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.teachingai.ollama.autoconfigure.UnifiedTtsConnectionProperties;
+import io.github.partmeai.ollama.autoconfigure.UnifiedTtsConnectionProperties;
 import org.springframework.ai.model.ApiKey;
 import org.springframework.ai.model.NoopApiKey;
 import org.springframework.ai.model.SimpleApiKey;

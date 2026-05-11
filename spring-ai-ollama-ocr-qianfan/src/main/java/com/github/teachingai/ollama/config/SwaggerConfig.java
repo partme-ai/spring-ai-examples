@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.config;
+package io.github.partmeai.ollama.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

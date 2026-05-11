@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.controller;
+package io.github.partmeai.ollama.controller;
 
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.beans.factory.annotation.Autowired;

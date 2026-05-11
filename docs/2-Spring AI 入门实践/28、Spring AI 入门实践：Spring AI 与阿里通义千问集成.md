@@ -84,7 +84,7 @@ spring.ai.retry.on-client-errors=true
 使用阿里云通义千问进行文本生成：
 
 ```java
-package com.github.teachingai.qwen.controller;
+package io.github.partmeai.qwen.controller;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,7 +179,7 @@ public class ChatController {
 使用阿里云通义千问进行文本嵌入计算：
 
 ```java
-package com.github.teachingai.qwen.controller;
+package io.github.partmeai.qwen.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

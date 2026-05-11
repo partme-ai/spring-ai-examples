@@ -1,4 +1,4 @@
-package com.github.teachingai.anthropic.controller;
+package io.github.partmeai.anthropic.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.ai.anthropic.AnthropicChatModel;

@@ -1,4 +1,4 @@
-package com.github.teachingai.baidu.qianfan.router;
+package io.github.partmeai.baidu.qianfan.router;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;

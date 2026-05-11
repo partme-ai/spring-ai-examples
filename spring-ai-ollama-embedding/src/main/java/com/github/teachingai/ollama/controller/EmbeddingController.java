@@ -1,6 +1,6 @@
-package com.github.teachingai.ollama.controller;
+package io.github.partmeai.ollama.controller;
 
-import com.github.teachingai.ollama.service.IEmbeddingService;
+import io.github.partmeai.ollama.service.IEmbeddingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

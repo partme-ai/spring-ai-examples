@@ -83,7 +83,7 @@ spring.ai.retry.on-client-errors=true
 使用智谱AI进行文本生成：
 
 ```java
-package com.github.teachingai.zhipuai.controller;
+package io.github.partmeai.zhipuai.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.ai.zhipuai.ZhiPuAiChatModel;
@@ -157,7 +157,7 @@ public class ChatController {
 使用智谱AI进行文本嵌入计算：
 
 ```java
-package com.github.teachingai.zhipuai.controller;
+package io.github.partmeai.zhipuai.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

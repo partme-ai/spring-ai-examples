@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama.util;
+package io.github.partmeai.ollama.util;
 
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;

@@ -1,4 +1,4 @@
-package com.github.teachingai.stabilityai.controller;
+package io.github.partmeai.stabilityai.controller;
 
 import org.springframework.ai.image.ImageModel;
 import org.springframework.ai.image.ImagePrompt;

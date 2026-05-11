@@ -1,8 +1,8 @@
-package com.github.teachingai.ollama.audio.speech;
+package io.github.partmeai.ollama.audio.speech;
 
-import com.github.teachingai.ollama.ChatTtsAudioSpeechOptions;
-import com.github.teachingai.ollama.api.ApiUtils;
-import com.github.teachingai.ollama.api.ChatTtsAudioApi;
+import io.github.partmeai.ollama.ChatTtsAudioSpeechOptions;
+import io.github.partmeai.ollama.api.ApiUtils;
+import io.github.partmeai.ollama.api.ChatTtsAudioApi;
 import org.springframework.ai.model.ModelOptions;
 import org.springframework.ai.model.ModelRequest;
 

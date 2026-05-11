@@ -1,4 +1,4 @@
-package com.github.teachingai.amazon.bedrock.rag;
+package io.github.partmeai.amazon.bedrock.rag;
 
 public class Todo {
 }

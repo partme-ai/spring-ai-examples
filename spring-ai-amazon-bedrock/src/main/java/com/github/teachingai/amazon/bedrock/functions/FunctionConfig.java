@@ -1,4 +1,4 @@
-package com.github.teachingai.amazon.bedrock.functions;
+package io.github.partmeai.amazon.bedrock.functions;
 
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.function.FunctionToolCallback;

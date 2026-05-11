@@ -1,4 +1,4 @@
-package com.github.teachingai.qwen.agent;
+package io.github.partmeai.qwen.agent;
 
 public class Todo {
 }

@@ -1,4 +1,4 @@
-package com.github.teachingai.ollama;
+package io.github.partmeai.ollama;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
