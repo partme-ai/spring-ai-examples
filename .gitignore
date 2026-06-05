@@ -26,6 +26,7 @@ rebel.xml
 /nbdist/
 /.nb-gradle/
 build/
+bin/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
