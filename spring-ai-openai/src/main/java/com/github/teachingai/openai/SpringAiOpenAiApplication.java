@@ -1,4 +1,4 @@
-package io.github.partmeai.openai;
+package com.github.partmeai.openai;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

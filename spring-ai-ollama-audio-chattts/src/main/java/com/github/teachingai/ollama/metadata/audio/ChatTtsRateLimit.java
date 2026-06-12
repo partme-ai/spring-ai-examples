@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.metadata.audio;
+package com.github.partmeai.ollama.metadata.audio;
 
 import org.springframework.ai.chat.metadata.RateLimit;
 

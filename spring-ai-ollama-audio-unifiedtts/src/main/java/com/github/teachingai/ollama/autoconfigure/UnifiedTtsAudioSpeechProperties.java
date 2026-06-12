@@ -1,7 +1,7 @@
-package io.github.partmeai.ollama.autoconfigure;
+package com.github.partmeai.ollama.autoconfigure;
 
-import io.github.partmeai.ollama.UnifiedTtsAudioSpeechOptions;
-import io.github.partmeai.ollama.api.UnifiedTtsAudioApi;
+import com.github.partmeai.ollama.UnifiedTtsAudioSpeechOptions;
+import com.github.partmeai.ollama.api.UnifiedTtsAudioApi;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 

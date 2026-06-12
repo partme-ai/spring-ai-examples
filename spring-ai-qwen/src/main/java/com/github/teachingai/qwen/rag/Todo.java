@@ -1,4 +1,4 @@
-package io.github.partmeai.qwen.rag;
+package com.github.partmeai.qwen.rag;
 
 public class Todo {
 }

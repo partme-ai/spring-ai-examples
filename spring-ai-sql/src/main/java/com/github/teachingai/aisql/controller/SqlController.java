@@ -1,6 +1,6 @@
-package io.github.partmeai.aisql.controller;
+package com.github.partmeai.aisql.controller;
 
-import io.github.partmeai.aisql.exception.SqlGenerationException;
+import com.github.partmeai.aisql.exception.SqlGenerationException;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;

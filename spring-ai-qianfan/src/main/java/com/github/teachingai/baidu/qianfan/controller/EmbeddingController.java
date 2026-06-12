@@ -1,4 +1,4 @@
-package io.github.partmeai.baidu.qianfan.controller;
+package com.github.partmeai.baidu.qianfan.controller;
 
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

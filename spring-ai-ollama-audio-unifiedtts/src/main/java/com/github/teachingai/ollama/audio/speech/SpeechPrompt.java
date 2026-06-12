@@ -1,7 +1,7 @@
-package io.github.partmeai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
-import io.github.partmeai.ollama.UnifiedTtsAudioSpeechOptions;
-import io.github.partmeai.ollama.api.UnifiedTtsAudioApi;
+import com.github.partmeai.ollama.UnifiedTtsAudioSpeechOptions;
+import com.github.partmeai.ollama.api.UnifiedTtsAudioApi;
 import org.springframework.ai.model.ModelOptions;
 import org.springframework.ai.model.ModelRequest;
 

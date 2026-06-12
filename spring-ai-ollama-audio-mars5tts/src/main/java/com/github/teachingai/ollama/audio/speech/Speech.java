@@ -1,8 +1,8 @@
-package io.github.partmeai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
 
-import io.github.partmeai.ollama.api.common.OllamaApiException;
-import io.github.partmeai.ollama.metadata.audio.ChatTtsAudioSpeechMetadata;
+import com.github.partmeai.ollama.api.common.OllamaApiException;
+import com.github.partmeai.ollama.metadata.audio.ChatTtsAudioSpeechMetadata;
 import org.springframework.ai.model.ModelResult;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;

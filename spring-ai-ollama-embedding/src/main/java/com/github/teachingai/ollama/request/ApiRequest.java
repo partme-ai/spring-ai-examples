@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.request;
+package com.github.partmeai.ollama.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

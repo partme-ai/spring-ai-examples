@@ -173,7 +173,7 @@ public class MetricsConfig {
    curl -X POST http://localhost:8080/openai/v1/chat/completions \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer your-api-key" \
-     -d '{"model": "gpt-3.5-turbo", "messages": [{"role": "user", "content": "Hello"}]}'
+     -d '{"model": "gpt-5.4-mini", "messages": [{"role": "user", "content": "Hello"}]}'
    ```
 3. **测试限流**：快速发送多个请求，观察限流效果
 4. **查看监控指标**：

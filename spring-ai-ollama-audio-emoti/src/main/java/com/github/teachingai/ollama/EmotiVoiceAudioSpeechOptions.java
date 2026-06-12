@@ -1,10 +1,10 @@
-package io.github.partmeai.ollama;
+package com.github.partmeai.ollama;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.github.partmeai.ollama.api.EmotiVoiceAudioApi;
-import io.github.partmeai.ollama.api.EmotiVoiceAudioApi.SpeechRequest.Voice;
-import io.github.partmeai.ollama.api.EmotiVoiceAudioApi.SpeechRequest.AudioResponseFormat;
+import com.github.partmeai.ollama.api.EmotiVoiceAudioApi;
+import com.github.partmeai.ollama.api.EmotiVoiceAudioApi.SpeechRequest.Voice;
+import com.github.partmeai.ollama.api.EmotiVoiceAudioApi.SpeechRequest.AudioResponseFormat;
 import org.springframework.ai.model.ModelOptions;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

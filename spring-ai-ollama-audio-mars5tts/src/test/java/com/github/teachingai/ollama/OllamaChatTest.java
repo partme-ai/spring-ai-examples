@@ -1,7 +1,7 @@
-package io.github.partmeai.ollama;
+package com.github.partmeai.ollama;
 
-import io.github.partmeai.ollama.api.ApiUtils;
-import io.github.partmeai.ollama.api.ChatTtsAudioApi;
+import com.github.partmeai.ollama.api.ApiUtils;
+import com.github.partmeai.ollama.api.ChatTtsAudioApi;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;

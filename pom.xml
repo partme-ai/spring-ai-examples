@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>io.github.partmeai</groupId>
+    <groupId>com.github.partmeai</groupId>
     <artifactId>spring-ai-examples</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>

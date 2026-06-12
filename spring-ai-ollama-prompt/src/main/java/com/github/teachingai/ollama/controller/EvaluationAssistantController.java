@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.controller;
+package com.github.partmeai.ollama.controller;
 
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;

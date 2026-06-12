@@ -1,4 +1,4 @@
-package io.github.partmeai.stabilityai;
+package com.github.partmeai.stabilityai;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.boot.SpringApplication;

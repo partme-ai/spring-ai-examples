@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama;
+package com.github.partmeai.ollama;
 
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.model.Generation;

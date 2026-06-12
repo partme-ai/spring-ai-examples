@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.api.common;
+package com.github.partmeai.ollama.api.common;
 
 /**
  * Non HTTP Error related exceptions

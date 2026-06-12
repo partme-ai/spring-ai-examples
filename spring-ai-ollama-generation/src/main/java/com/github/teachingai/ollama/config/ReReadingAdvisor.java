@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.config;
+package com.github.partmeai.ollama.config;
 
 import org.springframework.ai.chat.client.ChatClientRequest;
 import org.springframework.ai.chat.client.ChatClientResponse;

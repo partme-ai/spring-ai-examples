@@ -19,7 +19,7 @@ public class SwaggerConfig {
                         .description("基于 Qianfan-OCR 的端到端文档智能服务 API")
                         .contact(new Contact()
                                 .name("TeachingAI")
-                                .url("https://github.com/partme-ai"))
+                                .url("https://github.com/teachingai"))
                         .license(new License()
                                 .name("Apache 2.0")
                                 .url("https://www.apache.org/licenses/LICENSE-2.0")));

@@ -1,11 +1,11 @@
-package io.github.partmeai.ollama;
+package com.github.partmeai.ollama;
 
-import io.github.partmeai.ollama.api.ApiUtils;
-import io.github.partmeai.ollama.api.ChatTtsAudioApi;
-import io.github.partmeai.ollama.api.ChatTtsResponseHeaderExtractor;
-import io.github.partmeai.ollama.api.common.OllamaApiException;
-import io.github.partmeai.ollama.audio.speech.*;
-import io.github.partmeai.ollama.metadata.audio.ChatTtsAudioSpeechResponseMetadata;
+import com.github.partmeai.ollama.api.ApiUtils;
+import com.github.partmeai.ollama.api.ChatTtsAudioApi;
+import com.github.partmeai.ollama.api.ChatTtsResponseHeaderExtractor;
+import com.github.partmeai.ollama.api.common.OllamaApiException;
+import com.github.partmeai.ollama.audio.speech.*;
+import com.github.partmeai.ollama.metadata.audio.ChatTtsAudioSpeechResponseMetadata;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

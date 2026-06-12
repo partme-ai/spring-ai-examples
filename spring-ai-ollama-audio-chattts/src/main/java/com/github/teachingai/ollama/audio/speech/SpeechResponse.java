@@ -1,7 +1,7 @@
-package io.github.partmeai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
 
-import io.github.partmeai.ollama.metadata.audio.ChatTtsAudioSpeechResponseMetadata;
+import com.github.partmeai.ollama.metadata.audio.ChatTtsAudioSpeechResponseMetadata;
 import org.springframework.ai.model.ModelResponse;
 
 import java.util.Collections;

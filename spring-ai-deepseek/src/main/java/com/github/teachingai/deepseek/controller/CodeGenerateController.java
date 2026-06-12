@@ -1,4 +1,4 @@
-package io.github.partmeai.deepseek.controller;
+package com.github.partmeai.deepseek.controller;
 
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;

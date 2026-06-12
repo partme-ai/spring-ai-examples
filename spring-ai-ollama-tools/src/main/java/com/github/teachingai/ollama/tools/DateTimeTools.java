@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.tools;
+package com.github.partmeai.ollama.tools;
 
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.context.i18n.LocaleContextHolder;

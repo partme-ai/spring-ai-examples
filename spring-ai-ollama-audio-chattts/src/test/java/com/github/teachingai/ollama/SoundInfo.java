@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama;
+package com.github.partmeai.ollama;
 
 import java.io.File;
 import java.io.IOException;

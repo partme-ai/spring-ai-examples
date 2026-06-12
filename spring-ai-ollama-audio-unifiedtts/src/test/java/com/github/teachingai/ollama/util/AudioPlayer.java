@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.util;
+package com.github.partmeai.ollama.util;
 
 
 import javazoom.jl.decoder.JavaLayerException;

@@ -1,6 +1,6 @@
-package io.github.partmeai.ollama.service;
+package com.github.partmeai.ollama.service;
 
-import io.github.partmeai.ollama.response.OcrResponse;
+import com.github.partmeai.ollama.response.OcrResponse;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.chat.messages.Media;
 import org.springframework.ai.chat.messages.UserMessage;

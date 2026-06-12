@@ -1,4 +1,4 @@
-package io.github.partmeai.zhipuai;
+package com.github.partmeai.zhipuai;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

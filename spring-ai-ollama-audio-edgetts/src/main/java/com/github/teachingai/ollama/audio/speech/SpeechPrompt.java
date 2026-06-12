@@ -1,7 +1,7 @@
-package io.github.partmeai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
-import io.github.partmeai.ollama.EdgeTtsAudioSpeechOptions;
-import io.github.partmeai.ollama.api.ApiUtils;
+import com.github.partmeai.ollama.EdgeTtsAudioSpeechOptions;
+import com.github.partmeai.ollama.api.ApiUtils;
 import org.springframework.ai.model.ModelOptions;
 import org.springframework.ai.model.ModelRequest;
 

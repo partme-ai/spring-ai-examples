@@ -1,4 +1,4 @@
-package io.github.partmeai.anthropic.router;
+package com.github.partmeai.anthropic.router;
 
 import org.springframework.ai.anthropic.AnthropicChatModel;
 import org.springframework.context.annotation.Bean;

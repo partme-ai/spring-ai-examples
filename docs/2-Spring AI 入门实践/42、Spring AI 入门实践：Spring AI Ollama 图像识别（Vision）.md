@@ -249,7 +249,7 @@ mvn spring-boot:run
 
 - [Ollama 官方文档](https://ollama.com/docs)
 - [LLaVA 模型介绍](https://llava-vl.github.io/)
-- [示例项目源码](https://github.com/teachingai/spring-ai-examples/tree/main/spring-ai-ollama-vision)
+- [示例项目源码](https://github.com/partme-ai/spring-ai-examples/tree/main/spring-ai-ollama-vision)
 - [Spring AI 参考文档](https://docs.spring.io/spring-ai/reference/index.html)
 
 ## 扩展阅读

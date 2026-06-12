@@ -1,4 +1,4 @@
-package io.github.partmeai.azure.openai;
+package com.github.partmeai.azure.openai;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;

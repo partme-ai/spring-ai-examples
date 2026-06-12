@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama;
+package com.github.partmeai.ollama;
 
 import com.alibaba.fastjson2.JSONObject;
 import org.springframework.ai.chat.messages.AssistantMessage;

@@ -1,4 +1,4 @@
-package io.github.partmeai.openai.finetune;
+package com.github.partmeai.openai.finetune;
 
 public class Todo {
 }

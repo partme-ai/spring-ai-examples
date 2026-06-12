@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama;
+package com.github.partmeai.ollama;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;

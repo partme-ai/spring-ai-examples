@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama;
+package com.github.partmeai.ollama;
 
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;

@@ -1,4 +1,4 @@
-package io.github.partmeai.moonshotai;
+package com.github.partmeai.moonshotai;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package io.github.partmeai.openai.controller;
+package com.github.partmeai.openai.controller;
 
 import org.springframework.ai.image.*;
 import org.springframework.stereotype.Controller;

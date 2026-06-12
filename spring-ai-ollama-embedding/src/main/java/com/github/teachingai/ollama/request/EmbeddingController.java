@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.request;
+package com.github.partmeai.ollama.request;
 
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

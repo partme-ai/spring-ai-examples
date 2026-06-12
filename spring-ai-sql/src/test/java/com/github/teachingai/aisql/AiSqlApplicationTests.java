@@ -1,4 +1,4 @@
-package io.github.partmeai.aisql;
+package com.github.partmeai.aisql;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

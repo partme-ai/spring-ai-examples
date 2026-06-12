@@ -1,6 +1,6 @@
-package io.github.partmeai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
-import io.github.partmeai.ollama.api.UnifiedTtsAudioApi;
+import com.github.partmeai.ollama.api.UnifiedTtsAudioApi;
 import org.springframework.ai.model.Model;
 
 /**

@@ -1,6 +1,6 @@
-package io.github.partmeai.ollama.service.impl;
+package com.github.partmeai.ollama.service.impl;
 
-import io.github.partmeai.ollama.service.IEmbeddingService;
+import com.github.partmeai.ollama.service.IEmbeddingService;
 import jakarta.servlet.http.Part;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;

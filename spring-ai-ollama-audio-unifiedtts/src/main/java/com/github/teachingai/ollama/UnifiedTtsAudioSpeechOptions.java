@@ -1,8 +1,8 @@
-package io.github.partmeai.ollama;
+package com.github.partmeai.ollama;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.github.partmeai.ollama.api.UnifiedTtsAudioApi;
+import com.github.partmeai.ollama.api.UnifiedTtsAudioApi;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.ai.model.ModelOptions;

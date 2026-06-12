@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package io.github.partmeai.azure.openai.controller;
+package com.github.partmeai.azure.openai.controller;
 
 import org.springframework.ai.azure.openai.AzureOpenAiEmbeddingModel;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package io.github.partmeai.baidu.qianfan.finetune;
+package com.github.partmeai.baidu.qianfan.finetune;
 
 public class Todo {
 }

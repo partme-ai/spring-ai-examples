@@ -1,4 +1,4 @@
-package io.github.partmeai.deepseek.controller;
+package com.github.partmeai.deepseek.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.ai.chat.messages.UserMessage;

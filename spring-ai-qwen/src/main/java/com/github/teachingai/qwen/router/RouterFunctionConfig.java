@@ -1,4 +1,4 @@
-package io.github.partmeai.qwen.router;
+package com.github.partmeai.qwen.router;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;

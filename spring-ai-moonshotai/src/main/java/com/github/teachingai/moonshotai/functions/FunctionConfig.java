@@ -1,4 +1,4 @@
-package io.github.partmeai.moonshotai.functions;
+package com.github.partmeai.moonshotai.functions;
 
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.function.FunctionToolCallback;

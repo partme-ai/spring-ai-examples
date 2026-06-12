@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.service;
+package com.github.partmeai.ollama.service;
 
 /**
  * 聊天消息服务接口

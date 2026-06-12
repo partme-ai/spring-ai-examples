@@ -1,7 +1,7 @@
-package io.github.partmeai.ollama.audio.speech;
+package com.github.partmeai.ollama.audio.speech;
 
 
-import io.github.partmeai.ollama.metadata.audio.EmotiVoiceAudioSpeechMetadata;
+import com.github.partmeai.ollama.metadata.audio.EmotiVoiceAudioSpeechMetadata;
 import org.springframework.ai.model.ModelResult;
 import org.springframework.lang.Nullable;
 

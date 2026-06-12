@@ -1,6 +1,6 @@
-package io.github.partmeai.ollama.controller;
+package com.github.partmeai.ollama.controller;
 
-import io.github.partmeai.ollama.request.ApiRequest;
+import com.github.partmeai.ollama.request.ApiRequest;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.messages.AssistantMessage;

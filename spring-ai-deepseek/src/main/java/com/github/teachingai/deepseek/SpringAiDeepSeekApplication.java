@@ -1,4 +1,4 @@
-package io.github.partmeai.deepseek;
+package com.github.partmeai.deepseek;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;

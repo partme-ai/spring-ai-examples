@@ -1,4 +1,4 @@
-package io.github.partmeai.amazon.bedrock.finetune;
+package com.github.partmeai.amazon.bedrock.finetune;
 
 public class Todo {
 }

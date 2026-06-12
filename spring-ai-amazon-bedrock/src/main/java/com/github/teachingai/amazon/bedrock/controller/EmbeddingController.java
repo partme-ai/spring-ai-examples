@@ -1,4 +1,4 @@
-package io.github.partmeai.amazon.bedrock.controller;
+package com.github.partmeai.amazon.bedrock.controller;
 
 import org.springframework.ai.bedrock.cohere.BedrockCohereEmbeddingModel;
 import org.springframework.ai.bedrock.titan.BedrockTitanEmbeddingModel;

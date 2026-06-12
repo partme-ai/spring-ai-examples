@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.response;
+package com.github.partmeai.ollama.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

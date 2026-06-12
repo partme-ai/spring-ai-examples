@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.router;
+package com.github.partmeai.ollama.router;
 
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;

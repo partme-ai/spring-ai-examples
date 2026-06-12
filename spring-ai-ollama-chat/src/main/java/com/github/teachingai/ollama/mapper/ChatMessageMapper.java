@@ -1,4 +1,4 @@
-package io.github.partmeai.ollama.mapper;
+package com.github.partmeai.ollama.mapper;
 
 /**
  * 聊天消息数据访问接口

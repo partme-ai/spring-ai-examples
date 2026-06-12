@@ -1,6 +1,6 @@
-package io.github.partmeai.openai.config;
+package com.github.partmeai.openai.config;
 
-import io.github.partmeai.openai.service.MockWeatherService;
+import com.github.partmeai.openai.service.MockWeatherService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;

@@ -1,4 +1,4 @@
-package io.github.partmeai.amazon.bedrock.controller;
+package com.github.partmeai.amazon.bedrock.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.ai.chat.messages.UserMessage;
