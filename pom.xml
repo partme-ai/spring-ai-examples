@@ -69,9 +69,8 @@
         <perf4j.version>0.9.16</perf4j.version>
         <sa-token.version>1.44.0</sa-token.version>
         <springdoc.version>2.7.0</springdoc.version>
-        <spring-ai.version>1.1.4</spring-ai.version>
-        <spring-ai-alibaba.version>1.1.2.2</spring-ai-alibaba.version>
-        <spring-ai-alibaba-extensions.version>1.1.2.2</spring-ai-alibaba-extensions.version>
+        <spring-ai.version>1.1.7</spring-ai.version>
+        <spring-ai-alibaba.version>1.1.2.3</spring-ai-alibaba.version>
         <spring-ai-alibaba-nl2sql.version>1.0.0.3-20260305-cve</spring-ai-alibaba-nl2sql.version>
         <spring-ai-alibaba-graph.version>1.1.2.2</spring-ai-alibaba-graph.version>
         <spring-ai-alibaba-mcp.version>1.0.0.2</spring-ai-alibaba-mcp.version>
@@ -410,7 +409,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud.ai</groupId>
                 <artifactId>spring-ai-alibaba-extensions-bom</artifactId>
-                <version>${spring-ai-alibaba-extensions.version}</version>
+                <version>${spring-ai-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
